@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.help.FXMLVideoListViewItemController">
+   <children>
+      <Button id="itemBtn" fx:id="bTool" contentDisplay="TOP" layoutX="2.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="163.0" prefWidth="219.0" stylesheets="@../css/VideoListVIewItem.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="-1.0" />
+      <ImageView fx:id="ivVideoFile" fitHeight="32.0" fitWidth="32.0" layoutX="20.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/video-file-icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lVideoName" layoutX="63.0" layoutY="19.0" text="VideoName" />
+   </children>
+</AnchorPane>

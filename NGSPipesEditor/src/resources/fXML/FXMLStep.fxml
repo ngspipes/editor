@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="133.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.FXMLStepController">
+   <children>
+      <ImageView fx:id="iVToolLogo" fitHeight="89.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
+      <Label fx:id="lCommandName" text="Command Name" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

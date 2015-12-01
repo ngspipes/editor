@@ -1,0 +1,20 @@
+CTRL + S : Save
+CTRL + SHIFT + S : Save All
+CTRL + G : Generate
+CTRL + SHIFT + G : Generate All
+CTRL + W : Close
+CTRL + SHIFT + W : Close All
+CTRL + N : New
+CTRL + O : Open
+CTRL + H : Help
+CTRL + Z : Undo (On Workflow)
+CTRL + Y : Redo (On Workflow)
+DEL : Delete (On Workflow)
+CTRL + ALT + A : Slide Out All Areas
+CTRL + ALT + R : Slide Out Repository Area
+CTRL + ALT + T : Slide Out Tool Area
+CTRL + ALT + S : Slide Out Step Area
+SHIFT + ALT + A : Slide In All Areas
+SHIFT + ALT + R : Slide In Repository Area
+SHIFT + ALT + T : Slide In Tool Area
+SHIFT + ALT + S : Slide In Step Area

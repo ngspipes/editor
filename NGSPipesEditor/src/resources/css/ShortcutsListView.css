@@ -1,0 +1,9 @@
+.list-cell:empty {
+    -fx-border-color: white;
+    -fx-border-radius : 20;
+}
+
+.list-cell {
+    -fx-border-color: white;
+    -fx-border-radius : 20;
+}

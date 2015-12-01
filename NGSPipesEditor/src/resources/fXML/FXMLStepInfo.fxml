@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="board" maxHeight="-Infinity" minHeight="150.0" minWidth="0.0" prefHeight="326.0" prefWidth="458.0" stylesheets="@../css/Board.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.FXMLStepInfoController">
+   <children>
+      <ImageView fx:id="iVToolLogo" fitHeight="132.0" fitWidth="122.0" layoutX="281.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="48.0" layoutY="36.0" text="Tool:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="47.0" layoutY="68.0" text="Command:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lToolName" layoutX="95.0" layoutY="36.0" text="ToolName" textFill="WHITE" wrapText="true" />
+      <Label fx:id="lCommandName" layoutX="135.0" layoutY="68.0" text="CommandName" textFill="WHITE" wrapText="true" />
+      <Label layoutX="48.0" layoutY="100.0" text="Number of Arguments:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lNumberOfArguments" layoutX="221.0" layoutY="100.0" text="N" textFill="WHITE" />
+      <Label layoutX="47.0" layoutY="134.0" text="Number of Outputs:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lNumberOfOutputs" layoutX="200.0" layoutY="134.0" text="N" textFill="WHITE" />
+      <Label layoutX="49.0" layoutY="217.0" text="Configurator:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cBConfigurators" layoutX="151.0" layoutY="213.0" prefHeight="31.0" prefWidth="150.0" />
+      <Label layoutX="49.0" layoutY="172.0" text="Order:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lOrder" layoutX="107.0" layoutY="172.0" text="N" textFill="WHITE" />
+   </children>
+</AnchorPane>

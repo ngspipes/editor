@@ -1,0 +1,35 @@
+.text-area {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar .increment-button {
+  visibility: hidden;
+}
+
+.text-area .scroll-bar .decrement-button {
+  visibility: hidden;
+}
+
+.text-area .scroll-bar:vertical {
+  -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical .track-background {
+  visibility: hidden;
+}
+
+.text-area .scroll-bar:vertical .track {
+  visibility: hidden;
+}

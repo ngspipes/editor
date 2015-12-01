@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="170.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.FXMLTabHeaderController">
+   <children>
+      <ImageView fx:id="iVSaved" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label fx:id="lName" maxWidth="100.0" text="Label" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+         </HBox.margin>
+      </Label>
+      <Button fx:id="bClose" maxHeight="24.0" maxWidth="24.0" minHeight="24.0" minWidth="24.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="buttons" stylesheets="@../css/Buttons.css" text="Button" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+         </HBox.margin>
+      </Button>
+   </children>
+</HBox>

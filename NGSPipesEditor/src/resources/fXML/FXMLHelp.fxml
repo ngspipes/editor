@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="875.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.help.FXMLHelpController">
+   <children>
+      <SplitPane dividerPositions="0.24858757062146894" layoutX="425.0" layoutY="159.0" prefHeight="759.0" prefWidth="1064.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox prefHeight="75.0" prefWidth="368.0">
+                     <children>
+                        <Label prefHeight="27.0" prefWidth="71.0" text="Search:" textFill="#008aff" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="5.0" top="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField id="tFSearchVideo" fx:id="tFSearchVideo" prefHeight="31.0" prefWidth="209.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <ListView id="lvVideo" fx:id="lvVideo" editable="true" prefHeight="574.0" prefWidth="368.0" stylesheets="@/resources/css/TreeView.css" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.6923076923076923" layoutX="206.0" layoutY="203.0" orientation="VERTICAL" prefHeight="757.0" prefWidth="794.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane id="descriptionAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="635.0" prefWidth="846.0" stylesheets="@/resources/css/DescriptionAnchorPane.css">
+                           <children>
+                              <SplitPane layoutX="116.0" layoutY="123.0" prefHeight="565.0" prefWidth="1137.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <Label layoutX="14.0" text="Reproduction" textFill="#008aff">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Label>
+                                          <MediaView fx:id="mvVideo" fitHeight="500.0" fitWidth="800.0" layoutX="46.0" layoutY="48.0" />
+                                          <HBox fx:id="hbMediaBar" alignment="BOTTOM_CENTER" layoutX="55.0" layoutY="550.0" prefHeight="37.0" prefWidth="600.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children></AnchorPane>
+                      <AnchorPane id="videoAnchorPane" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0" stylesheets="@/resources/css/VideoAnchorPane.css">
+                           <children>
+                              <ImageView fx:id="iVVideo" fitHeight="99.0" fitWidth="98.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="\@../resources/images/">
+                                 <image>
+                                    <Image url="@../images/video-icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="21.0" layoutY="125.0" text="Name:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="21.0" layoutY="163.0" text="Duration:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="337.0" layoutY="42.0" text="Description:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lVideoName" layoutX="143.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="180.0" text="Label" wrapText="true" />
+                              <Label fx:id="lVideoDuration" layoutX="143.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="180.0" text="Label" wrapText="true" />
+                              <Label layoutX="111.0" layoutY="30.0" text="Video" textFill="#008aff">
+                                 <font>
+                                    <Font name="System Bold" size="30.0" />
+                                 </font>
+                              </Label>
+                              <TextArea id="tADescription" fx:id="tAVideoDescription" layoutX="337.0" layoutY="63.0" prefHeight="180.0" prefWidth="526.0" stylesheets="@/resources/css/DescriptionTextArea.css" wrapText="true" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

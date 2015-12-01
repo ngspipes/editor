@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="1003.0" style="-fx-background-color: D4D4D4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.FXMLDocumentController">
+   <top>
+       <MenuBar fx:id="menuBar" prefHeight="30.0" prefWidth="1363.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu fx:id="file" mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="_new" mnemonicParsing="false" text="New" />
+              <MenuItem fx:id="open" mnemonicParsing="false" text="Open" />
+                  <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
+                  <MenuItem fx:id="saveAll" mnemonicParsing="false" text="Save All" />
+                  <MenuItem fx:id="generatePipeline" mnemonicParsing="false" text="Generate Pipeline" />
+                  <MenuItem fx:id="generateAllPipelines" mnemonicParsing="false" text="Generate All Pipelines" />
+                  <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="closeAll" mnemonicParsing="false" text="Close All" />
+            </items>
+          </Menu>
+          <Menu fx:id="repository" mnemonicParsing="false" text="Repository">
+            <items>
+              <MenuItem fx:id="changeRepository" mnemonicParsing="false" text="Change Repository" />
+            </items>
+          </Menu>
+            <Menu fx:id="window" mnemonicParsing="false" text="Window">
+              <items>
+                  <MenuItem fx:id="slideOutAllAreas" mnemonicParsing="false" text="Slide Out All Areas" />
+                <MenuItem fx:id="slideOutRepositoryArea" mnemonicParsing="false" text="Slide Out Repository Area" />
+                  <MenuItem fx:id="slideOutToolArea" mnemonicParsing="false" text="Slide Out Tool Area" />
+                  <MenuItem fx:id="slideOutStepArea" mnemonicParsing="false" text="Slide Out Step Area" />
+                  <MenuItem fx:id="slideInAllAreas" mnemonicParsing="false" text="Slide In All Areas" />
+                  <MenuItem fx:id="slideInRepositoryArea" mnemonicParsing="false" text="Slide In Repository Area" />
+                  <MenuItem fx:id="slideInToolArea" mnemonicParsing="false" text="Slide In Tool Area" />
+                  <MenuItem fx:id="slideInStepArea" mnemonicParsing="false" text="Slide In Step Area" />
+              </items>
+            </Menu>
+          <Menu fx:id="help" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="shortcuts" mnemonicParsing="false" text="Shortcuts" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <right>
+      <AnchorPane fx:id="stepAreaPane" maxWidth="450.0" minWidth="0.0" prefHeight="200.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="76.0" layoutY="78.0" prefHeight="857.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane fx:id="stepInfoPane" maxHeight="300.0" prefHeight="300.0" prefWidth="300.0" VBox.vgrow="ALWAYS" />
+                  <TabPane fx:id="tPStepProperties" prefHeight="292.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                      <Tab text="Arguments">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="35.0" prefHeight="435.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TextField fx:id="tFArgumentFilter" style="-fx-background-radius: 15;" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ListView fx:id="lVArguments" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Outputs">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="-6.0" prefHeight="435.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TextField fx:id="tFOutputFilter" style="-fx-background-radius: 15;" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ListView fx:id="lVOutputs" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </right>
+   <left>
+      <AnchorPane fx:id="repositoryAreaPane" maxWidth="225.0" minWidth="0.0" prefHeight="200.0" prefWidth="225.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="14.0" layoutY="24.0" prefHeight="857.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane fx:id="utilityButtonsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="75.0" minWidth="0.0" prefHeight="87.0" prefWidth="225.0">
+	                   <children>
+	                      <Button id="openBtn" fx:id="openBtn" layoutX="20.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/OpenButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                      <Button id="saveBtn" fx:id="saveBtn" layoutX="71.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/SaveButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                      <Button id="_newBtn" fx:id="_newBtn" layoutX="20.0" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/NewButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                      <Button id="generateBtn" fx:id="generateBtn" layoutX="175.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/GenerateButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                      <Button id="generateAllBtn" fx:id="generateAllBtn" layoutX="175.0" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/GenerateAllButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                      <Button id="closeBtn" fx:id="closeBtn" layoutX="123.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/CloseButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                      <Button id="closeAllBtn" fx:id="closeAllBtn" layoutX="123.0" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/CloseAllButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                      <Button id="saveAllBtn" fx:id="saveAllBtn" layoutX="71.0" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" styleClass="buttons">
+                           <stylesheets>
+                              <URL value="@../css/SaveAllButton.css" />
+                              <URL value="@../css/Buttons.css" />
+                           </stylesheets></Button>
+	                   </children>
+	                </AnchorPane>
+                  <HBox prefHeight="56.0" prefWidth="225.0">
+                     <children>
+                        <TextField fx:id="tFToolFilter" prefHeight="31.0" prefWidth="141.0" style="-fx-background-radius: 15;" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <ListView fx:id="lVTools" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="TOP_CENTER" prefWidth="702.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefWidth="40.0">
+                     <children>
+                        <Button fx:id="expandRepositoryAreaButton" alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="buttons" stylesheets="@../css/Buttons.css" VBox.vgrow="ALWAYS" />
+                        <Pane prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="expandToolAreaButton" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="buttons" stylesheets="@../css/Buttons.css" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <TabPane fx:id="workflowTablePane" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS" />
+                  <VBox prefWidth="9.0">
+                     <children>
+                        <Button fx:id="expandStepAreaButton" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="buttons" stylesheets="@../css/Buttons.css" VBox.vgrow="ALWAYS" />
+                        <Pane prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <AnchorPane fx:id="toolAreaPane" maxHeight="150.0" minHeight="0.0" prefHeight="150.0" VBox.vgrow="NEVER">
+               <children>
+                  <HBox prefWidth="627.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Region prefWidth="200.0" HBox.hgrow="NEVER" />
+                        <ListView fx:id="lVCommands" minHeight="0.0" orientation="HORIZONTAL" prefWidth="659.0" style="-fx-background-color: transparent; -fx-background-radius: 100; -fx-border-radius: 100;" stylesheets="@../css/TransparentListView.css" HBox.hgrow="ALWAYS" />
+                        <Region prefWidth="200.0" HBox.hgrow="NEVER" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
