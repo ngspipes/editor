@@ -24,7 +24,7 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 	private final List<IOutputDescriptor> outputs;
 	private final Map<String, IArgumentDescriptor> args;
 	private final Map<String, IOutputDescriptor> otps;
-	
+	private final int priority;
 	
 	public EditorCommandDescriptor(ICommandDescriptor command, EditorToolDescriptor originTool) {
 		this.originTool = originTool;
@@ -36,6 +36,7 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 		this.outputs = new LinkedList<>();
 		this.args = new HashMap<>();
 		this.otps = new HashMap<>();
+		this.priority = command.getPriority();
 		
 		loadArguments(command);
 		loadOutputs(command);
@@ -101,4 +102,8 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 		return otps.get(outputName);
 	}
 
+	public int getPriority(){
+		return priority;
+	}
+	
 }
