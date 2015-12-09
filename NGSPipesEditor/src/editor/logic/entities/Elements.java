@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import utils.Event;
 
@@ -22,7 +21,7 @@ public class Elements {
 	private final Collection<EditorStep> steps = new LinkedList<>();
 	private final Collection<EditorChain> chains = new LinkedList<>();
 
-	
+	private final StepsOrderer stepsOrdered = new StepsOrderer();
 	
 	public boolean hasSteps(){
 		return steps.isEmpty();
@@ -106,7 +105,7 @@ public class Elements {
 		chainsFrom.put(step, new LinkedList<>());
 		chainsTo.put(step, new LinkedList<>());
 		addStepEvent.trigger(step);	
-		setOrder();
+		stepsOrdered.order(steps, chainsFrom, chainsTo);
 	}
 	
 	public void removeStep(EditorStep step){
@@ -114,7 +113,7 @@ public class Elements {
 		chainsFrom.remove(step);
 		chainsTo.remove(step);	
 		removeStepEvent.trigger(step);		
-		setOrder();
+		stepsOrdered.order(steps, chainsFrom, chainsTo);
 	}
 	
 	public void addChain(EditorChain chain){
@@ -122,7 +121,7 @@ public class Elements {
 		chainsFrom.get(chain.getFrom()).add(chain);
 		chainsTo.get(chain.getTo()).add(chain);
 		addChainEvent.trigger(chain);
-		setOrder();
+		stepsOrdered.order(steps, chainsFrom, chainsTo);
 	}
 	
 	public void removeChain(EditorChain chain){
@@ -130,71 +129,7 @@ public class Elements {
 		chainsFrom.get(chain.getFrom()).remove(chain);
 		chainsTo.get(chain.getTo()).remove(chain);
 		removeChainEvent.trigger(chain);
-		setOrder();
-	}
-
-	
-		
-	private void setOrder(){
-		Map<EditorStep, Collection<EditorStep>> chainsFrom = getMapFrom();
-		Map<EditorStep, Collection<EditorStep>> chainsTo = getMapTo();
-		LinkedList<EditorStep> steps = new LinkedList<>(this.steps);
-		
-		List<EditorStep> roots = steps.parallelStream().filter((step)->chainsTo.get(step).isEmpty()).collect(Collectors.toList());
-		List<EditorStep> orderedSteps = new LinkedList<>();
-		orderedSteps.addAll(roots);
-		
-		
-		while(!roots.isEmpty()){
-			EditorStep root = roots.remove(0);
-
-			for(EditorStep step : chainsFrom.get(root)){				
-				chainsTo.get(step).remove(root);
-
-				if(chainsTo.get(step).isEmpty()) {
-					roots.add(0, step);
-					if(!orderedSteps.contains(step))
-						orderedSteps.add(step);
-				}
-			}
-		}
-		
-		for (int idx = 0; idx < orderedSteps.size(); ++idx)
-			orderedSteps.get(idx).setOrder(idx + 1);
-	}
-
-	private Map<EditorStep, Collection<EditorStep>> getMapTo() {
-		Map<EditorStep, Collection<EditorStep>> to = new HashMap<>();
-
-		for(Map.Entry<EditorStep, Collection<EditorChain>> entry : this.chainsTo.entrySet())
-			to.put(entry.getKey(), getFromStepCollection(entry.getValue()));
-		return to;
-	}
-
-	private Map<EditorStep, Collection<EditorStep>> getMapFrom() {
-		Map<EditorStep, Collection<EditorStep>> from = new HashMap<>();
-		
-		for(Map.Entry<EditorStep, Collection<EditorChain>> entry : this.chainsFrom.entrySet())
-			from.put(entry.getKey(), getToStepCollection(entry.getValue()));
-		
-		return from;
-	}
-
-	private Collection<EditorStep> getToStepCollection(Collection<EditorChain> chains) {
-		Collection<EditorStep> steps = new LinkedList<>();
-		chains.forEach((c) -> addToCollection(steps, c.getTo()));
-		return steps;
-	}
-
-	private Collection<EditorStep> getFromStepCollection(Collection<EditorChain> chains) {
-		Collection<EditorStep> steps = new LinkedList<>();
-		chains.forEach((c) -> addToCollection(steps, c.getFrom()));
-		return steps;
-	}
-	
-	private void addToCollection(Collection<EditorStep> steps, EditorStep step) {
-		if(!steps.contains(step)) 
-			steps.add(step);
+		stepsOrdered.order(steps, chainsFrom, chainsTo);
 	}
 
 }
