@@ -69,7 +69,7 @@ public class StepsOrderer {
 			currToolDescriptor = currStep.getToolDescriptor();
 			currPriority = currStep.getCommandDescriptor().getPriority();
 			
-			if(toolDescriptor.equals(currToolDescriptor) && priority <= currPriority)
+			if(toolDescriptor.equals(currToolDescriptor) && priority < currPriority)
 				return false;
 		}
 		
@@ -121,7 +121,7 @@ public class StepsOrderer {
 			currToolDescriptor = currStep.getToolDescriptor();
 			currPriority = currStep.getCommandDescriptor().getPriority();
 			
-			if(toolDescriptor.equals(currToolDescriptor) && priority <= currPriority)
+			if(toolDescriptor.equals(currToolDescriptor) && priority < currPriority)
 				morePriority.add(currStep);
 		}
 		
