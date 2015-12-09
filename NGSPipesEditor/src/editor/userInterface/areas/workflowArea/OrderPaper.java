@@ -61,6 +61,8 @@ public class OrderPaper {
 		
 		for(EditorStep step : flow.getElements().getSteps())
 			step.orderEvent.addListner(this.onOrderChange);
+		
+		steps.sort((a,b)->a.getOrder()-b.getOrder());
 	}
 	
 	private void onAdd(EditorStep step){
