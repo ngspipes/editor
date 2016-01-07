@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import utils.IO;
 import dsl.ArgumentValidator;
 import dsl.entities.Argument;
 import editor.dataAccess.Uris;
@@ -20,7 +21,6 @@ import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
 import editor.utils.EditorException;
 import editor.utils.Log;
-import utils.IO;
 
 
 public class DSLWriter {
@@ -132,7 +132,7 @@ public class DSLWriter {
 			
 			count = counter.get(toolName);
 			counter.remove(toolName);
-			counter.put(toolName, count++);
+			counter.put(toolName, ++count);
 			
 			toolPos.put(step, count);
 		}
