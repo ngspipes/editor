@@ -45,7 +45,7 @@ public class MenuBar {
 		SHORT_CUTS.put("closeAll", new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN, KeyCodeCombination.SHIFT_DOWN));
 		SHORT_CUTS.put("_new", new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
 		SHORT_CUTS.put("open", new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
-		SHORT_CUTS.put("help", new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN));
+		SHORT_CUTS.put("about", new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN));
 		SHORT_CUTS.put("slideOutAllAreas", new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN, KeyCodeCombination.ALT_DOWN));
 		SHORT_CUTS.put("slideOutRepositoryArea", new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN, KeyCodeCombination.ALT_DOWN));
 		SHORT_CUTS.put("slideOutToolArea", new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCodeCombination.ALT_DOWN));
