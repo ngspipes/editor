@@ -30,7 +30,8 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 
 		@Override
 		protected boolean filter(Shortcut item, String pattern) {
-			return item.legend.contains(pattern);
+			pattern = pattern.toLowerCase();
+			return item.legend.toLowerCase().contains(pattern);
 		}
 
 		@Override
@@ -112,7 +113,7 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 	private Shortcut getShortcut(String content){
 		String[] splitedContent = content.split(":");
 		String shortcut = splitedContent[0];
-		String legend = splitedContent[1];;
+		String legend = splitedContent[1];
 		return new Shortcut(shortcut, legend);
 	}
 		
