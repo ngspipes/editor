@@ -133,7 +133,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	@FXML
 	private Label lOutputType;
 	@FXML
-	private Label lInputName;
+	private Label lOutputArgumentName;
 	@FXML
 	private Label lValue;
 	@FXML
@@ -355,7 +355,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private void loadOutput(IOutputDescriptor output){
 		lOutputName.setText(output.getName());
 		lOutputType.setText(output.getType());
-		lInputName.setText(output.getInputName());
+		lOutputArgumentName.setText(output.getArgumentName());
 		lValue.setText(output.getValue()== null ? "" : output.getValue());
 		tAOutputDescription.setText(output.getDescription());
 		showOutput();
@@ -383,7 +383,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private void cleanOutput(){
 		lOutputName.setText("");
 		lOutputType.setText("");
-		lInputName.setText("");
+		lOutputArgumentName.setText("");
 		lValue.setText("");
 		tAOutputDescription.setText("");
 		hideOutput();

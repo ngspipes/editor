@@ -12,7 +12,7 @@ public class EditorOutputDescriptor implements IOutputDescriptor{
 	private final String name;
 	private final String description;
 	private final String value;
-	private final String inputName;
+	private final String argumentName;
 	private final String type;
 	
 	
@@ -21,7 +21,7 @@ public class EditorOutputDescriptor implements IOutputDescriptor{
 		this.name = output.getName();
 		this.description = output.getDescription();
 		this.value = output.getValue();
-		this.inputName = output.getInputName();
+		this.argumentName = output.getArgumentName();
 		this.type = output.getType();
 	}
 	
@@ -37,8 +37,8 @@ public class EditorOutputDescriptor implements IOutputDescriptor{
 	}
 	
 	@Override
-	public String getInputName() {
-		return inputName	;
+	public String getArgumentName() {
+		return argumentName	;
 	}
 	
 	@Override

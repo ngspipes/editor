@@ -234,12 +234,12 @@
                                                       <Label fx:id="lOutputName" layoutX="92.0" layoutY="74.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="22.0" prefWidth="150.0" wrapText="true" />
                                                       <Label fx:id="lOutputType" layoutX="92.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="22.0" prefWidth="100.0" wrapText="true" />
                                                       <Label fx:id="lValue" layoutX="92.0" layoutY="189.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="22.0" prefWidth="100.0" wrapText="true" />
-                                                      <Label layoutX="27.0" layoutY="239.0" text="Input Name:">
+                                                      <Label layoutX="27.0" layoutY="239.0" text="Argument Name:">
                                                          <font>
                                                             <Font name="System Bold" size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lInputName" layoutX="142.0" layoutY="239.0" maxWidth="200.0" prefWidth="200.0" />
+                                                      <Label fx:id="lOutputArgumentName" layoutX="142.0" layoutY="239.0" maxWidth="200.0" prefWidth="200.0" />
                                                    </children>
                                                 </AnchorPane>
                                             </items>
