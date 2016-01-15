@@ -10,7 +10,7 @@
     "setup": [
         "apt-get install ncbi-blast+"
     ],
-    "isRequiredMemory": 2048,
+    "requiredMemory": 2048,
     "commands": [
         {
             "name": "blastp",

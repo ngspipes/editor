@@ -16,7 +16,7 @@
 		"apt-get install -y default-jre"
 	],
 
-	"isRequiredMemory": 1024,
+	"requiredMemory": 1024,
 
 	"commands" :[
 		{
