@@ -105,7 +105,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	@FXML
 	private Label lCommand;
 	@FXML
-	private Label lArgumentsProcessor;
+	private Label lArgumentsComposer;
 	@FXML
 	private Label lNumberOfArguments;
 	@FXML
@@ -337,7 +337,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private void loadCommand(ICommandDescriptor command){
 		lCommandName.setText(command.getName());
 		lCommand.setText(command.getCommand());
-		lArgumentsProcessor.setText(command.getArgumentsProcessor());
+		lArgumentsComposer.setText(command.getArgumentsComposer());
 		lNumberOfArguments.setText(Integer.toString(command.getArguments().size()));
 		lNumberOfOutputs.setText(Integer.toString(command.getOutputs().size()));
 		tACommandDescription.setText(command.getDescription());
@@ -365,7 +365,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private void cleanCommand(){
 		lCommandName.setText("");
 		lCommand.setText("");
-		lArgumentsProcessor.setText("");
+		lArgumentsComposer.setText("");
 		lNumberOfArguments.setText("");
 		lNumberOfOutputs.setText("");
 		tACommandDescription.setText("");

@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javafx.scene.control.ButtonType;
+import repository.IRepository;
 import descriptor.IToolDescriptor;
 import dsl.managers.Support;
 import editor.dataAccess.Uris;
@@ -19,8 +21,6 @@ import editor.userInterface.utils.Dialog;
 import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
-import javafx.scene.control.ButtonType;
-import repository.IRepository;
 
 
 public class EditorOperations {

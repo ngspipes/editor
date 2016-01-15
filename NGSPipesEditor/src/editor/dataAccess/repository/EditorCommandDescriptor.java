@@ -19,7 +19,7 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 	private final String name;
 	private final String command;
 	private final String description;
-	private final String argumentsProcessor;
+	private final String argumentsComposer;
 	private final List<IArgumentDescriptor> arguments;
 	private final List<IOutputDescriptor> outputs;
 	private final Map<String, IArgumentDescriptor> args;
@@ -31,7 +31,7 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 		this.name = command.getName();
 		this.command = command.getCommand();
 		this.description = command.getDescription();
-		this.argumentsProcessor = command.getArgumentsProcessor();
+		this.argumentsComposer = command.getArgumentsComposer();
 		this.arguments = new LinkedList<>();
 		this.outputs = new LinkedList<>();
 		this.args = new HashMap<>();
@@ -78,8 +78,8 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 	}
 
 	@Override
-	public String getArgumentsProcessor() {
-		return argumentsProcessor;
+	public String getArgumentsComposer() {
+		return argumentsComposer;
 	}
 
 	@Override
