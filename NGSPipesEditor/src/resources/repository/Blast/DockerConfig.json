@@ -1,7 +1,7 @@
 {
 	"name" : "Docker",
 
-	"uri" : "ngspipes/trimmomatic0.33",
+	"uri" : "simonalpha/ncbi-blast-docker",
 
 	"setup" : [
 		"sudo apt-get install -y docker.io"

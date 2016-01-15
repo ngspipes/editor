@@ -1,7 +1,7 @@
 {
 	"name" : "Docker",
 
-	"uri" : "ngspipes/trimmomatic0.33",
+	"uri" : "ngspipes/velvet0.7",
 
 	"setup" : [
 		"sudo apt-get install -y docker.io"
