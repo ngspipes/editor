@@ -12,12 +12,14 @@ public class EditorConfigurator implements IConfigurator {
 	public void setOriginRepository(IRepository originRepository){ this.originRepository = originRepository; }
 	
 	private final String name;
+	private final String builder;
 	private final String uri;
 	private final List<String> setup;
 
 	public EditorConfigurator(IConfigurator config, EditorRepository originRepository) {
 		this.originRepository = originRepository;
 		this.name = config.getName();
+		this.builder = config.getBuilder();
 		this.uri = config.getUri();
 		this.setup = config.getSetup();
 	}
@@ -26,6 +28,11 @@ public class EditorConfigurator implements IConfigurator {
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	@Override
+	public String getBuilder() {
+		return builder;
 	}
 
 	@Override
