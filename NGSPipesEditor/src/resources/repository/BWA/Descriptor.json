@@ -197,7 +197,7 @@
 					{
 						"name" : "outputFile",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "outputFile"
 					},
@@ -205,7 +205,7 @@
 					{
 						"name" : "paired output 1",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "paired output 1"
 					},
@@ -213,7 +213,7 @@
 					{
 						"name" : "unpaired output 1",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "unpaired output 1"
 					},
@@ -221,7 +221,7 @@
 					{
 						"name" : "paired output 2",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "paired output 2"
 					},
@@ -229,7 +229,7 @@
 					{
 						"name" : "unpaired output 2",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "unpaired output 2"
 					}
@@ -413,7 +413,7 @@
 					{
 						"name" : "outputFile",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "outputFile"
 					},
@@ -421,7 +421,7 @@
 					{
 						"name" : "paired output 1",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "paired output 1"
 					},
@@ -429,7 +429,7 @@
 					{
 						"name" : "unpaired output 1",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "unpaired output 1"
 					},
@@ -437,7 +437,7 @@
 					{
 						"name" : "paired output 2",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "paired output 2"
 					},
@@ -445,7 +445,7 @@
 					{
 						"name" : "unpaired output 2",
 						"description" : "",
-						"argumentType" : "file_dependent",
+						"outputType" : "file_dependent",
 						"value" : "",
 						"argument_name" : "unpaired output 2"
 					}
