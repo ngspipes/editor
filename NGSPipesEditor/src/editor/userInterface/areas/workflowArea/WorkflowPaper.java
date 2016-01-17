@@ -59,6 +59,8 @@ public class WorkflowPaper {
 		tabContent.getTabs().add(chainTab);
 		tabContent.getTabs().add(orderTab);
 		
+		tabContent.getSelectionModel().selectedItemProperty().addListener((ev)->EditorOperations.slideOutStepArea());
+		
 		chainTab.setClosable(false);
 		orderTab.setClosable(false);
 		

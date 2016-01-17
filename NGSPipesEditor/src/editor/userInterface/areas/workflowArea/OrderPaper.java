@@ -9,10 +9,15 @@ import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import utils.ComponentException;
+
+import components.DoubleClickable;
+
+import editor.EditorOperations;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
 import editor.userInterface.controllers.FXMLStepsOrderController;
 import editor.utils.Utils;
+
 
 public class OrderPaper {
 			
@@ -63,6 +68,12 @@ public class OrderPaper {
 			step.orderEvent.addListner(this.onOrderChange);
 		
 		steps.sort((a,b)->a.getOrder()-b.getOrder());
+		
+		new DoubleClickable<>(listView, ()->{
+			EditorStep selectedStep = listView.getSelectionModel().getSelectedItem();
+			EditorOperations.loadStepArea(selectedStep);
+			EditorOperations.slideInStepArea();
+		}).mount();
 	}
 	
 	private void onAdd(EditorStep step){
