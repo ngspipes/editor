@@ -35,6 +35,7 @@ public class PaneSlider {
 	private final int animationsDuration;
 	private final Button button;
 	private final Pane pane;
+	private boolean visible;
 
 
 	public PaneSlider(SlideSide side, Pane pane, Button button, int animationsDuration){
@@ -42,6 +43,7 @@ public class PaneSlider {
 		this.pane = pane;
 		this.button = button;
 		this.animationsDuration = animationsDuration;
+		this.visible = true;
 		loadImages();
 	}
 
@@ -108,17 +110,24 @@ public class PaneSlider {
 	}
 	
 	private void slideIn(double duration){
-		Animation animation = getShowAnimation(duration);
-		pane.setVisible(true);
-		button.setGraphic(hideImage);
-		animation.play();
+		if(!visible){
+			Animation animation = getShowAnimation(duration);
+			pane.setVisible(true);
+			button.setGraphic(hideImage);
+			animation.play();
+			visible = true;
+		}
 	}
 	
 	private void slideOut(double duration){
-		Animation animation = getHideAnimation(duration);
-		animation.onFinishedProperty().set((e)->pane.setVisible(false));
-		button.setGraphic(showImage);
-		animation.play();
+		if(visible){
+			Animation animation = getHideAnimation(duration);
+			animation.onFinishedProperty().set((e)->pane.setVisible(false));
+			button.setGraphic(showImage);
+			animation.play();	
+			visible = false;
+		}
+		
 	}
 	
 	private void onMouseClicked(MouseEvent event){
