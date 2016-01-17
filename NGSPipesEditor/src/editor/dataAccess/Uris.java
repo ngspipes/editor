@@ -28,7 +28,7 @@ public class Uris {
 	public static final String SAVED_IMAGE =	 			IMAGES + SEP + "Saved.png";
 	public static final String NOT_SAVED_IMAGE = 			IMAGES + SEP + "NotSaved.png";
 	public static final String LOGO_IMAGE =		 			IMAGES + SEP + "Logo.png";
-	public static final String REMOTE_REPOSITORY_IMAGE =	IMAGES + SEP + "RemoteRepository.png";
+	public static final String URI_BASED_REPOSITORY_IMAGE =	IMAGES + SEP + "UriBasedRepository.png";
 	public static final String LOCAL_REPOSITORY_IMAGE =		IMAGES + SEP + "LocalRepository.png";
 	public static final String GITHUB_REPOSITORY_IMAGE =	IMAGES + SEP + "GithubRepository.png";
 

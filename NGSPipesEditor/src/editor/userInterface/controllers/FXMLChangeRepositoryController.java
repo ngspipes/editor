@@ -38,11 +38,11 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
 	
 	
 	
-	private static final Image REMOTE_IMAGE = new Image(Uris.REMOTE_REPOSITORY_IMAGE);
+	private static final Image URI_BASED_IMAGE = new Image(Uris.URI_BASED_REPOSITORY_IMAGE);
 	private static final Image LOCAL_IMAGE = new Image(Uris.LOCAL_REPOSITORY_IMAGE);
 	private static final Image GITHUB_IMAGE = new Image(Uris.GITHUB_REPOSITORY_IMAGE);
     private static final String LOCAL_TYPE = Support.REPOSITORY_LOCAL;
-    private static final String REMOTE_TYPE = Support.REPOSITORY_REMOTE;
+    private static final String URI_BASED_TYPE = Support.REPOSITORY_URI_BASED;
     private static final String GITHUB_TYPE = Support.REPOSITORY_GITHUB;
     private static final String DEFAULT_TYPE = "Default";
     private static final List<String> TYPES;
@@ -50,7 +50,7 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
     static{
         TYPES = new LinkedList<>();
         TYPES.add(LOCAL_TYPE);
-        TYPES.add(REMOTE_TYPE);
+        TYPES.add(URI_BASED_TYPE);
         TYPES.add(DEFAULT_TYPE);
         TYPES.add(GITHUB_TYPE);
     }
@@ -98,13 +98,13 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
     
     //Modes
     
-    private void remoteMode(){
+    private void uriBasedMode(){
         txtFURL.setDisable(false);
         txtFPath.setDisable(true);
         bSearch.setDisable(true);
         bChange.setDisable(false);
-        iVLeft.setImage(REMOTE_IMAGE);
-        iVRight.setImage(REMOTE_IMAGE);
+        iVLeft.setImage(URI_BASED_IMAGE);
+        iVRight.setImage(URI_BASED_IMAGE);
     }
     
     private void githubMode(){
@@ -150,13 +150,13 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
     		onChange.accept(LOCAL_TYPE, path);
     }
     
-    private void remoteChangeHandle(){
+    private void uriBasedChangeHandle(){
     	String uri = txtFURL.getText();
     	
     	if(uri==null || uri.isEmpty())
     		Dialog.showError("Invalid URI!");
     	else	
-    		onChange.accept(REMOTE_TYPE, uri);
+    		onChange.accept(URI_BASED_TYPE, uri);
     }
     
     private void githubChangeHandle(){
@@ -171,13 +171,13 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
     public FXMLChangeRepositoryController(){
         handleTypes = new HashMap<>();
         handleTypes.put(LOCAL_TYPE, this::localMode);
-        handleTypes.put(REMOTE_TYPE, this::remoteMode);
+        handleTypes.put(URI_BASED_TYPE, this::uriBasedMode);
         handleTypes.put(DEFAULT_TYPE, this::defaultMode);
         handleTypes.put(GITHUB_TYPE, this::githubMode);
         
         handleChange = new HashMap<>();
         handleChange.put(LOCAL_TYPE, this::localChangeHandle);
-        handleChange.put(REMOTE_TYPE, this::remoteChangeHandle);
+        handleChange.put(URI_BASED_TYPE, this::uriBasedChangeHandle);
         handleChange.put(DEFAULT_TYPE, this::defaultChangeHandle);
         handleChange.put(GITHUB_TYPE, this::githubChangeHandle);
     }
