@@ -14,7 +14,7 @@
         <items>
             <SplitPane dividerPositions="0.17411225658648338" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #9F9F9F;">
+                <AnchorPane minHeight="150.0" minWidth="0.0" style="-fx-background-color: #9F9F9F;">
                      <children>
                         <Label layoutX="16.0" layoutY="10.0" text="Repository" textFill="#008aff">
                            <font>

@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -174,6 +175,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private void loadRepositoryInfo(){
 		lRepositoryType.setText(repository.getType());
 		lRepositoryLocation.setText(repository.getLocation());
+		Tooltip.install(lRepositoryLocation, new Tooltip(repository.getLocation()));
 	}
 	
 	private void loadInitialComponents() {
