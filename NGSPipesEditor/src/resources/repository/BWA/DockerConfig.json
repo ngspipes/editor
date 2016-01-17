@@ -1,6 +1,8 @@
 {
 	"name" : "DockerConfig",
 
+	"builder" : "Docker",
+
 	"uri" : "ngspipes/trimmomatic0.33",
 
 	"setup" : [
