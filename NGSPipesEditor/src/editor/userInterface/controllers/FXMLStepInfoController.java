@@ -93,7 +93,7 @@ public class FXMLStepInfoController implements IInitializable<FXMLStepInfoContro
 	}
 	
 	private void setOrder(int order){
-		lOrder.setText(order + "º");
+		lOrder.setText(Integer.toString(order));
 	}
 	
 	private void loadConfiguratorsComboBox() throws ComponentException{
