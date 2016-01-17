@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import repository.IRepository;
@@ -18,6 +19,7 @@ import utils.IInitializable;
 import components.FXMLFile;
 
 import configurator.IConfigurator;
+import descriptor.IArgumentDescriptor;
 import descriptor.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
@@ -81,8 +83,14 @@ public class FXMLStepInfoController implements IInitializable<FXMLStepInfoContro
 	private void load() throws ComponentException {
 		lToolName.setText(step.getToolDescriptor().getName());
 		lCommandName.setText(step.getCommandDescriptor().getName());
-		lNumberOfArguments.setText(Integer.toString(step.getCommandDescriptor().getArguments().size()));
 		lNumberOfOutputs.setText(Integer.toString(step.getCommandDescriptor().getOutputs().size()));
+		
+		int totalArguments = step.getCommandDescriptor().getArguments().size();
+		int requiredArgument = getNumberOfRequiredArgument();
+		String tip = requiredArgument + " Required\n" + totalArguments + " Total";
+		lNumberOfArguments.setText("(" + requiredArgument + ") " + totalArguments);
+		Tooltip.install(lNumberOfArguments, new Tooltip(tip));
+		
 		setOrder(step.getOrder());
 		
 		iVToolLogo.setImage(DEFAULT_TOOL_LOGO);
@@ -121,5 +129,15 @@ public class FXMLStepInfoController implements IInitializable<FXMLStepInfoContro
 			Utils.treatException(ex, TAG, "Error loading configurator " + curr +" for tool " + tool.getName() + " from Repository " + repository.getLocation());
 		}
 	}
+	
+	private int getNumberOfRequiredArgument(){
+		int count = 0;
 		
+		for(IArgumentDescriptor argument : step.getCommandDescriptor().getArguments())
+			if(argument.getRequired())
+				count++;
+			
+		return count;
+	}
+	
 }
