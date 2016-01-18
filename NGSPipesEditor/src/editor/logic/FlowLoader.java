@@ -16,9 +16,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import repository.IRepository;
-import configurator.IConfigurator;
-import descriptor.ICommandDescriptor;
-import descriptor.IToolDescriptor;
+import configurators.IConfigurator;
+import descriptors.ICommandDescriptor;
+import descriptors.IToolDescriptor;
 import dsl.entities.Argument;
 import dsl.entities.Command;
 import dsl.entities.Output;

@@ -3,7 +3,7 @@ package editor.dataAccess.repository;
 import java.util.List;
 
 import repository.IRepository;
-import configurator.IConfigurator;
+import configurators.IConfigurator;
 
 public class EditorConfigurator implements IConfigurator {
 

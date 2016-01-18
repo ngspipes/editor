@@ -7,8 +7,8 @@ import java.util.Map;
 
 import javafx.util.Pair;
 import repository.IRepository;
-import configurator.IConfigurator;
-import descriptor.IToolDescriptor;
+import configurators.IConfigurator;
+import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.utils.EditorException;
 import exceptions.RepositoryException;
@@ -112,6 +112,11 @@ public class EditorRepository implements IRepository{
 	@Override
 	public String getLocation() {
 		return repository.getLocation();
+	}
+	
+	@Override
+	public void setLocation(String location) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

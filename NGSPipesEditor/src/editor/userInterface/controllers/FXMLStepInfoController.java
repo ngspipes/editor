@@ -18,9 +18,9 @@ import utils.IInitializable;
 
 import components.FXMLFile;
 
-import configurator.IConfigurator;
-import descriptor.IArgumentDescriptor;
-import descriptor.IToolDescriptor;
+import configurators.IConfigurator;
+import descriptors.IArgumentDescriptor;
+import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
 import editor.logic.entities.EditorStep;

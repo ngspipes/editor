@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import descriptor.IToolDescriptor;
+import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 
 public class LogoLoader extends ImageLoader{

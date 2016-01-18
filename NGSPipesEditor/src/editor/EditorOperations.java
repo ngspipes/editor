@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import javafx.scene.control.ButtonType;
 import repository.IRepository;
-import descriptor.IToolDescriptor;
+import descriptors.IToolDescriptor;
 import dsl.managers.Support;
 import editor.dataAccess.Uris;
 import editor.dataAccess.repository.EditorRepositoryManager;

@@ -11,8 +11,8 @@ import components.Window;
 import components.multiOption.Operations;
 import components.multiOption.Operations.Operation;
 
-import descriptor.ICommandDescriptor;
-import descriptor.IToolDescriptor;
+import descriptors.ICommandDescriptor;
+import descriptors.IToolDescriptor;
 import editor.userInterface.components.PaneSlider.SlideSide;
 import editor.userInterface.controllers.FXMLRepositoryDescriptionController;
 import editor.userInterface.utils.pallet.CommandsPallet;

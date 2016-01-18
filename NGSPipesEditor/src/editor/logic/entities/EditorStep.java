@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import repository.IRepository;
 import utils.Event;
-import configurator.IConfigurator;
-import descriptor.ICommandDescriptor;
-import descriptor.IToolDescriptor;
+import configurators.IConfigurator;
+import descriptors.ICommandDescriptor;
+import descriptors.IToolDescriptor;
 import dsl.entities.Argument;
 import dsl.entities.Output;
 import dsl.entities.Step;

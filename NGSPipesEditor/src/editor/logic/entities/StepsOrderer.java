@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import descriptor.IToolDescriptor;
+import descriptors.IToolDescriptor;
 import editor.utils.Utils;
 
 public class StepsOrderer {

@@ -17,7 +17,7 @@ import components.animation.magnifier.ImageMagnifier;
 import components.multiOption.Menu;
 import components.multiOption.Operations;
 
-import descriptor.IToolDescriptor;
+import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
 import editor.userInterface.utils.Utils;

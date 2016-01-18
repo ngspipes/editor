@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 
 import components.multiOption.Operations;
 
-import descriptor.ICommandDescriptor;
+import descriptors.ICommandDescriptor;
 import editor.userInterface.controllers.FXMLCommandListViewCellController;
 import editor.userInterface.controllers.FXMLCommandListViewCellController.Data;
 import editor.utils.Utils;

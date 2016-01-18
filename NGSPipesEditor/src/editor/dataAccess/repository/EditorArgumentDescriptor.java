@@ -1,7 +1,8 @@
 package editor.dataAccess.repository;
 
-import descriptor.IArgumentDescriptor;
-import descriptor.ICommandDescriptor;
+import descriptors.IArgumentDescriptor;
+import descriptors.ICommandDescriptor;
+
 
 public class EditorArgumentDescriptor implements IArgumentDescriptor{
 	

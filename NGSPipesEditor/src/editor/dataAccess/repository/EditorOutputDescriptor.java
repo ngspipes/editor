@@ -1,7 +1,8 @@
 package editor.dataAccess.repository;
 
-import descriptor.ICommandDescriptor;
-import descriptor.IOutputDescriptor;
+import descriptors.ICommandDescriptor;
+import descriptors.IOutputDescriptor;
+
 
 public class EditorOutputDescriptor implements IOutputDescriptor{
 	

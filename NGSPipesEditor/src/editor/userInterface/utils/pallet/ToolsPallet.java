@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 
 import components.multiOption.Operations;
 
-import descriptor.IToolDescriptor;
+import descriptors.IToolDescriptor;
 import editor.userInterface.controllers.FXMLToolListViewCellController;
 import editor.userInterface.controllers.FXMLToolListViewCellController.Data;
 import editor.utils.Utils;

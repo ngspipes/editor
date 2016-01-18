@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import utils.IO;
 
+
 public class JSONVideoDescriptor implements IVideoDescriptor {
 
 	private static final String NAME_KEY = "name";

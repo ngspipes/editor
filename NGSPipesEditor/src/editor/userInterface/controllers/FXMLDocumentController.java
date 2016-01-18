@@ -7,8 +7,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import descriptor.ICommandDescriptor;
-import descriptor.IToolDescriptor;
+import descriptors.ICommandDescriptor;
+import descriptors.IToolDescriptor;
 import dsl.entities.Argument;
 import dsl.entities.Output;
 

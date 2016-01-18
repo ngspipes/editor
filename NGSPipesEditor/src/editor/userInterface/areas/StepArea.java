@@ -13,10 +13,10 @@ import components.Window;
 import components.multiOption.Operations;
 import components.multiOption.Operations.Operation;
 
-import descriptor.IArgumentDescriptor;
-import descriptor.ICommandDescriptor;
-import descriptor.IOutputDescriptor;
-import descriptor.IToolDescriptor;
+import descriptors.IArgumentDescriptor;
+import descriptors.ICommandDescriptor;
+import descriptors.IOutputDescriptor;
+import descriptors.IToolDescriptor;
 import dsl.entities.Argument;
 import dsl.entities.Output;
 import editor.logic.entities.EditorStep;

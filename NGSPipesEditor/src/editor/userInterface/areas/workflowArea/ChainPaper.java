@@ -21,8 +21,8 @@ import components.connect.connection.NSideConnection;
 import components.connect.connector.Connector;
 import components.connect.connector.ConnectorPointer;
 
-import configurator.IConfigurator;
-import descriptor.ICommandDescriptor;
+import configurators.IConfigurator;
+import descriptors.ICommandDescriptor;
 import dsl.entities.Command;
 import dsl.entities.Step;
 import editor.EditorOperations;

@@ -18,10 +18,10 @@ import utils.IInitializable;
 
 import components.FXMLFile;
 
-import descriptor.IArgumentDescriptor;
-import descriptor.ICommandDescriptor;
-import descriptor.IOutputDescriptor;
-import descriptor.IToolDescriptor;
+import descriptors.IArgumentDescriptor;
+import descriptors.ICommandDescriptor;
+import descriptors.IOutputDescriptor;
+import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
 import editor.userInterface.utils.Utils;

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import repository.IRepository;
-import descriptor.ICommandDescriptor;
-import descriptor.IToolDescriptor;
+import descriptors.ICommandDescriptor;
+import descriptors.IToolDescriptor;
 
 public class EditorToolDescriptor implements IToolDescriptor{
 	

@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import descriptor.IArgumentDescriptor;
-import descriptor.ICommandDescriptor;
-import descriptor.IOutputDescriptor;
-import descriptor.IToolDescriptor;
+import descriptors.IArgumentDescriptor;
+import descriptors.ICommandDescriptor;
+import descriptors.IOutputDescriptor;
+import descriptors.IToolDescriptor;
 
 public class EditorCommandDescriptor implements ICommandDescriptor{
 	
