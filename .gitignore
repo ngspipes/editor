@@ -2,3 +2,5 @@ NGSPipesEditor/bin/
 .settings/
 *.classpath
 *.class
+.gradle
+build/
