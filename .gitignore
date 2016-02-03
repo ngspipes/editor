@@ -4,3 +4,4 @@ NGSPipesEditor/bin/
 *.class
 .gradle
 build/
+*.iml
