@@ -5,3 +5,4 @@ NGSPipesEditor/bin/
 .gradle
 build/
 *.iml
+.idea/
