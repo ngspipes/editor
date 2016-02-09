@@ -88,8 +88,8 @@ public class Dialog {
     }
 
     public static ButtonType getSaveConsentiment() {
-        String title = "Save Work Flow";
-        String header = "Current Work Flow is not saved!";
+        String title = "Save Pipeline";
+        String header = "Current Pipeline is not saved!";
         String text = "Do you want to save it?\nChoose ok to save or cancel to close without save.";
         
         return getConsentiment(title, header, text);

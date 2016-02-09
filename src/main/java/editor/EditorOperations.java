@@ -263,7 +263,7 @@ public class EditorOperations {
 	}
 	
 	public static void openWorkflow(){
-		File file = Dialog.getFile("Work Flow");
+		File file = Dialog.getFile("Pipeline");
         
         if(file==null) 
         	return;
