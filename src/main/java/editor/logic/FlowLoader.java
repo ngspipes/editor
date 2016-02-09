@@ -68,7 +68,7 @@ class FlowLoader {
 		try{
 			Flow flow = new Flow(name, directory);
 			
-			load(new JSONObject(rutils.IO.read(flowPath)), flow, (ex)->{
+			load(new JSONObject(utils.IO.read(flowPath)), flow, (ex)->{
 				if(ex!=null)
 					callBack.accept(ex, null);
 				else
