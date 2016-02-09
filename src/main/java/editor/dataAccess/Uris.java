@@ -31,11 +31,11 @@ import java.util.jar.JarFile;
 public class Uris {
 
 	public static final String SEP = "/";//System.getProperty("file.separator");
-	public static final String RESOURCES = "resources";
+	public static final String RESOURCES = "";
 
 	
-	private static final String IMAGES = 					RESOURCES + SEP + "images";
-	public static final String TOOL_LOGO_IMAGE = 		IMAGES + SEP + "ToolLogo.png";
+	private static final String IMAGES = 					"images";
+	public static final String TOOL_LOGO_IMAGE = 			IMAGES + SEP + "ToolLogo.png";
 	public static final String CLOSE_SELECTED_IMAGE = 		IMAGES + SEP + "CloseSelected.png";
 	public static final String CLOSE_DESELECTED_IMAGE = 	IMAGES + SEP + "CloseDeselected.png";
 	public static final String SMALL_IN_IMAGE = 			IMAGES + SEP + "SmallIn.png";
@@ -52,7 +52,7 @@ public class Uris {
 	public static final String GITHUB_REPOSITORY_IMAGE =	IMAGES + SEP + "GithubRepository.png";
 
 
-	private static final String FXML_FILES = 						RESOURCES + SEP + "fXML"; 
+	private static final String FXML_FILES = 						"fXML";
 	public static final String FXML_CHANGE_REPOSITORY = 			FXML_FILES + SEP + "FXMLChangeRepository.fxml";
 	public static final String FXML_CREATE_WORKFLOW = 				FXML_FILES + SEP + "FXMLCreateWorkflow.fxml";
 	public static final String FXML_STEP = 							FXML_FILES + SEP + "FXMLStep.fxml";
@@ -70,7 +70,7 @@ public class Uris {
 	public static final String FXML_CHAIN =					 		FXML_FILES + SEP + "FXMLChain.fxml";
 	public static final String FXML_STEPS_ORDER =					 FXML_FILES + SEP + "FXMLStepsOrder.fxml";
 
-	public static final String SHORCUTS_FILE = RESOURCES + SEP + "Shortcuts.txt";
+	public static final String SHORCUTS_FILE = "Shortcuts.txt";
 
 	public static final String NGSPIPES_DIRECTORY = 		System.getProperty("user.home") + SEP + "NGSPipes";
 	public static final String EDITOR_PATH = 				NGSPIPES_DIRECTORY + SEP + "Editor";
@@ -108,7 +108,7 @@ public class Uris {
 			tutorialsDir.mkdirs();
 			final File jarFile = new File(Uris.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 			final JarFile jar = new JarFile(jarFile);
-			copyResourcesToDirectory(jar, RESOURCES + SEP + "tutorials", TUTORIALS_DIR);
+			copyResourcesToDirectory(jar, "tutorials", TUTORIALS_DIR);
 			jar.close();
 		}
 
@@ -116,7 +116,7 @@ public class Uris {
 			defaultRepositoryDir.mkdir();
 			final File jarFile = new File(Uris.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 			final JarFile jar = new JarFile(jarFile);
-			copyResourcesToDirectory(jar, RESOURCES + SEP + "repository", DEFAULT_REPOSITORY_DIR);
+			copyResourcesToDirectory(jar, "repository", DEFAULT_REPOSITORY_DIR);
 			jar.close();	
 		}
 	}
