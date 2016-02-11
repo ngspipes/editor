@@ -21,6 +21,7 @@ package editor.dataAccess.repository;
 
 import java.util.function.BiConsumer;
 
+import editor.utils.WorkQueue;
 import javafx.application.Platform;
 import repository.IRepository;
 import utils.Cache;
@@ -49,31 +50,31 @@ public class EditorRepositoryManager {
 		}
 		
 		final Window<?,?> progressWindow = progress;
-		
-		new Thread(()->{
+
+		WorkQueue.run(()->{
 			IRepository repo = null;
 			Exception ex = null;
-			
+
 			String key = "TYPE_" + type + "_LOCAL_" + location;
 			try {
 				if((repo = CACHE.get(key)) == null){
 					repo = get(type, location);
 					CACHE.add(key, repo);
-				}				
+				}
 			} catch (EditorException e) {
 				ex = e;
 			}
 
 			IRepository repository = repo;
 			Exception exception = ex;
-			
+
 			Platform.runLater(()-> {
 				if(progressWindow != null)
 					progressWindow.close();
-				
-				callback.accept(exception, repository);	
+
+				callback.accept(exception, repository);
 			});
-		}).start();
+		});
 	}
 	
 	private static EditorRepository get(String type, String location) throws EditorException {

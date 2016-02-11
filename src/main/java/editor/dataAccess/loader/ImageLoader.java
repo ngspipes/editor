@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
+import editor.utils.WorkQueue;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -72,14 +73,14 @@ public class ImageLoader {
 
 
 	public void load(){
-		new Thread(()->{
+		WorkQueue.run(()->{
 			Image image = getImage();
 
 			Platform.runLater(()->{
 				finish.set(true);
 				onFinish.accept(image);
 			});
-		}).start();;
+		});
 	}
 
 	private Image getImage(){
