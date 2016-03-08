@@ -293,7 +293,10 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		parent.getChildren().add(item);
 		
 		item.setGraphic(iVLogo);
-		new LogoLoader(tool, LOGO_WIDTH, LOGO_HEIGHT, true, true, iVLogo).load();
+		iVLogo.fitHeightProperty().setValue(LOGO_HEIGHT);
+		iVLogo.fitWidthProperty().setValue(LOGO_WIDTH);
+
+		new LogoLoader(tool, iVLogo).load();
 		
 		return item;
 	}

@@ -93,8 +93,11 @@ public class FXMLToolListViewCellController implements IInitializable<FXMLToolLi
 		lToolName.setText(tool.getName());
 		
 		iVToolLogo.setImage(DEFAULT_TOOL_LOGO);
+		iVToolLogo.fitHeightProperty().setValue(IMAGE_HEIGHT);
+		iVToolLogo.fitWidthProperty().setValue(IMAGE_WIDTH);
 		new ImageMagnifier<>(iVToolLogo, ITEM_MAGNIFICATION).mount();
-		new LogoLoader(tool, IMAGE_WIDTH, IMAGE_HEIGHT, true, true, iVToolLogo).load();
+
+		new LogoLoader(tool, iVToolLogo).load();
 		
 		Utils.set3DEffect(iVToolLogo, true, false);
 		

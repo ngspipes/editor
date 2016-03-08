@@ -100,9 +100,12 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 		lCommandName.setText(command.getName());
 		
 		iVToolLogo.setImage(new Image(DEFAULT_TOOL_LOGO_URI, IMAGE_WIDTH, IMAGE_HEIGHT, true, true));
+		iVToolLogo.fitWidthProperty().setValue(IMAGE_WIDTH);
+		iVToolLogo.fitHeightProperty().setValue(IMAGE_HEIGHT);
 		new ImageMagnifier<>(iVToolLogo, LOGO_MAGNIFICATION).mount();
-		new LogoLoader(command.getOriginTool(), IMAGE_WIDTH, IMAGE_HEIGHT, true, true, iVToolLogo).load();
-		
+
+		new LogoLoader(command.getOriginTool(), iVToolLogo).load();
+
 		Utils.set3DEffect(iVToolLogo, true, true);
 		
 		loadButtonEvents();
@@ -126,7 +129,7 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 		draggable.setInfo(command);
 		draggable.mount();
 		
-		new LogoLoader(command.getOriginTool(), (image)->draggable.setDragView(image)).load();
+		new LogoLoader(command.getOriginTool(), draggable::setDragView).load();
 	}
 
 }
