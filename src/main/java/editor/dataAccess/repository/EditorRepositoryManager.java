@@ -43,7 +43,7 @@ public class EditorRepositoryManager {
 	public static void getRepository(String type, String location, BiConsumer<Exception, IRepository> callback) {
 		Window<?,?> progress = null;
 		try{
-			progress = Dialog.getLoadingWindow("Loading Workflow");
+			progress = Dialog.getLoadingWindow("Loading Pipeline");
 			progress.open();
 		}catch(Exception ex){
 			Utils.treatException(ex, TAG, "Error loading progress Window!");

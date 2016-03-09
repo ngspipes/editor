@@ -13,6 +13,6 @@
       <TextField fx:id="txtFName" layoutX="162.0" layoutY="139.0" prefHeight="31.0" prefWidth="307.0" />
       <Button fx:id="bCreate" layoutX="244.0" layoutY="227.0" mnemonicParsing="false" onAction="#onCreateClick" text="Create" />
       <Label layoutX="55.0" layoutY="46.0" text="Directory" />
-      <Label layoutX="28.0" layoutY="144.0" text="Workflow Name" />
+      <Label layoutX="28.0" layoutY="144.0" text="Pipeline Name" />
    </children>
 </AnchorPane>
