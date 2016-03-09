@@ -2,7 +2,6 @@
 	"toolsName": [
 		"Trimmomatic",
 		"Blast",
-		"Velvet",
-		"BWA"
+		"Velvet"
 	]
 }
