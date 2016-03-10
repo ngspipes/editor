@@ -87,6 +87,14 @@ public class Dialog {
         	return null;
     }
 
+    public static ButtonType getOverrideConsentiment() {
+        String title = "Override Pipeline";
+        String header = "There is a pipeline with same name in this directory!";
+        String text = "Do you want override the existent one?";
+
+        return getConsentiment(title, header, text);
+    }
+
     public static ButtonType getSaveConsentiment() {
         String title = "Save Pipeline";
         String header = "Current Pipeline is not saved!";

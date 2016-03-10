@@ -40,6 +40,7 @@ import editor.userInterface.utils.Dialog;
 import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
+import workflow.elements.Workflow;
 
 
 public class EditorOperations {
@@ -202,12 +203,30 @@ public class EditorOperations {
 	public static void createNewWorkflow(){
 		try{
 			Log.debug(TAG, "Creating new Workflow");
-    		Dialog.getNewFileDirectory( (directory, name)-> openWorkflow(new Flow(name, directory)) );	
+    		Dialog.getNewFileDirectory( (directory, name)->{
+				File file = new File(directory + Uris.SEP + name + FlowManager.WORK_FLOW_FILE_EXTENSION);
+
+				if(file.exists() && !getConcentToOverride())
+					return;
+
+				openWorkflow(new Flow(name, directory));
+			}  );
     	}catch(Exception e){
     		Utils.treatException(e, TAG, "Error creating new File!");
     	}
 	}
-	
+
+	private static boolean getConcentToOverride() {
+		ButtonType consentiment = Dialog.getOverrideConsentiment();
+
+		if(consentiment.equals(ButtonType.OK)){
+			Log.debug(TAG, "User accepted to override Workflow");
+			return true;
+		}
+
+		return false;
+	}
+
 	public static void generateSelectedWorkflow(){
 		Flow workflow = workflowArea.getSelectedWorkflow();
 		
