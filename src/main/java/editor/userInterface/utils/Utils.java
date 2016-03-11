@@ -23,6 +23,7 @@ import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
@@ -38,7 +39,8 @@ public class Utils {
 	
 	public static Tooltip createTooltip(String text, boolean wrap, double maxWidth, double maxHeight){
 		Tooltip tip = new Tooltip(text);
-		tip.setWrapText(true);
+
+		tip.setWrapText(wrap);
 		tip.setMaxWidth(maxWidth);
 		tip.setMaxHeight(maxHeight);
 		
