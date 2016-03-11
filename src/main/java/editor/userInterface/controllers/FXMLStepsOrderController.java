@@ -19,6 +19,10 @@
  */
 package editor.userInterface.controllers;
 
+import components.FXMLFile;
+import editor.dataAccess.Uris;
+import editor.dataAccess.loader.LogoLoader;
+import editor.logic.entities.EditorStep;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -26,12 +30,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
-
-import components.FXMLFile;
-
-import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
-import editor.logic.entities.EditorStep;
 
 public class FXMLStepsOrderController implements IInitializable<EditorStep>{
 	
@@ -73,9 +71,9 @@ public class FXMLStepsOrderController implements IInitializable<EditorStep>{
 		
 		step.orderEvent.addListner(this::setOrder);
 	}
-	
+
 	private void setOrder(int order){
-		lOrder.setText(order + "�");
+		lOrder.setText(Integer.toString(order));
 	}
-		
+
 }
