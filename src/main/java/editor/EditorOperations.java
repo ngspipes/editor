@@ -19,12 +19,6 @@
  */
 package editor;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.LinkedList;
-
-import javafx.scene.control.ButtonType;
-import repository.IRepository;
 import descriptors.IToolDescriptor;
 import dsl.managers.Support;
 import editor.dataAccess.Uris;
@@ -40,6 +34,12 @@ import editor.userInterface.utils.Dialog;
 import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
+import javafx.scene.control.ButtonType;
+import repository.IRepository;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.LinkedList;
 
 
 public class EditorOperations {
@@ -203,9 +203,12 @@ public class EditorOperations {
 		try{
 			Log.debug(TAG, "Creating new Workflow");
     		Dialog.getNewFileDirectory( (directory, name)->{
-				File file = new File(directory + Uris.SEP + name + FlowManager.WORK_FLOW_FILE_EXTENSION);
+				if(name.endsWith(FlowManager.WORK_FLOW_FILE_EXTENSION))
+					name = name.replace(FlowManager.WORK_FLOW_FILE_EXTENSION, "");
 
-				if(file.exists() && !getPermissionToOverride())
+				String path = directory + Uris.SEP + name + FlowManager.WORK_FLOW_FILE_EXTENSION;
+
+				if(new File(path).exists() && !getPermissionToOverride())
 					return;
 
 				openWorkflow(new Flow(name, directory));
