@@ -87,31 +87,31 @@ public class Dialog {
         	return null;
     }
 
-    public static ButtonType getOverrideConsentiment() {
+    public static ButtonType getOverridePermission() {
         String title = "Override Pipeline";
         String header = "There is a pipeline with same name in this directory!";
         String text = "Do you want override the existent one?";
 
-        return getConsentiment(title, header, text);
+        return getPermission(title, header, text);
     }
 
-    public static ButtonType getSaveConsentiment() {
+    public static ButtonType getSavePermission() {
         String title = "Save Pipeline";
         String header = "Current Pipeline is not saved!";
         String text = "Do you want to save it?\nChoose ok to save or cancel to close without save.";
         
-        return getConsentiment(title, header, text);
+        return getPermission(title, header, text);
     }
     
-    public static ButtonType getCopyFilesConsentiment() {
-    	String title = "Copy files concentiment";
+    public static ButtonType getCopyFilesPermission() {
+    	String title = "Permission to copy files";
         String header = "Allow copy files";
         String text = "All input files not existent in the specified directory will be copied.\nDo you accept?";
         
-        return getConsentiment(title, header, text);
+        return getPermission(title, header, text);
     }
     
-    public static ButtonType getConsentiment(String title, String header, String text) {
+    public static ButtonType getPermission(String title, String header, String text) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
 
         alert.setTitle(title);

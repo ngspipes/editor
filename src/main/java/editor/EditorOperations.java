@@ -40,7 +40,6 @@ import editor.userInterface.utils.Dialog;
 import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
-import workflow.elements.Workflow;
 
 
 public class EditorOperations {
@@ -206,7 +205,7 @@ public class EditorOperations {
     		Dialog.getNewFileDirectory( (directory, name)->{
 				File file = new File(directory + Uris.SEP + name + FlowManager.WORK_FLOW_FILE_EXTENSION);
 
-				if(file.exists() && !getConcentToOverride())
+				if(file.exists() && !getPermissionToOverride())
 					return;
 
 				openWorkflow(new Flow(name, directory));
@@ -216,10 +215,10 @@ public class EditorOperations {
     	}
 	}
 
-	private static boolean getConcentToOverride() {
-		ButtonType consentiment = Dialog.getOverrideConsentiment();
+	private static boolean getPermissionToOverride() {
+		ButtonType permission = Dialog.getOverridePermission();
 
-		if(consentiment.equals(ButtonType.OK)){
+		if(permission.equals(ButtonType.OK)){
 			Log.debug(TAG, "User accepted to override Workflow");
 			return true;
 		}
@@ -245,9 +244,9 @@ public class EditorOperations {
 			if(inputsDir == null)
 				return; 
 			
-			ButtonType consentiment = Dialog.getCopyFilesConsentiment();
+			ButtonType permission = Dialog.getCopyFilesPermission();
 			
-			if(consentiment.equals(ButtonType.OK)){
+			if(permission.equals(ButtonType.OK)){
 				FlowManager.generate(flow, inputsDir);
 				Dialog.showConfirmation("Generated successfully!");
 			}
@@ -326,25 +325,25 @@ public class EditorOperations {
 	
 	public static void closeWorkflow(Flow workflow){
     	try{
-    		if(getConcentToClose(workflow))
+    		if(getPermissionToClose(workflow))
     			workflowArea.close(workflow);
     	}catch(Exception e){
     		Utils.treatException(e, TAG, "Error closing workflow!");
     	}
 	}
 
-	private static boolean getConcentToClose(Flow flow) throws EditorException {
+	private static boolean getPermissionToClose(Flow flow) throws EditorException {
 	    if(flow.getSaved())
 	       return true;
 	    
-	    ButtonType consentiment = Dialog.getSaveConsentiment();
-	    if(consentiment.equals(ButtonType.OK)){
+	    ButtonType permission = Dialog.getSavePermission();
+	    if(permission.equals(ButtonType.OK)){
 	    	Log.debug(TAG, "User accepted to save Workflow");
 	    	FlowManager.save(flow);
 	        return true;
 	    }
 	    
-	    if(consentiment.equals(ButtonType.CANCEL)){
+	    if(permission.equals(ButtonType.CANCEL)){
 	    	Log.debug(TAG, "User discarded changes made on Workflow");
 	    	return true;
 	    }
