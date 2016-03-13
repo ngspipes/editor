@@ -44,9 +44,9 @@ import editor.utils.Utils;
 public class MenuBar {
 
 	@Retention(RetentionPolicy.RUNTIME)
-	private static @interface ItemAnnotation{
-		public String menuId();
-		public String itemId();
+	private @interface ItemAnnotation{
+		String menuId();
+		String itemId();
 	}
 
 	private static final String TAG = "MenuBar";

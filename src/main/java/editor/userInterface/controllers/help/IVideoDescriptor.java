@@ -24,13 +24,13 @@ import java.time.LocalTime;
 
 public interface IVideoDescriptor {
 
-	public String getName();
+	String getName();
 	
-	public LocalTime getDuration();
+	LocalTime getDuration();
 	
-	public String getLocation();
+	String getLocation();
 	
-	public String getDescription();
+	String getDescription();
 }
 
 

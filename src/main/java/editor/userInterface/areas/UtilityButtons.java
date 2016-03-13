@@ -39,9 +39,9 @@ import editor.utils.Utils;
 public class UtilityButtons {
     
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface ButtonAnnotation{     
-        public String buttonId();
-        public String buttonLegend();
+    private @interface ButtonAnnotation{
+        String buttonId();
+        String buttonLegend();
     }
     
     private static final double BUTTON_MAGNIFICATION = 1.20;

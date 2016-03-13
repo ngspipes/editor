@@ -39,7 +39,7 @@ public class PaneSlider {
 		UP, 
 		DOWN, 
 		LEFT, 
-		RIGHT;
+		RIGHT
 	}
 
 	private static final Image LEFT_EXPAND_IMAGE = new Image(Uris.LEFT_EXPAND_IMAGE);

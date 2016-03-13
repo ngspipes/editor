@@ -36,7 +36,7 @@ import editor.dataAccess.Uris;
 
 public class Log {
 
-	public static enum MessageType{
+	public enum MessageType{
 		Fatal(),
 		Error(),
 		Warning(),
