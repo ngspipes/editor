@@ -131,40 +131,30 @@ public class MediaControl {
 			}
 		});
 
-		mp.setOnPlaying(new Runnable() {
-			public void run() {
+		mp.setOnPlaying(() -> {
 				if (stopRequested) {
 					mp.pause();
 					stopRequested = false;
 				} 
 				else
 					playButton.setText("||");
-			}
 		});
 
-		mp.setOnPaused(new Runnable() {
-			public void run() {
-				playButton.setText(">");
-			}
-		});
+		mp.setOnPaused(() -> playButton.setText(">"));
 
-		mp.setOnReady(new Runnable() {
-			public void run() {
+		mp.setOnReady(()-> {
 				duration = mp.getMedia().getDuration();
 				updateValues();
-			}
 		});
 
 		mp.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1);
-		mp.setOnEndOfMedia(new Runnable() {
-			public void run() {
+		mp.setOnEndOfMedia(() -> {
 				if (!repeat) {
 					playButton.setText(">");
 					stopRequested = true;
 					atEndOfMedia = true;
 				}
-			}
-		});
+			});
 	}
 
 	private void configurePlayButton() {
@@ -192,9 +182,7 @@ public class MediaControl {
 
 	protected void updateValues() {
 		if (playTime != null && timeSlider != null && volumeSlider != null) {
-			Platform.runLater(new Runnable() {
-				@SuppressWarnings("deprecation")
-				public void run() {
+			Platform.runLater(() -> {
 					Duration currentTime = mp.getCurrentTime();
 					playTime.setText(formatTime(currentTime, duration));
 					timeSlider.setDisable(duration.isUnknown());
@@ -205,7 +193,6 @@ public class MediaControl {
 
 					if (!volumeSlider.isValueChanging())
 						volumeSlider.setValue((int)Math.round(mp.getVolume() * 100));
-				}
 			});
 		}
 	}
