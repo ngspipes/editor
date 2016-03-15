@@ -19,6 +19,11 @@
  */
 package editor.utils;
 
+import editor.dataAccess.Uris;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -27,12 +32,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import editor.dataAccess.Uris;
 
 public class Log {
 
@@ -81,21 +80,18 @@ public class Log {
 
 
 	static{
-		Thread thread = new Thread(()->{
+		Runnable action = ()->{
 			try{
 				init();
 
 				run();
 
-				finish();	
+				finish();
 			} catch(Exception e) {
 				e.printStackTrace();
-			}
-		});
+			}};
 
-		thread.setPriority(Thread.MIN_PRIORITY);
-		thread.setDaemon(false);
-		thread.start();
+		WorkQueue.run(action, true, Thread.MIN_PRIORITY);
 	}
 
 	@SuppressWarnings("deprecation")
