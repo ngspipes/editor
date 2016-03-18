@@ -38,7 +38,7 @@ import editor.utils.Utils;
 
 public class NGSPipesEditor extends Application {
     
-	private static final String TAG = "NGSPipesEditor";
+	private static final String TAG = "NGSPipes Editor";
 	
 	private static boolean load(Stage stage, FXMLDocumentController c){
 		try{
