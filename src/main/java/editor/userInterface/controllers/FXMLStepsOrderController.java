@@ -69,7 +69,7 @@ public class FXMLStepsOrderController implements IInitializable<EditorStep>{
 		iVLogo.setImage(DEFAULT_TOOL_LOGO);
 		new LogoLoader(step.getToolDescriptor(), iVLogo).load();
 		
-		step.orderEvent.addListner(this::setOrder);
+		step.orderEvent.addListener(this::setOrder);
 	}
 
 	private void setOrder(int order){

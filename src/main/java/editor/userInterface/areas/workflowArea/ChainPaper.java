@@ -127,17 +127,17 @@ public class ChainPaper {
 	}
 	
 	private void registerListeners(){
-		workflow.events.addItem.addListner((item)->flow.addStep((EditorStep)item.getState()));
-		workflow.events.removeItem.addListner((item)->flow.removeStep((EditorStep)item.getState()));
-		workflow.events.connect.addListner((connection)->{
+		workflow.events.addItem.addListener((item)->flow.addStep((EditorStep)item.getState()));
+		workflow.events.removeItem.addListener((item)->flow.removeStep((EditorStep)item.getState()));
+		workflow.events.connect.addListener((connection)->{
 			EditorChain chain = (EditorChain)connection.getState();
-			chain.connectEvent.addListner((connected)->{
+			chain.connectEvent.addListener((connected)->{
 				if(!connected)
 					workflow.removeConnection(connection);
 			});
 			flow.addChain(chain);
 		});
-		workflow.events.disconnect.addListner((connection)->flow.removeChain((EditorChain)connection.getState()));
+		workflow.events.disconnect.addListener((connection)->flow.removeChain((EditorChain)connection.getState()));
 	}
 	
 	
@@ -213,12 +213,12 @@ public class ChainPaper {
 			Node graphic = getItemGraphic(step);
 			WorkflowItem item = workflow.itemFactory.create(graphic, step, new Coordinates(step.getX(), step.getY()));
 			
-			item.positionEvent.addListner((coordinates)->{
+			item.positionEvent.addListener((coordinates)->{
 				step.setX(coordinates.getX());
 				step.setY(coordinates.getY());
 			});
 			
-			item.doubleClickEvent.addListner(()->{
+			item.doubleClickEvent.addListener(()->{
 				EditorOperations.loadStepArea(step);
 				EditorOperations.slideInStepArea();
 			});

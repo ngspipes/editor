@@ -95,7 +95,7 @@ public class Flow {
 
 		elements.addStep(step);
 		
-		step.saveEvent.addListner((stepSaved)->{
+		step.saveEvent.addListener((stepSaved)->{
 			if(!stepSaved && this.saved)
 				setSaved(false);
 		});

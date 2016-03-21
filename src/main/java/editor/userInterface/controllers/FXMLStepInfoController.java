@@ -116,7 +116,7 @@ public class FXMLStepInfoController implements IInitializable<FXMLStepInfoContro
 		new LogoLoader(step.getToolDescriptor(), iVToolLogo).load();
 		
 		loadConfiguratorsComboBox();
-		step.orderEvent.addListner(this::setOrder);
+		step.orderEvent.addListener(this::setOrder);
 	}
 	
 	private void setOrder(int order){

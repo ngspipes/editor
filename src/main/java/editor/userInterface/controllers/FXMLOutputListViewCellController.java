@@ -76,7 +76,7 @@ public class FXMLOutputListViewCellController implements IInitializable<FXMLOutp
 		this.output = data.output;
 		this.operations = data.operations;
 		load();
-		output.valueChangedEvent.addListner(this::showValue);
+		output.valueChangedEvent.addListener(this::showValue);
 	}
 	
 	private void load(){

@@ -84,9 +84,9 @@ public class FXMLTabHeaderController implements IInitializable<Data>{
 		bClose.setGraphic(new ImageView(new Image(Uris.CLOSE_DESELECTED_IMAGE)));
 		lName.setText(workflow.getName());
 		
-		workflow.saveEvent.addListner(this::setSavedImage);
+		workflow.saveEvent.addListener(this::setSavedImage);
 		
-		workflow.nameEvent.addListner((newName)->lName.setText(newName));
+		workflow.nameEvent.addListener((newName)->lName.setText(newName));
 		
 		new ChangeButtonOnPass<>(bClose, Uris.CLOSE_SELECTED_IMAGE, Uris.CLOSE_DESELECTED_IMAGE).mount();
 		

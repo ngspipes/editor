@@ -119,7 +119,7 @@ public class FXMLArgumentListViewCellController implements IInitializable<FXMLAr
 	}
 	
 	private void registerListeners(){
-		argument.valueChangedEvent.addListner(this::showValue);
+		argument.valueChangedEvent.addListener(this::showValue);
 		tFArgumentValue.textProperty().addListener((obs, oldValue, newValue) -> argument.setValue(newValue));
 	}
 	

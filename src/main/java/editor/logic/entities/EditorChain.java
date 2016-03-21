@@ -52,9 +52,9 @@ public class EditorChain {
 		this.dslChain = new Chain(argument, output);
 		this.connectEvent = new Event<>();
 		
-		dslChain.connectEvent.addListner(connectEvent::trigger);
+		dslChain.connectEvent.addListener(connectEvent::trigger);
 		
-		argument.valueChangedEvent.addListner((newValue)->{
+		argument.valueChangedEvent.addListener((newValue)->{
 			if(!newValue.equals(output.getValue()))
 				disconnect();
 		});

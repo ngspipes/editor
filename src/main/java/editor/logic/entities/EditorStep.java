@@ -90,12 +90,12 @@ public class EditorStep{
 		this.saveEvent = new Event<>();
 		
 		this.orderEvent = new Event<>();
-		dslStep.orderEvent.addListner(this.orderEvent::trigger);
+		dslStep.orderEvent.addListener(this.orderEvent::trigger);
 		
 		this.originFlowEvent = new Event<>();
 		
 		this.configuratorEvent = new Event<>();
-		dslStep.configuratorEvent.addListner(this.configuratorEvent::trigger);
+		dslStep.configuratorEvent.addListener(this.configuratorEvent::trigger);
 		
 		this.dslStep = dslStep;
 		
@@ -106,10 +106,10 @@ public class EditorStep{
 	
 	private void registerOnValuesChanges(){
 		for(Argument argument : dslStep.getCommand().getArguments()) 
-			argument.valueChangedEvent.addListner(()->setSaved(false));
+			argument.valueChangedEvent.addListener(()->setSaved(false));
 		
 		for(Output output: dslStep.getCommand().getOutputs()) 
-			output.valueChangedEvent.addListner(()->setSaved(false));
+			output.valueChangedEvent.addListener(()->setSaved(false));
 	}
 	
 	public Collection<Argument> getArguments(){

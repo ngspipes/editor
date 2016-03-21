@@ -80,11 +80,11 @@ public class OrderPaper {
 		listView.setItems(steps);
 		listView.setCellFactory((listView)-> new StepListViewCell());
 		
-		flow.getElements().addStepEvent.addListner(this::onAdd);
-		flow.getElements().removeStepEvent.addListner(this::onRemove);
+		flow.getElements().addStepEvent.addListener(this::onAdd);
+		flow.getElements().removeStepEvent.addListener(this::onRemove);
 		
 		for(EditorStep step : flow.getElements().getSteps())
-			step.orderEvent.addListner(this.onOrderChange);
+			step.orderEvent.addListener(this.onOrderChange);
 		
 		steps.sort((a,b)->a.getOrder()-b.getOrder());
 		
@@ -96,12 +96,12 @@ public class OrderPaper {
 	}
 	
 	private void onAdd(EditorStep step){
-		step.orderEvent.addListner(this.onOrderChange);
+		step.orderEvent.addListener(this.onOrderChange);
 		steps.add(step);
 	}
 	
 	private void onRemove(EditorStep step){
-		step.orderEvent.removeListner(this.onOrderChange);
+		step.orderEvent.removeListener(this.onOrderChange);
 		steps.remove(step);
 	}
 	
