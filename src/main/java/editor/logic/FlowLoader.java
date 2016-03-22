@@ -19,22 +19,6 @@
  */
 package editor.logic;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
-import javafx.application.Platform;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import repository.IRepository;
 import configurators.IConfigurator;
 import descriptors.ICommandDescriptor;
 import descriptors.IToolDescriptor;
@@ -51,6 +35,16 @@ import editor.utils.EditorException;
 import editor.utils.Utils;
 import exceptions.CommandBuilderException;
 import exceptions.RepositoryException;
+import javafx.application.Platform;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import repository.IRepository;
+
+import java.io.File;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 
 
@@ -63,7 +57,7 @@ class FlowLoader {
 		File flowFile = new File(flowPath);
 
 		if(!flowFile.exists())
-			throw new EditorException("Inexistent file");
+			throw new EditorException("Nonexistent file");
 
 		try{
 			Flow flow = new Flow(name, directory);

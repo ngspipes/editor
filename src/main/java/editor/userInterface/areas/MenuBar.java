@@ -19,13 +19,12 @@
  */
 package editor.userInterface.areas;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-
+import components.Window;
+import editor.EditorOperations;
+import editor.dataAccess.Uris;
+import editor.dataAccess.repository.EditorRepositoryManager;
+import editor.userInterface.utils.Dialog;
+import editor.utils.Utils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
@@ -33,13 +32,12 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import jfxutils.ComponentException;
 
-import components.Window;
-
-import editor.EditorOperations;
-import editor.dataAccess.Uris;
-import editor.dataAccess.repository.EditorRepositoryManager;
-import editor.userInterface.utils.Dialog;
-import editor.utils.Utils;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MenuBar {
 
@@ -104,7 +102,7 @@ public class MenuBar {
 			try {
 				method.invoke(MenuBar.this, (Object[])null);
 			} catch (Exception e) {
-				Utils.treatException(e, TAG, "Error excuting action!");
+				Utils.treatException(e, TAG, "Error executing action!");
 			} 
 		});
 

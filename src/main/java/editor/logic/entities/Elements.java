@@ -40,7 +40,7 @@ public class Elements {
 	private final Collection<EditorStep> steps = new LinkedList<>();
 	private final Collection<EditorChain> chains = new LinkedList<>();
 
-	private final StepsOrderer stepsOrdered = new StepsOrderer();
+	private final StepsSorter stepsOrdered = new StepsSorter();
 	
 	public boolean hasSteps(){
 		return steps.isEmpty();

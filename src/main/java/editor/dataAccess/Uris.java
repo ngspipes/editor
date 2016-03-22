@@ -70,7 +70,7 @@ public class Uris {
 	public static final String FXML_CHAIN =					 		FXML_FILES + SEP + "FXMLChain.fxml";
 	public static final String FXML_STEPS_ORDER =					 FXML_FILES + SEP + "FXMLStepsOrder.fxml";
 
-	public static final String SHORCUTS_FILE = "Shortcuts.txt";
+	public static final String SHORTCUTS_FILE = "Shortcuts.txt";
 
 	public static final String NGSPIPES_DIRECTORY = 		System.getProperty("user.home") + SEP + "NGSPipes";
 	public static final String EDITOR_PATH = 				NGSPIPES_DIRECTORY + SEP + "Editor";

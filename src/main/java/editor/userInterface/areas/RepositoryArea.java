@@ -19,17 +19,9 @@
  */
 package editor.userInterface.areas;
 
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import repository.IRepository;
-
 import components.Window;
 import components.multiOption.Operations;
 import components.multiOption.Operations.Operation;
-
 import descriptors.IToolDescriptor;
 import editor.EditorOperations;
 import editor.userInterface.components.PaneSlider.SlideSide;
@@ -39,6 +31,12 @@ import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
 import exceptions.RepositoryException;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import repository.IRepository;
 
 public class RepositoryArea extends Area{
 
@@ -79,7 +77,7 @@ public class RepositoryArea extends Area{
 			return;
 		}
 		
-		Log.debug(TAG, "Tool " + tool.getName() + " choosen");
+		Log.debug(TAG, "Tool " + tool.getName() + " chosen");
 		EditorOperations.hideToolArea();
 		EditorOperations.loadToolArea(tool);
 		EditorOperations.slideInToolArea();

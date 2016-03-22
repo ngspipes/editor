@@ -19,30 +19,8 @@
  */
 package editor.userInterface.controllers;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-import jfxutils.ComponentException;
-import jfxutils.IInitializable;
-
 import components.FXMLFile;
 import components.animation.magnifier.ButtonMagnifier;
-
 import dsl.ArgumentValidator;
 import dsl.entities.Argument;
 import dsl.entities.Output;
@@ -52,6 +30,21 @@ import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
 import editor.userInterface.controllers.FXMLChainController.Data;
 import editor.userInterface.utils.Dialog;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import jfxutils.ComponentException;
+import jfxutils.IInitializable;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 
 public class FXMLChainController implements IInitializable<Data>{
@@ -163,10 +156,10 @@ public class FXMLChainController implements IInitializable<Data>{
 		Collection<Argument> arguments = new LinkedList<>(to.getArguments());
 		arguments = arguments.parallelStream().filter((arg)->arg.getType().equals(ArgumentValidator.FILE_TYPE_NAME)).collect(Collectors.toList());
 		cBArguments.setItems(FXCollections.observableArrayList(arguments));
-		setArgumentsComboBoxFatory();
+		setArgumentsComboBoxFactory();
 	}
 	
-	private void setArgumentsComboBoxFatory(){
+	private void setArgumentsComboBoxFactory(){
 		cBArguments.setCellFactory(new Callback<ListView<Argument>, ListCell<Argument>>() {
 			@Override
 			public ListCell<Argument> call(ListView<Argument> param) {

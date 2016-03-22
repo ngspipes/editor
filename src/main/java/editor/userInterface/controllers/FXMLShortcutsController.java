@@ -19,12 +19,10 @@
  */
 package editor.userInterface.controllers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Collection;
-import java.util.LinkedList;
-
+import components.FXMLFile;
+import editor.dataAccess.Uris;
+import editor.userInterface.controllers.FXMLArgumentListViewCellController.Data;
+import editor.userInterface.utils.pallet.Pallet;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -33,11 +31,11 @@ import javafx.scene.control.TextField;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 
-import components.FXMLFile;
-
-import editor.dataAccess.Uris;
-import editor.userInterface.controllers.FXMLArgumentListViewCellController.Data;
-import editor.userInterface.utils.pallet.Pallet;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class FXMLShortcutsController implements IInitializable<Void>{
 	
@@ -72,7 +70,7 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 	} 
 	
 	private static String readFile() throws IOException{
-		BufferedReader txtReader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(Uris.SHORCUTS_FILE)));
+		BufferedReader txtReader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(Uris.SHORTCUTS_FILE)));
 		
 		StringBuilder text = new StringBuilder();
 		String line;
@@ -118,7 +116,7 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 		try{
 			rawShortcuts = readFile();
 		}catch(Exception ex){
-			throw new ComponentException("Error reading file " + Uris.SHORCUTS_FILE, ex);
+			throw new ComponentException("Error reading file " + Uris.SHORTCUTS_FILE, ex);
 		}
 		
 		Collection<Shortcut> shortcuts = new LinkedList<>();
@@ -130,9 +128,9 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 	}
 	
 	private Shortcut getShortcut(String content){
-		String[] splitedContent = content.split(":");
-		String shortcut = splitedContent[0];
-		String legend = splitedContent[1];
+		String[] splitContent = content.split(":");
+		String shortcut = splitContent[0];
+		String legend = splitContent[1];
 		return new Shortcut(shortcut, legend);
 	}
 		

@@ -19,6 +19,15 @@
  */
 package editor.userInterface.controllers;
 
+import components.FXMLFile;
+import components.animation.changeMouse.ChangeMouseOnPass;
+import components.animation.magnifier.ImageMagnifier;
+import components.multiOption.Menu;
+import components.multiOption.Operations;
+import descriptors.IToolDescriptor;
+import editor.dataAccess.Uris;
+import editor.dataAccess.loader.LogoLoader;
+import editor.userInterface.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -29,17 +38,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
-
-import components.FXMLFile;
-import components.animation.changeMouse.ChangeMouseOnPass;
-import components.animation.magnifier.ImageMagnifier;
-import components.multiOption.Menu;
-import components.multiOption.Operations;
-
-import descriptors.IToolDescriptor;
-import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
-import editor.userInterface.utils.Utils;
 
 public class FXMLToolListViewCellController implements IInitializable<FXMLToolListViewCellController.Data> {
 
@@ -57,10 +55,10 @@ public class FXMLToolListViewCellController implements IInitializable<FXMLToolLi
 	public static class Data{
 		public final IToolDescriptor tool;
 		public final Operations operations;
-		
-		public Data(IToolDescriptor tool, Operations oparations){
+
+		public Data(IToolDescriptor tool, Operations operations){
 			this.tool = tool;
-			this.operations = oparations;
+			this.operations = operations;
 		}
 	}
 	

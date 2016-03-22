@@ -19,27 +19,12 @@
  */
 package editor.userInterface.areas.workflowArea;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import repository.IRepository;
-import jfxutils.ComponentException;
-import workflow.WorkflowConfigurator;
-import workflow.elements.Workflow;
-import workflow.elements.WorkflowConnection;
-import workflow.elements.WorkflowItem;
-
 import components.Window;
 import components.Zoomer;
 import components.connect.Coordinates;
 import components.connect.connection.NSideConnection;
 import components.connect.connector.Connector;
 import components.connect.connector.ConnectorPointer;
-
 import configurators.IConfigurator;
 import descriptors.ICommandDescriptor;
 import dsl.entities.Command;
@@ -54,6 +39,19 @@ import editor.userInterface.controllers.FXMLStepController;
 import editor.utils.EditorException;
 import editor.utils.Utils;
 import exceptions.RepositoryException;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import jfxutils.ComponentException;
+import repository.IRepository;
+import workflow.WorkflowConfigurator;
+import workflow.elements.Workflow;
+import workflow.elements.WorkflowConnection;
+import workflow.elements.WorkflowItem;
 
 
 
@@ -70,9 +68,9 @@ public class ChainPaper {
 											.setWorkflowItemKeyExtractor((wfi)->wfi.getState())
 											.setWorkflowConnectionKeyExtractor((wfc)->wfc.getState())
 											.setItemAdditionValidator(this::validateItemAddition)
-											.setItemRemotionValidator(this::validateItemRemotion)
+											.setItemRemovalValidator(this::validateItemRemoval)
 											.setConnectionAdditionValidator(this::validateConnectionAddition)
-											.setConnectionRemotionValidator(this::validateConnectionRemotion)
+											.setConnectionRemovalValidator(this::validateConnectionRemoval)
 											.setPermitCircularConnection(false)
 											.setPermitItemSelfConnection(false);
 	private final Flow flow;
@@ -98,12 +96,12 @@ public class ChainPaper {
 	}
 
 	private void setPane() {
-		Pane worfklowPane = workflow.getRoot();
-		worfklowPane.setStyle("-fx-background-color : white");
-		worfklowPane.setMinSize(WorkflowPaper.WIDTH, WorkflowPaper.HEIGHT);
-		new Zoomer(worfklowPane, WorkflowPaper.MAX_ZOOM, WorkflowPaper.MIN_ZOOM).mount();
+		Pane workflowPane = workflow.getRoot();
+		workflowPane.setStyle("-fx-background-color : white");
+		workflowPane.setMinSize(WorkflowPaper.WIDTH, WorkflowPaper.HEIGHT);
+		new Zoomer(workflowPane, WorkflowPaper.MAX_ZOOM, WorkflowPaper.MIN_ZOOM).mount();
 		
-		pane.setContent(worfklowPane);
+		pane.setContent(workflowPane);
 		pane.setPannable(true);
 		pane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -146,18 +144,18 @@ public class ChainPaper {
 		try {
 			flow.validateStepAddition((EditorStep)item.getState());
 		} catch (Exception ex) {
-			Utils.treatException(ex, TAG, "Ivalid Step addition!");
+			Utils.treatException(ex, TAG, "Invalid Step addition!");
 			return false;
 		}
 		
 		return true;
 	}
 	
-	private boolean validateItemRemotion(WorkflowItem item){
+	private boolean validateItemRemoval(WorkflowItem item){
 		try {
-			flow.validateStepRemotion((EditorStep)item.getState());
+			flow.validateStepRemoval((EditorStep)item.getState());
 		} catch (Exception ex) {
-			Utils.treatException(ex, TAG, "Ivalid Step remotion!");
+			Utils.treatException(ex, TAG, "Invalid Step removal!");
 			return false;
 		}
 		
@@ -171,18 +169,18 @@ public class ChainPaper {
 			
 			flow.validateChainAddition((EditorChain)connection.getState());
 		} catch (Exception ex) {
-			Utils.treatException(ex, TAG, "Ivalid Step Chain addition!");
+			Utils.treatException(ex, TAG, "Invalid Step Chain addition!");
 			return false;
 		}
 		
 		return true;
 	}
 	
-	private boolean validateConnectionRemotion(WorkflowConnection connection){
+	private boolean validateConnectionRemoval(WorkflowConnection connection){
 		try {
-			flow.validateChainRemotion((EditorChain)connection.getState());
+			flow.validateChainRemoval((EditorChain)connection.getState());
 		} catch (Exception ex) {
-			Utils.treatException(ex, TAG, "Ivalid Step Chain remotion!");
+			Utils.treatException(ex, TAG, "Invalid Step Chain removal!");
 			return false;
 		}
 		

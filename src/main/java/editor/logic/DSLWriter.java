@@ -19,19 +19,6 @@
  */
 package editor.logic;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import utils.IO;
 import dsl.ArgumentValidator;
 import dsl.entities.Argument;
 import editor.dataAccess.Uris;
@@ -40,6 +27,14 @@ import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
 import editor.utils.EditorException;
 import editor.utils.Log;
+import utils.IO;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class DSLWriter {
@@ -58,10 +53,10 @@ public class DSLWriter {
 		Path filePath = new File(pathStr).toPath();
 		Path inputsDirPath = inputsDir.toPath();
 		
-		int beguinIdx = inputsDirPath.getNameCount();
+		int beginIdx = inputsDirPath.getNameCount();
 		int endIdx = filePath.getNameCount();
 
-		return filePath.subpath(beguinIdx, endIdx).toString().replace("\\", "/");
+		return filePath.subpath(beginIdx, endIdx).toString().replace("\\", "/");
 	}
 
 	private static final String TAG = "DSLWriter";

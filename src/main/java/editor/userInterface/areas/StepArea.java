@@ -19,19 +19,9 @@
  */
 package editor.userInterface.areas;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import repository.IRepository;
-
 import components.Window;
 import components.multiOption.Operations;
 import components.multiOption.Operations.Operation;
-
 import descriptors.IArgumentDescriptor;
 import descriptors.ICommandDescriptor;
 import descriptors.IOutputDescriptor;
@@ -48,6 +38,14 @@ import editor.userInterface.utils.pallet.OutputsPallet;
 import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import repository.IRepository;
 
 
 public class StepArea extends Area{
@@ -95,7 +93,7 @@ public class StepArea extends Area{
 			argumentsPallet.load(step.getArguments());
 			outputsPallet.load(step.getOutputs());
 		}catch(Exception e){
-			throw new EditorException("Error loding step!");
+			throw new EditorException("Error loading step!");
 		}
 	}
 	

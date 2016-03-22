@@ -24,7 +24,7 @@ import editor.utils.Utils;
 
 import java.util.*;
 
-public class StepsOrderer {
+public class StepsSorter {
 	
 	private LinkedList<EditorStep> steps;
 	private Map<EditorStep, Collection<EditorStep>> chainsFrom;

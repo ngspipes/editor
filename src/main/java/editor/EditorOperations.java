@@ -137,7 +137,7 @@ public class EditorOperations {
 		loadRepositoryArea(DEFAULT_REPOSITORY);
 	}
 	
-	public static void cleearRepositoryArea(){
+	public static void clearRepositoryArea(){
 		repositoryArea.clear();
 	}
 

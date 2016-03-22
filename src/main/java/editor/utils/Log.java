@@ -76,7 +76,7 @@ public class Log {
 	private static final String MESSAGE_JSON_KEY = "message";
 	private static final String TIME_JSON_KEY = "time";
 	private static final String THREAD_ID_JSON_KEY = "threadID";
-	private static final int JSON_IDENTATION = 5;
+	private static final int JSON_INDENTATION = 5;
 
 
 	static{
@@ -139,7 +139,7 @@ public class Log {
 		PrintWriter writer = null;
 		try{
 			writer = new PrintWriter(new BufferedWriter(new FileWriter(LOG_DIR)));
-			writer.println(DATA.toString(JSON_IDENTATION));
+			writer.println(DATA.toString(JSON_INDENTATION));
 		} finally{
 			if(writer!= null)
 				writer.close();

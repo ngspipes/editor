@@ -19,10 +19,10 @@
  */
 package editor.logic.entities;
 
-import repository.IRepository;
-import jfxwfutils.Event;
 import editor.utils.EditorException;
 import editor.utils.Log;
+import jfxwfutils.Event;
+import repository.IRepository;
 
 public class Flow {
 
@@ -63,7 +63,7 @@ public class Flow {
 	
 	
 	public Flow(String name, String directory, Elements elements){
-		Log.debug(TAG, "Instanciating name : " + name + " directory : " + directory);
+		Log.debug(TAG, "Instantiating name : " + name + " directory : " + directory);
 		
 		this.saveEvent = new Event<>();
 		this.nameEvent = new Event<>();
@@ -132,14 +132,14 @@ public class Flow {
 	
 	public void validateStepAddition(EditorStep step) throws EditorException {
 		if(repository!=null && !step.getRepository().equals(repository))
-			throw new EditorException("You can't add commands from diferent Repositories!");
+			throw new EditorException("You can't add commands from different Repositories!");
 	}
 	
-	public void validateStepRemotion(EditorStep step) throws EditorException {}
+	public void validateStepRemoval(EditorStep step) throws EditorException {}
 	
 	public void validateChainAddition(EditorChain chain) throws EditorException {}
 	
-	public void validateChainRemotion(EditorChain chain) throws EditorException {}
+	public void validateChainRemoval(EditorChain chain) throws EditorException {}
 
 	
 	

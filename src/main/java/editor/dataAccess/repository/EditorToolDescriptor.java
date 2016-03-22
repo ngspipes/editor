@@ -53,7 +53,7 @@ public class EditorToolDescriptor implements IToolDescriptor{
 		this.version = tool.getVersion();
 		this.description = tool.getDescription();
 		this.author = tool.getAuthor();
-		this.documentation = tool.getDocumentaton();
+		this.documentation = tool.getDocumentation();
 		this.commandsDescriptors = new LinkedList<>();
 		this.cmds = new HashMap<>();
 		loadCommands(tool);
@@ -90,7 +90,7 @@ public class EditorToolDescriptor implements IToolDescriptor{
 	}
 
 	@Override
-	public Collection<String> getDocumentaton() {
+	public Collection<String> getDocumentation() {
 		return documentation;
 	}
 

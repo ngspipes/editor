@@ -346,7 +346,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		
 		tAToolDescription.setText(tool.getDescription());
 		
-		lVDocumentation.setItems(FXCollections.observableArrayList(tool.getDocumentaton()));
+		lVDocumentation.setItems(FXCollections.observableArrayList(tool.getDocumentation()));
 		
 		if(logoRequest!=null)
 			logoRequest.cancel();
