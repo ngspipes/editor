@@ -19,14 +19,10 @@
  */
 package editor.logic.entities;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import descriptors.IToolDescriptor;
 import editor.utils.Utils;
+
+import java.util.*;
 
 public class StepsOrderer {
 	
@@ -69,11 +65,11 @@ public class StepsOrderer {
 	
 	private List<EditorStep> getRoots(){
 		List<EditorStep> roots = new LinkedList<>();
-		
-		for (EditorStep step : steps) {
+
+		steps.forEach((step)->{
 			if(chainsTo.get(step).isEmpty() && isHighestPriorityOfTool(step))
 				roots.add(step);
-		}
+		});
 		
 		return roots;
 	}

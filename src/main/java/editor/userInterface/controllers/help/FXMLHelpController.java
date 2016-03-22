@@ -19,12 +19,9 @@
  */
 package editor.userInterface.controllers.help;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.function.Consumer;
-
+import editor.dataAccess.Uris;
+import editor.userInterface.utils.pallet.Pallet;
+import editor.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -35,14 +32,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-
-import org.json.JSONException;
-
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
-import editor.dataAccess.Uris;
-import editor.userInterface.utils.pallet.Pallet;
-import editor.utils.Utils;
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.function.Consumer;
 
 public class FXMLHelpController implements IInitializable<Void> {
 	
@@ -165,9 +163,10 @@ public class FXMLHelpController implements IInitializable<Void> {
 		getSubFiles(Uris.TUTORIALS_DIR, subFiles);
 		Collection<File> descriptorsFiles = new LinkedList<>();
 
-		for (File file : subFiles)
+		subFiles.forEach((file)->{
 			if(file.isFile() && isDescriptor(file.getAbsolutePath()))
 				descriptorsFiles.add(file);
+		});
 
 		return descriptorsFiles;
 	}

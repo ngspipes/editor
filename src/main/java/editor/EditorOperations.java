@@ -235,9 +235,8 @@ public class EditorOperations {
 		generateWorkflow(workflow);
 	}
 	
-	public static void generateAllWorkflows(){
-		for(Flow workflow : workflowArea.getAllWorkflows())
-			generateWorkflow(workflow);
+	public static void generateAllWorkflows() {
+		workflowArea.getAllWorkflows().forEach(EditorOperations::generateWorkflow);
 	}
 	
 	public static void generateWorkflow(Flow flow){
@@ -279,8 +278,7 @@ public class EditorOperations {
 	}
 	
 	public static void openAllWorkflows(Collection<Flow> workflows){
-		for(Flow workflow : workflows)
-			openWorkflow(workflow);
+		workflows.forEach(EditorOperations::openWorkflow);
 	}
 	
 	public static void openWorkflow(){
@@ -322,8 +320,8 @@ public class EditorOperations {
 	}
 	
 	public static void closeAllWorkflows(){
-		for(Flow workflow : new LinkedList<>(workflowArea.getAllWorkflows()))
-			closeWorkflow(workflow);
+		Collection<Flow> openedWorkflows = new LinkedList<>(workflowArea.getAllWorkflows());
+		openedWorkflows.forEach(EditorOperations::closeWorkflow);
 	}
 	
 	public static void closeWorkflow(Flow workflow){
