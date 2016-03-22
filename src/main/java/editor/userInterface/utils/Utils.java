@@ -19,15 +19,14 @@
  */
 package editor.userInterface.utils;
 
-import java.net.URL;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
+
+import java.net.URL;
 
 public class Utils {
 

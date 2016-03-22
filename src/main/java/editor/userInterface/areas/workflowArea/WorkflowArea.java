@@ -19,19 +19,15 @@
  */
 package editor.userInterface.areas.workflowArea;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import editor.EditorOperations;
 import editor.logic.entities.Flow;
 import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+
+import java.util.*;
 
 public class WorkflowArea {
 	private static final String TAG = "WorkflowTable";
@@ -60,7 +56,7 @@ public class WorkflowArea {
 	public void open(Flow workflow){
 		Log.debug(TAG, "Opening Workflow name : " + workflow.getName() + " directory : " + workflow.getDirectory());
 	
-		WorkflowPaper paper = null;
+		WorkflowPaper paper;
 		try{
 			paper = new WorkflowPaper(workflow);
 		}catch(EditorException ex){

@@ -134,19 +134,14 @@ public class Uris {
 				if (!parent.exists()) 
 					parent.mkdirs();
 
-				FileOutputStream out = new FileOutputStream(dest);
-				InputStream in = fromJar.getInputStream(entry);
+				try (FileOutputStream out = new FileOutputStream(dest)){
+					try (InputStream in = fromJar.getInputStream(entry)){
+						byte[] buffer = new byte[1024];
 
-				try {
-					byte[] buffer = new byte[1024];
-
-					int s = 0;
-					while ((s = in.read(buffer)) > 0)
-						out.write(buffer, 0, s);
-
-				} finally {
-					in.close();
-					out.close();
+						int s;
+						while ((s = in.read(buffer)) > 0)
+							out.write(buffer, 0, s);
+					}
 				}
 			}
 		}

@@ -19,24 +19,7 @@
  */
 package editor.userInterface.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import repository.IRepository;
-import jfxutils.ComponentException;
-import jfxutils.IInitializable;
-
 import components.FXMLFile;
-
 import descriptors.IArgumentDescriptor;
 import descriptors.ICommandDescriptor;
 import descriptors.IOutputDescriptor;
@@ -45,6 +28,16 @@ import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
 import editor.userInterface.utils.Utils;
 import exceptions.RepositoryException;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import jfxutils.ComponentException;
+import jfxutils.IInitializable;
+import repository.IRepository;
 
 
 public class FXMLRepositoryDescriptionController implements IInitializable<FXMLRepositoryDescriptionController.Data>{
@@ -249,7 +242,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	}
 	
 	private void loadTree() throws RepositoryException {
-		TreeItem<String> root = new TreeItem<String>("repository");
+		TreeItem<String> root = new TreeItem<>("repository");
 		tVTools.setRoot(root);
 		loadTreeTools(root);
 	}
@@ -282,7 +275,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	}
 	
 	private TreeItem<String> createTreeItem(String title, IToolDescriptor tool, TreeItem<String> parent, Runnable onSelection) {
-		TreeItem<String> item = new TreeItem<String>(title);
+		TreeItem<String> item = new TreeItem<>(title);
 		ImageView iVLogo = new ImageView(new Image(Uris.TOOL_LOGO_IMAGE, LOGO_WIDTH, LOGO_HEIGHT, true, true));
 		
 		tVTools.getSelectionModel().selectedItemProperty().addListener((i)-> {
@@ -302,7 +295,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	}
 	
 	private TreeItem<String> createTreeItem(String title, String imagePath, TreeItem<String> parent, Runnable onSelection) {
-		TreeItem<String> item = new TreeItem<String>(title, new ImageView(new Image(imagePath, LOGO_WIDTH, LOGO_HEIGHT, true, true)));
+		TreeItem<String> item = new TreeItem<>(title, new ImageView(new Image(imagePath, LOGO_WIDTH, LOGO_HEIGHT, true, true)));
 		
 		tVTools.getSelectionModel().selectedItemProperty().addListener((i)-> {
 														if(tVTools.getSelectionModel().getSelectedItem()==item) 

@@ -123,12 +123,11 @@ public class FXMLHelpController implements IInitializable<Void> {
 	private void initMedia(IVideoDescriptor video) {
 		try {
 			File f = new File(video.getLocation());
-			if(f != null) {
-				Media media = new Media(f.toURI().toString());
-				MediaPlayer mediaPlayer = new MediaPlayer(media);
-				MediaControl mediaControl = new MediaControl(mediaPlayer, hbMediaBar);	
-				mediaControl.load(mvVideo);
-			}
+
+			Media media = new Media(f.toURI().toString());
+			MediaPlayer mediaPlayer = new MediaPlayer(media);
+			MediaControl mediaControl = new MediaControl(mediaPlayer, hbMediaBar);
+			mediaControl.load(mvVideo);
 		} catch (Exception e) {
 			Utils.treatException(e, TAG, "Error loading video: " + video.getName());
 		}

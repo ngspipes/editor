@@ -114,7 +114,7 @@ public class FXMLChainController implements IInitializable<Data>{
 	}
 
 	private void loadOutputsComboBox() {
-		Collection<Output> outputs = new LinkedList<Output>(from.getOutputs());
+		Collection<Output> outputs = new LinkedList<>(from.getOutputs());
 		cBOutputs.setItems(FXCollections.observableArrayList(outputs));
 		setOutputComboBoxFactory();
 	}

@@ -19,9 +19,7 @@
  */
 package editor.userInterface.utils.pallet;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
+import editor.utils.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -29,7 +27,9 @@ import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import editor.utils.Log;
+
+import java.util.Collection;
+import java.util.LinkedList;
 
 public abstract class Pallet<T>{
 	
@@ -97,7 +97,7 @@ public abstract class Pallet<T>{
 	public void refresh(){
 		Log.debug(TAG, "Refreshing");
 		
-		items.removeAll(items);
+		items.clear();
 		items.addAll(currentItems);
 	}
 	

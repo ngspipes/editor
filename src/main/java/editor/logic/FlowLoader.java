@@ -138,7 +138,7 @@ class FlowLoader {
 
 	// LOAD STEPS
 	private static List<EditorStep> getSteps(IRepository repository, JSONArray data) throws JSONException, RepositoryException, CommandBuilderException {
-		List<EditorStep> steps = new LinkedList<EditorStep>();
+		List<EditorStep> steps = new LinkedList<>();
 		
 		if(data.length()!=0)
 			for(int i=0; i<data.length(); ++i)

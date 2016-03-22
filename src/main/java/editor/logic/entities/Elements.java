@@ -19,13 +19,9 @@
  */
 package editor.logic.entities;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import jfxwfutils.Event;
+
+import java.util.*;
 
 
 public class Elements {
@@ -43,11 +39,11 @@ public class Elements {
 	private final StepsSorter stepsOrdered = new StepsSorter();
 	
 	public boolean hasSteps(){
-		return steps.isEmpty();
+		return !steps.isEmpty();
 	}
 	
 	public boolean hasChains(){
-		return chains.isEmpty();
+		return !chains.isEmpty();
 	}
 
 	public boolean isEmpty(){

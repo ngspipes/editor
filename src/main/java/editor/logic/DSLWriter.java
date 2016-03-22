@@ -137,7 +137,7 @@ public class DSLWriter {
 		Map<String, Integer> counter = new HashMap<>();
 		
 		String toolName;
-		int count = 0;
+		int count;
 		for(EditorStep step : orderedSteps){
 			toolName = step.getToolDescriptor().getName();
 			

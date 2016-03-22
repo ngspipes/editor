@@ -19,10 +19,10 @@
  */
 package editor.userInterface.utils;
 
-import java.io.File;
-import java.util.Optional;
-import java.util.function.BiConsumer;
-
+import components.Window;
+import editor.userInterface.controllers.FXMLChangeRepositoryController;
+import editor.userInterface.controllers.FXMLCreateWorkflowController;
+import editor.utils.EditorException;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -33,11 +33,9 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import jfxutils.ComponentException;
 
-import components.Window;
-
-import editor.userInterface.controllers.FXMLChangeRepositoryController;
-import editor.userInterface.controllers.FXMLCreateWorkflowController;
-import editor.utils.EditorException;
+import java.io.File;
+import java.util.Optional;
+import java.util.function.BiConsumer;
 
 
 
@@ -171,7 +169,7 @@ public class Dialog {
     public static Window<Parent, Void> getLoadingWindow(String title) {
     	ProgressIndicator progressIndicator = new ProgressIndicator();
     	progressIndicator.setProgress(-1.0);	
-    	return new Window<Parent, Void>(progressIndicator, title);
+    	return new Window<>(progressIndicator, title);
     }
     
 }

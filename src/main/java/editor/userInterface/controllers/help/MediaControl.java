@@ -21,10 +21,6 @@ package editor.userInterface.controllers.help;
 
 
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -40,7 +36,6 @@ public class MediaControl {
 	
 	private MediaPlayer mp;	
 	private HBox hbMediaBar;
-	private final boolean repeat = false;
 	private boolean stopRequested = false;
 	private boolean atEndOfMedia = false;
 	private Duration duration;
@@ -101,12 +96,10 @@ public class MediaControl {
 		// Add Volume slider     
 		volumeSlider.setPrefWidth(70);
 		volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
-		volumeSlider.valueProperty().addListener(new InvalidationListener() {
-			public void invalidated(Observable ov) {
+		volumeSlider.valueProperty().addListener((ov) -> {
 				if (volumeSlider.isValueChanging())
 					mp.setVolume(volumeSlider.getValue() / 100.0);
-			}
-		});
+			});
 		volumeSlider.setMinWidth(30);
 	}
 
@@ -116,20 +109,14 @@ public class MediaControl {
 		HBox.setHgrow(timeSlider,Priority.ALWAYS);
 		timeSlider.setMinWidth(50);
 		timeSlider.setMaxWidth(Double.MAX_VALUE);
-		timeSlider.valueProperty().addListener(new InvalidationListener() {
-			public void invalidated(Observable ov) {
+		timeSlider.valueProperty().addListener((ov) -> {
 				if (timeSlider.isValueChanging())
 					mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
-			}
-		});
+			});
 	}
 
 	private void configureMediaPlayer() {
-		mp.currentTimeProperty().addListener(new InvalidationListener()  {
-			public void invalidated(Observable ov) {
-				updateValues();
-			}
-		});
+		mp.currentTimeProperty().addListener((ov) -> updateValues());
 
 		mp.setOnPlaying(() -> {
 				if (stopRequested) {
@@ -147,19 +134,16 @@ public class MediaControl {
 				updateValues();
 		});
 
-		mp.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1);
+		mp.setCycleCount(MediaPlayer.INDEFINITE);
 		mp.setOnEndOfMedia(() -> {
-				if (!repeat) {
-					playButton.setText(">");
-					stopRequested = true;
-					atEndOfMedia = true;
-				}
+				playButton.setText(">");
+				stopRequested = true;
+				atEndOfMedia = true;
 			});
 	}
 
 	private void configurePlayButton() {
-		playButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
+		playButton.setOnAction( (e) -> {
 				Status status = mp.getStatus();
 
 				if (status == Status.UNKNOWN  || status == Status.HALTED) 
@@ -176,8 +160,7 @@ public class MediaControl {
 				} 
 				else
 					mp.pause();
-			}
-		});
+			});
 	}
 
 	protected void updateValues() {
