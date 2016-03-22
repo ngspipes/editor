@@ -135,11 +135,11 @@ public class Flow {
 			throw new EditorException("You can't add commands from different Repositories!");
 	}
 	
-	public void validateStepRemoval(EditorStep step) throws EditorException {}
+	public void validateStepRemoval(EditorStep step) {}
 	
-	public void validateChainAddition(EditorChain chain) throws EditorException {}
+	public void validateChainAddition(EditorChain chain) {}
 	
-	public void validateChainRemoval(EditorChain chain) throws EditorException {}
+	public void validateChainRemoval(EditorChain chain) {}
 
 	
 	

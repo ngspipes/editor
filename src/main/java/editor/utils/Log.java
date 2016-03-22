@@ -61,7 +61,7 @@ public class Log {
 		}
 	}
 
-	public static String LOG_DIR = getLogDir();
+	public final static String LOG_DIR = getLogDir();
 	private static final BlockingQueue<Message> QUEUE = new LinkedBlockingQueue<>();
 	private static final long POLL_TIMEOUT = 1000;
 	private static final AtomicBoolean STOP = new AtomicBoolean(false);

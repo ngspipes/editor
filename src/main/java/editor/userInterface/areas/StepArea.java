@@ -59,8 +59,8 @@ public class StepArea extends Area{
 	
 	private final AnchorPane stepInfoPane;
 	private final TabPane propertiesTabPane;
-	private ArgumentsPallet argumentsPallet;
-	private OutputsPallet outputsPallet;
+	private final ArgumentsPallet argumentsPallet;
+	private final OutputsPallet outputsPallet;
 	
 	public StepArea(AnchorPane stepInfoPane, TabPane propertiesTabPane, 
 					AnchorPane stepAreaPane, Button expandButton,

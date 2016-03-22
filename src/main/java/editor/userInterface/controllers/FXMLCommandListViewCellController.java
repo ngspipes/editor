@@ -19,6 +19,17 @@
  */
 package editor.userInterface.controllers;
 
+import components.Draggable;
+import components.FXMLFile;
+import components.animation.changeMouse.ChangeMouseOnPass;
+import components.animation.changeMouse.ChangeMouseOnPress;
+import components.animation.magnifier.ImageMagnifier;
+import components.multiOption.Menu;
+import components.multiOption.Operations;
+import descriptors.ICommandDescriptor;
+import editor.dataAccess.Uris;
+import editor.dataAccess.loader.LogoLoader;
+import editor.userInterface.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -31,19 +42,6 @@ import javafx.scene.layout.VBox;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 import workflow.elements.Workflow;
-
-import components.Draggable;
-import components.FXMLFile;
-import components.animation.changeMouse.ChangeMouseOnPass;
-import components.animation.changeMouse.ChangeMouseOnPress;
-import components.animation.magnifier.ImageMagnifier;
-import components.multiOption.Menu;
-import components.multiOption.Operations;
-
-import descriptors.ICommandDescriptor;
-import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
-import editor.userInterface.utils.Utils;
 
 public class FXMLCommandListViewCellController implements IInitializable<FXMLCommandListViewCellController.Data> {
 
@@ -111,7 +109,7 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 		loadButtonEvents();
 	}
 
-	private void loadButtonEvents() throws ComponentException {
+	private void loadButtonEvents() {
 		String tip = command.getName() + "\n" + command.getDescription();
 		Tooltip.install(root, Utils.createTooltip(tip, true, 300, 200));
 		

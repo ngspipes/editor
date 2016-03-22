@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -80,7 +79,7 @@ public class Uris {
 	public static final String CACHE_DIR = 					EDITOR_PATH + SEP + "cache";
 	public static final String TUTORIALS_DIR =				EDITOR_PATH + SEP + "tutorials";
 
-	public static void load() throws IOException, URISyntaxException{
+	public static void load() throws IOException {
 		File ngsPipesDir = new File(NGSPIPES_DIRECTORY);
 		File editorDir = new File(EDITOR_PATH);
 		File logDir = new File(LOG_DIR);

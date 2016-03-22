@@ -19,19 +19,17 @@
  */
 package editor.userInterface.areas.workflowArea;
 
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import jfxutils.ComponentException;
-
 import components.DoubleClickable;
-
 import editor.EditorOperations;
 import editor.logic.entities.Flow;
 import editor.userInterface.controllers.FXMLTabHeaderController;
 import editor.userInterface.controllers.FXMLTabHeaderController.Data;
 import editor.utils.EditorException;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import jfxutils.ComponentException;
 
 public class WorkflowPaper {
 
@@ -72,7 +70,7 @@ public class WorkflowPaper {
 		}
 	}
 
-	private void loadTabs() throws EditorException {
+	private void loadTabs() {
 		tab.setContent(tabContent);
 				
 		tabContent.getTabs().add(chainTab);

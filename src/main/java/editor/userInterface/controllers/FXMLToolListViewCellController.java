@@ -105,7 +105,7 @@ public class FXMLToolListViewCellController implements IInitializable<FXMLToolLi
 		loadButtonEvents();
 	}
 	
-	private void loadButtonEvents() throws ComponentException {		
+	private void loadButtonEvents() {
 		new Menu<>(root, operations).mount();
 		new ChangeMouseOnPass<>(root, Cursor.HAND, Cursor.DEFAULT).mount();
 	}

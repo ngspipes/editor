@@ -19,22 +19,19 @@
  */
 package editor.userInterface.areas;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
+import components.mounter.ButtonMounter;
+import editor.EditorOperations;
+import editor.utils.Utils;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import jfxutils.ComponentException;
 
-import components.mounter.ButtonMounter;
-
-import editor.EditorOperations;
-import editor.utils.EditorException;
-import editor.utils.Utils;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 public class UtilityButtons {
     
@@ -64,7 +61,7 @@ public class UtilityButtons {
     	}
     }
     
-    private boolean isHandler(Method method) throws EditorException {
+    private boolean isHandler(Method method) {
         return !Modifier.isStatic(method.getModifiers()) &&
                 method.getAnnotation(ButtonAnnotation.class) != null &&
                 method.getParameters().length == 0;

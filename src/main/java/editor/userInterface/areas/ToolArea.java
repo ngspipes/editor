@@ -19,25 +19,22 @@
  */
 package editor.userInterface.areas;
 
+import components.Window;
+import components.multiOption.Operations;
+import components.multiOption.Operations.Operation;
+import descriptors.ICommandDescriptor;
+import descriptors.IToolDescriptor;
+import editor.userInterface.components.PaneSlider.SlideSide;
+import editor.userInterface.controllers.FXMLRepositoryDescriptionController;
+import editor.userInterface.utils.pallet.CommandsPallet;
+import editor.utils.Log;
+import editor.utils.Utils;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import repository.IRepository;
-
-import components.Window;
-import components.multiOption.Operations;
-import components.multiOption.Operations.Operation;
-
-import descriptors.ICommandDescriptor;
-import descriptors.IToolDescriptor;
-import editor.userInterface.components.PaneSlider.SlideSide;
-import editor.userInterface.controllers.FXMLRepositoryDescriptionController;
-import editor.userInterface.utils.pallet.CommandsPallet;
-import editor.utils.EditorException;
-import editor.utils.Log;
-import editor.utils.Utils;
 
 
 public class ToolArea extends Area{
@@ -55,7 +52,7 @@ public class ToolArea extends Area{
 		this.commandPallet = new CommandsPallet(new TextField(), commandsListView, this::getCommandOperations);
 	}
 	
-	public void load(IToolDescriptor tool) throws EditorException{
+	public void load(IToolDescriptor tool) {
 		Log.debug(TAG, "Loading Tool : " + tool.getName());
 		commandPallet.load(tool.getCommands());
 	}
