@@ -19,8 +19,15 @@
  */
 package editor.userInterface.controllers;
 
-import java.io.File;
-
+import components.FXMLFile;
+import components.animation.magnifier.ButtonMagnifier;
+import components.multiOption.Menu;
+import components.multiOption.Operations;
+import dsl.ArgumentValidator;
+import dsl.entities.Argument;
+import editor.dataAccess.Uris;
+import editor.userInterface.utils.Dialog;
+import editor.userInterface.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -32,16 +39,7 @@ import javafx.scene.layout.HBox;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 
-import components.FXMLFile;
-import components.animation.magnifier.ButtonMagnifier;
-import components.multiOption.Menu;
-import components.multiOption.Operations;
-
-import dsl.ArgumentValidator;
-import dsl.entities.Argument;
-import editor.dataAccess.Uris;
-import editor.userInterface.utils.Dialog;
-import editor.userInterface.utils.Utils;
+import java.io.File;
 
 
 public class FXMLArgumentListViewCellController implements IInitializable<FXMLArgumentListViewCellController.Data> {
@@ -120,7 +118,12 @@ public class FXMLArgumentListViewCellController implements IInitializable<FXMLAr
 	
 	private void registerListeners(){
 		argument.valueChangedEvent.addListener(this::showValue);
-		tFArgumentValue.textProperty().addListener((obs, oldValue, newValue) -> argument.setValue(newValue));
+		tFArgumentValue.textProperty().addListener((obs, oldValue, newValue) -> {
+			if(newValue != null && newValue.isEmpty())
+				argument.setValue(null);
+			else
+				argument.setValue(newValue);
+		});
 	}
 	
 	
