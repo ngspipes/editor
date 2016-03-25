@@ -19,10 +19,10 @@
  */
 package editor.logic.entities;
 
-import jfxwfutils.Event;
 import dsl.entities.Argument;
 import dsl.entities.Chain;
 import dsl.entities.Output;
+import jfxwfutils.Event;
 
 
 
@@ -55,7 +55,7 @@ public class EditorChain {
 		dslChain.connectEvent.addListener(connectEvent::trigger);
 		
 		argument.valueChangedEvent.addListener((newValue)->{
-			if(!newValue.equals(output.getValue()))
+			if(newValue!=null && !newValue.equals(output.getValue()))
 				disconnect();
 		});
 	}
