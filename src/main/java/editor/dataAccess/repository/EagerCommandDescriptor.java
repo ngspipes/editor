@@ -19,21 +19,23 @@
  */
 package editor.dataAccess.repository;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import descriptors.IArgumentDescriptor;
 import descriptors.ICommandDescriptor;
 import descriptors.IOutputDescriptor;
 import descriptors.IToolDescriptor;
 
-public class EditorCommandDescriptor implements ICommandDescriptor{
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+public class EagerCommandDescriptor implements ICommandDescriptor{
 	
-	private IToolDescriptor originTool;
+	private final IToolDescriptor originTool;
+	@Override
 	public IToolDescriptor getOriginTool(){ return originTool; }
-	public void setOriginTool(IToolDescriptor originTool){ this.originTool = originTool; }
+	@Override
+	public void setOriginTool(IToolDescriptor originTool){ throw new UnsupportedOperationException(); }
 	
 	private final String name;
 	private final String command;
@@ -41,11 +43,13 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 	private final String argumentsComposer;
 	private final List<IArgumentDescriptor> arguments;
 	private final List<IOutputDescriptor> outputs;
-	private final Map<String, IArgumentDescriptor> args;
-	private final Map<String, IOutputDescriptor> otps;
+	private final Map<String, IArgumentDescriptor> argumentsByName;
+	private final Map<String, IOutputDescriptor> outputsByName;
 	private final int priority;
-	
-	public EditorCommandDescriptor(ICommandDescriptor command, EditorToolDescriptor originTool) {
+
+
+
+	public EagerCommandDescriptor(ICommandDescriptor command, IToolDescriptor originTool) {
 		this.originTool = originTool;
 		this.name = command.getName();
 		this.command = command.getCommand();
@@ -53,8 +57,8 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 		this.argumentsComposer = command.getArgumentsComposer();
 		this.arguments = new LinkedList<>();
 		this.outputs = new LinkedList<>();
-		this.args = new HashMap<>();
-		this.otps = new HashMap<>();
+		this.argumentsByName = new HashMap<>();
+		this.outputsByName = new HashMap<>();
 		this.priority = command.getPriority();
 		
 		loadArguments(command);
@@ -62,20 +66,22 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 	}
 
 	private void loadArguments(ICommandDescriptor command) {
-		EditorArgumentDescriptor editorArgument;
+		EagerArgumentDescriptor eagerArgument;
+
 		for(IArgumentDescriptor arg : command.getArguments()){
-			editorArgument = new EditorArgumentDescriptor(arg, this);
-			arguments.add(editorArgument);
-			args.put(editorArgument.getName(), editorArgument);
+			eagerArgument = new EagerArgumentDescriptor(arg, this);
+			arguments.add(eagerArgument);
+			argumentsByName.put(eagerArgument.getName(), eagerArgument);
 		}
 	}
 	
 	private void loadOutputs(ICommandDescriptor command) {
-		EditorOutputDescriptor editorOutput;
+		EagerOutputDescriptor eagerOutput;
+
 		for(IOutputDescriptor out : command.getOutputs()){
-			editorOutput = new EditorOutputDescriptor(out, this);
-			outputs.add(editorOutput);
-			otps.put(editorOutput.getName(), editorOutput);
+			eagerOutput = new EagerOutputDescriptor(out, this);
+			outputs.add(eagerOutput);
+			outputsByName.put(eagerOutput.getName(), eagerOutput);
 		}
 	}
 	
@@ -103,24 +109,27 @@ public class EditorCommandDescriptor implements ICommandDescriptor{
 
 	@Override
 	public List<IArgumentDescriptor> getArguments() {
-		return arguments;
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(arguments);
 	}
 
 	@Override
 	public List<IOutputDescriptor> getOutputs() {
-		return outputs;
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(outputs);
 	}
 
 	@Override
 	public IArgumentDescriptor getArgument(String argumentName) {
-		return args.get(argumentName);
+		return argumentsByName.get(argumentName);
 	}
 
 	@Override
 	public IOutputDescriptor getOutput(String outputName) {
-		return otps.get(outputName);
+		return outputsByName.get(outputName);
 	}
 
+	@Override
 	public int getPriority(){
 		return priority;
 	}

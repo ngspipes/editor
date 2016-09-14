@@ -32,7 +32,10 @@ public class Uris {
 	public static final String SEP = "/";//System.getProperty("file.separator");
 	public static final String RESOURCES = "";
 
-	
+
+	public static final String DEFAULT_TOOL_LOGO = ClassLoader.getSystemResource(Uris.TOOL_LOGO_IMAGE).toExternalForm();
+
+
 	private static final String IMAGES = 					"images";
 	public static final String TOOL_LOGO_IMAGE = 			IMAGES + SEP + "ToolLogo.png";
 	public static final String CLOSE_SELECTED_IMAGE = 		IMAGES + SEP + "CloseSelected.png";

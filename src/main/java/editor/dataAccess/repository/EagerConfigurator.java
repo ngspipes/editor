@@ -19,30 +19,36 @@
  */
 package editor.dataAccess.repository;
 
+import configurators.IConfigurator;
+import repository.IRepository;
+
+import java.util.LinkedList;
 import java.util.List;
 
-import repository.IRepository;
-import configurators.IConfigurator;
+public class EagerConfigurator implements IConfigurator {
 
-public class EditorConfigurator implements IConfigurator {
-
-	private IRepository originRepository;
+	private final IRepository originRepository;
+	@Override
 	public IRepository getOriginRepository(){ return originRepository; }
-	public void setOriginRepository(IRepository originRepository){ this.originRepository = originRepository; }
+	@Override
+	public void setOriginRepository(IRepository originRepository){ throw new UnsupportedOperationException(); }
 	
 	private final String name;
 	private final String builder;
 	private final String uri;
 	private final List<String> setup;
 
-	public EditorConfigurator(IConfigurator config, EditorRepository originRepository) {
+
+
+	public EagerConfigurator(IConfigurator config, IRepository originRepository) {
 		this.originRepository = originRepository;
 		this.name = config.getName();
 		this.builder = config.getBuilder();
 		this.uri = config.getUri();
 		this.setup = config.getSetup();
 	}
-	
+
+
 	
 	@Override
 	public String getName() {
@@ -61,7 +67,8 @@ public class EditorConfigurator implements IConfigurator {
 
 	@Override
 	public List<String> getSetup() {
-		return setup;
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(setup);
 	}
 
 }

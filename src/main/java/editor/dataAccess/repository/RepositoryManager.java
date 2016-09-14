@@ -35,7 +35,7 @@ import editor.utils.Utils;
 import exceptions.RepositoryException;
 
 
-public class EditorRepositoryManager {
+public class RepositoryManager {
 	
 	private static final Cache<String, IRepository> CACHE = new Cache<>();
 	private static final String TAG = "EditorRepositoryManager";
@@ -77,10 +77,10 @@ public class EditorRepositoryManager {
 		});
 	}
 	
-	private static EditorRepository get(String type, String location) throws EditorException {
+	private static EagerRepository get(String type, String location) throws EditorException {
 		try{
 			IRepository repository = Support.getRepository(type, location);
-			return new EditorRepository(repository);
+			return new EagerRepository(repository);
 		}catch(RepositoryException ex){
 			throw new EditorException("Error loading repository!", ex);
 		}

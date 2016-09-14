@@ -23,11 +23,13 @@ import descriptors.ICommandDescriptor;
 import descriptors.IOutputDescriptor;
 
 
-public class EditorOutputDescriptor implements IOutputDescriptor{
+public class EagerOutputDescriptor implements IOutputDescriptor{
 	
-	private ICommandDescriptor originCommand;
+	private final ICommandDescriptor originCommand;
+	@Override
 	public ICommandDescriptor getOriginCommand(){ return originCommand; }
-	public void setOriginCommand(ICommandDescriptor originCommand){ this.originCommand = originCommand; }
+	@Override
+	public void setOriginCommand(ICommandDescriptor originCommand){ throw new UnsupportedOperationException(); }
 	
 	private final String name;
 	private final String description;
@@ -35,8 +37,9 @@ public class EditorOutputDescriptor implements IOutputDescriptor{
 	private final String argumentName;
 	private final String type;
 	
-	
-	public EditorOutputDescriptor(IOutputDescriptor output, EditorCommandDescriptor originCommand) {
+
+
+	public EagerOutputDescriptor(IOutputDescriptor output, ICommandDescriptor originCommand) {
 		this.originCommand = originCommand;
 		this.name = output.getName();
 		this.description = output.getDescription();
@@ -45,7 +48,8 @@ public class EditorOutputDescriptor implements IOutputDescriptor{
 		this.type = output.getType();
 	}
 	
-	
+
+
 	@Override
 	public String getName() {
 		return name;

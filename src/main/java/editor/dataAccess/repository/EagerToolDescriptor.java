@@ -19,22 +19,19 @@
  */
 package editor.dataAccess.repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import repository.IRepository;
 import descriptors.ICommandDescriptor;
 import descriptors.IToolDescriptor;
+import repository.IRepository;
 
-public class EditorToolDescriptor implements IToolDescriptor{
+import java.util.*;
+
+public class EagerToolDescriptor implements IToolDescriptor{
 	
-	private IRepository originRepository;
+	private final IRepository originRepository;
+	@Override
 	public IRepository getOriginRepository(){ return originRepository; }
 	@Override
-	public void setOriginRepository(IRepository originRepository) {	this.originRepository = originRepository; }
+	public void setOriginRepository(IRepository originRepository) {	throw new UnsupportedOperationException(); }
 	
 	private final String name;
 	private final int requiredMemory;
@@ -42,11 +39,12 @@ public class EditorToolDescriptor implements IToolDescriptor{
 	private final String description;
 	private final String author; 
 	private final Collection<String> documentation;
-	private final List<ICommandDescriptor> commandsDescriptors;
-	private final Map<String, ICommandDescriptor> cmds;
+	private final List<ICommandDescriptor> commands;
+	private final Map<String, ICommandDescriptor> commandsByName;
+
+
 	
-	
-	public EditorToolDescriptor(IToolDescriptor tool, EditorRepository originRepository) {
+	public EagerToolDescriptor(IToolDescriptor tool, IRepository originRepository) {
 		this.originRepository = originRepository;
 		this.name = tool.getName();
 		this.requiredMemory = tool.getRequiredMemory();
@@ -54,21 +52,24 @@ public class EditorToolDescriptor implements IToolDescriptor{
 		this.description = tool.getDescription();
 		this.author = tool.getAuthor();
 		this.documentation = tool.getDocumentation();
-		this.commandsDescriptors = new LinkedList<>();
-		this.cmds = new HashMap<>();
+		this.commands = new LinkedList<>();
+		this.commandsByName = new HashMap<>();
+
 		loadCommands(tool);
 	}
 	
 	private void loadCommands(IToolDescriptor tool){
-		EditorCommandDescriptor editorCommand;
+		EagerCommandDescriptor eagerCommand;
+
 		for(ICommandDescriptor command : tool.getCommands()){
-			editorCommand = new EditorCommandDescriptor(command, this);
-			commandsDescriptors.add(editorCommand);
-			cmds.put(editorCommand.getName(), editorCommand);
-		}	
+			eagerCommand = new EagerCommandDescriptor(command, this);
+			commands.add(eagerCommand);
+			commandsByName.put(eagerCommand.getName(), eagerCommand);
+		}
 	}
 	
-	
+
+
 	@Override
 	public String getName() {
 		return name;
@@ -91,7 +92,8 @@ public class EditorToolDescriptor implements IToolDescriptor{
 
 	@Override
 	public Collection<String> getDocumentation() {
-		return documentation;
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(documentation);
 	}
 
 	@Override
@@ -101,14 +103,13 @@ public class EditorToolDescriptor implements IToolDescriptor{
 
 	@Override
 	public List<ICommandDescriptor> getCommands() {
-		return commandsDescriptors;
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(commands);
 	}
 
 	@Override
 	public ICommandDescriptor getCommand(String commandName) {
-		return cmds.get(commandName);
+		return commandsByName.get(commandName);
 	}
-
-
 
 }

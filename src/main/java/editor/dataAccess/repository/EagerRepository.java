@@ -19,24 +19,23 @@
  */
 package editor.dataAccess.repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
-import javafx.util.Pair;
-import repository.IRepository;
 import configurators.IConfigurator;
 import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.utils.EditorException;
 import exceptions.RepositoryException;
+import javafx.util.Pair;
+import repository.IRepository;
 
-public class EditorRepository implements IRepository{
-	
-	public static final String DEFAULT_TOOL_LOGO = ClassLoader.getSystemResource(Uris.TOOL_LOGO_IMAGE).toExternalForm();
-	
-	
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
+public class EagerRepository implements IRepository{
+
+	private String location;
+	private String type;
 	private final Collection<String> toolsName = new LinkedList<>();
 	private final Collection<IToolDescriptor> tools = new LinkedList<>();
 	private final Map<String, String> toolsLogos = new HashMap<>();
@@ -45,15 +44,20 @@ public class EditorRepository implements IRepository{
 	private final Map<String, Collection<IConfigurator>> configuratorsOfTool = new HashMap<>();
 	private final Map<String, Collection<String>> configuratorsNames = new HashMap<>();
 	
-	
+
+
 	private final IRepository repository;
-	
-	public EditorRepository(IRepository repository) throws EditorException {
+
+
+
+	public EagerRepository(IRepository repository) throws EditorException {
 		this.repository = repository;
 		load();
 	}
 	
 	private void load() throws EditorException {
+		location = repository.getLocation();
+		type = repository.getType();
 		loadToolsName();
 		loadTools();
 		loadToolsLogos();
@@ -71,9 +75,9 @@ public class EditorRepository implements IRepository{
 
 	private void loadTools() throws EditorException {
 		try{
-			EditorToolDescriptor editorTool;
+			EagerToolDescriptor editorTool;
 			for(String toolName : toolsName){
-				editorTool = new EditorToolDescriptor(repository.getTool(toolName), this);
+				editorTool = new EagerToolDescriptor(repository.getTool(toolName), this);
 				tools.add(editorTool);
 				toolsDescriptors.put(toolName, editorTool);
 			}
@@ -88,7 +92,7 @@ public class EditorRepository implements IRepository{
 			logo = repository.getToolLogo(toolName);
 			
 			if(logo == null)
-				logo = DEFAULT_TOOL_LOGO;
+				logo = Uris.DEFAULT_TOOL_LOGO;
 			
 			toolsLogos.put(toolName, logo);
 		}	
@@ -106,13 +110,13 @@ public class EditorRepository implements IRepository{
 	private void loadConfigurators() throws EditorException {
 		try{
 			Collection<IConfigurator> editorConfigs;
-			EditorConfigurator editorConfig;
+			EagerConfigurator editorConfig;
 			
 			for(String toolName : toolsName){
 				editorConfigs = new LinkedList<>();
 				
 				for(IConfigurator config : repository.getConfigurationsFor(toolName)){
-					editorConfig = new EditorConfigurator(config, this);
+					editorConfig = new EagerConfigurator(config, this);
 					editorConfigs.add(editorConfig);
 					configurators.put(new Pair<>(toolName, config.getName()), editorConfig);
 				}
@@ -126,11 +130,9 @@ public class EditorRepository implements IRepository{
 
 	
 
-		
-	
 	@Override
 	public String getLocation() {
-		return repository.getLocation();
+		return location;
 	}
 	
 	@Override
@@ -140,7 +142,7 @@ public class EditorRepository implements IRepository{
 
 	@Override
 	public String getType() {
-		return repository.getType();
+		return type;
 	}
 
 	@Override
@@ -150,12 +152,14 @@ public class EditorRepository implements IRepository{
 
 	@Override
 	public Collection<String> getToolsName() {
-		return toolsName;
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(toolsName);
 	}
 
 	@Override
 	public Collection<IToolDescriptor> getAllTools() {
-		return tools;
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(tools);
 	}
 
 	@Override
@@ -165,12 +169,14 @@ public class EditorRepository implements IRepository{
 
 	@Override
 	public Collection<String> getConfiguratorsNameFor(String toolName) {
-		return configuratorsNames.get(toolName);
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(configuratorsNames.get(toolName));
 	}
 
 	@Override
 	public Collection<IConfigurator> getConfigurationsFor(String toolName) {
-		return configuratorsOfTool.get(toolName);
+		//return new List to make sure that list is not changed
+		return new LinkedList<>(configuratorsOfTool.get(toolName));
 	}
 
 	@Override

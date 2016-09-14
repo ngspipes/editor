@@ -23,11 +23,13 @@ import descriptors.IArgumentDescriptor;
 import descriptors.ICommandDescriptor;
 
 
-public class EditorArgumentDescriptor implements IArgumentDescriptor{
+public class EagerArgumentDescriptor implements IArgumentDescriptor{
 	
-	private ICommandDescriptor originCommand;
+	private final ICommandDescriptor originCommand;
+	@Override
 	public ICommandDescriptor getOriginCommand(){ return originCommand; }
-	public void setOriginCommand(ICommandDescriptor originCommand){ this.originCommand = originCommand; }
+	@Override
+	public void setOriginCommand(ICommandDescriptor originCommand){ throw new UnsupportedOperationException(); }
 	
 	private final String name;
 	private final String description;
@@ -37,7 +39,7 @@ public class EditorArgumentDescriptor implements IArgumentDescriptor{
 	
 	
 	
-	public EditorArgumentDescriptor(IArgumentDescriptor argument, EditorCommandDescriptor originCommand) {
+	public EagerArgumentDescriptor(IArgumentDescriptor argument, ICommandDescriptor originCommand) {
 		this.originCommand = originCommand;
 		this.name = argument.getName();
 		this.description = argument.getDescription();
@@ -45,7 +47,8 @@ public class EditorArgumentDescriptor implements IArgumentDescriptor{
 		this.required = argument.getRequired();
 		this.order = argument.getOrder();
 	}
-	
+
+
 
 	@Override
 	public String getName() {
@@ -67,6 +70,7 @@ public class EditorArgumentDescriptor implements IArgumentDescriptor{
 		return description;
 	}
 
+	@Override
 	public int getOrder(){
 		return order;
 	}
