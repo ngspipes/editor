@@ -22,7 +22,6 @@ package editor;
 import descriptors.IToolDescriptor;
 import dsl.managers.Support;
 import editor.dataAccess.Uris;
-import editor.dataAccess.repository.EditorRepositoryManager;
 import editor.logic.FlowManager;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
@@ -31,6 +30,7 @@ import editor.userInterface.areas.StepArea;
 import editor.userInterface.areas.ToolArea;
 import editor.userInterface.areas.workflowArea.WorkflowArea;
 import editor.userInterface.utils.Dialog;
+import editor.userInterface.utils.UIUtils;
 import editor.utils.EditorException;
 import editor.utils.Log;
 import editor.utils.Utils;
@@ -58,7 +58,7 @@ public class EditorOperations {
 		EditorOperations.stepArea = stepArea;
 		EditorOperations.workflowArea = workflowArea;
 		
-		EditorRepositoryManager.getRepository(Support.REPOSITORY_LOCAL, Uris.DEFAULT_REPOSITORY_DIR, (ex, repo)->{
+		UIUtils._(Support.REPOSITORY_LOCAL, Uris.DEFAULT_REPOSITORY_DIR, (ex, repo)->{
 			if(ex!=null)
 				Utils.treatException(ex, TAG, "Error loading DEFAULT_REPOSITORY!");
 			else{

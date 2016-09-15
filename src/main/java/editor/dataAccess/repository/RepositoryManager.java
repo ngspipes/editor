@@ -19,65 +19,39 @@
  */
 package editor.dataAccess.repository;
 
-import java.util.function.BiConsumer;
-
-import editor.utils.WorkQueue;
-import javafx.application.Platform;
+import dsl.managers.Support;
+import editor.utils.EditorException;
+import editor.utils.task.BasicTask;
+import editor.utils.task.Task;
+import exceptions.RepositoryException;
 import repository.IRepository;
 import utils.Cache;
-
-import components.Window;
-
-import dsl.managers.Support;
-import editor.userInterface.utils.Dialog;
-import editor.utils.EditorException;
-import editor.utils.Utils;
-import exceptions.RepositoryException;
 
 
 public class RepositoryManager {
 	
 	private static final Cache<String, IRepository> CACHE = new Cache<>();
-	private static final String TAG = "EditorRepositoryManager";
-	
-	public static void getRepository(String type, String location, BiConsumer<Exception, IRepository> callback) {
-		Window<?,?> progress = null;
-		try{
-			progress = Dialog.getLoadingWindow("Loading Pipeline");
-			progress.open();
-		}catch(Exception ex){
-			Utils.treatException(ex, TAG, "Error loading progress Window!");
-		}
-		
-		final Window<?,?> progressWindow = progress;
+	private static final String TAG = RepositoryManager.class.getSimpleName();
 
-		WorkQueue.run(()->{
-			IRepository repo = null;
-			Exception ex = null;
 
-			String key = "TYPE_" + type + "_LOCAL_" + location;
-			try {
-				if((repo = CACHE.get(key)) == null){
-					repo = get(type, location);
-					CACHE.add(key, repo);
-				}
-			} catch (EditorException e) {
-				ex = e;
-			}
 
-			IRepository repository = repo;
-			Exception exception = ex;
-
-			Platform.runLater(()-> {
-				if(progressWindow != null)
-					progressWindow.close();
-
-				callback.accept(exception, repository);
-			});
-		});
+	public static Task<IRepository> getRepositoryAsync(String type, String location) {
+		return new BasicTask<>(() -> getRepository(type, location));
 	}
-	
-	private static EagerRepository get(String type, String location) throws EditorException {
+
+	public static IRepository getRepository(String type, String location) throws EditorException {
+		IRepository repository;
+		String key = "TYPE_" + type + "_LOCAL_" + location;
+
+		if((repository = CACHE.get(key)) == null){
+			repository = createEagerRepository(type, location);
+			CACHE.add(key, repository);
+		}
+
+		return repository;
+	}
+
+	private static IRepository createEagerRepository(String type, String location) throws EditorException {
 		try{
 			IRepository repository = Support.getRepository(type, location);
 			return new EagerRepository(repository);
