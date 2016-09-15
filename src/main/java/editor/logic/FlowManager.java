@@ -19,11 +19,11 @@
  */
 package editor.logic;
 
-import java.io.File;
-import java.util.function.BiConsumer;
-
 import editor.logic.entities.Flow;
 import editor.utils.EditorException;
+
+import java.io.File;
+import java.util.function.BiConsumer;
 
 
 public class FlowManager {

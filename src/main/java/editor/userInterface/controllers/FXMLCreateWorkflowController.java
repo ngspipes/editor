@@ -19,9 +19,9 @@
  */
 package editor.userInterface.controllers;
 
-import java.io.File;
-import java.util.function.BiConsumer;
-
+import components.FXMLFile;
+import editor.dataAccess.Uris;
+import editor.userInterface.utils.Dialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -30,10 +30,8 @@ import javafx.scene.control.TextField;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 
-import components.FXMLFile;
-
-import editor.dataAccess.Uris;
-import editor.userInterface.utils.Dialog;
+import java.io.File;
+import java.util.function.BiConsumer;
 
 public class FXMLCreateWorkflowController implements IInitializable<BiConsumer<String, String>>{
     

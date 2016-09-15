@@ -19,8 +19,15 @@
  */
 package editor.userInterface.controllers;
 
-import java.util.Collection;
-
+import components.FXMLFile;
+import configurators.IConfigurator;
+import descriptors.IArgumentDescriptor;
+import descriptors.IToolDescriptor;
+import editor.dataAccess.Uris;
+import editor.dataAccess.loader.LogoLoader;
+import editor.logic.entities.EditorStep;
+import editor.utils.Utils;
+import exceptions.RepositoryException;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -31,20 +38,11 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import repository.IRepository;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
+import repository.IRepository;
 
-import components.FXMLFile;
-
-import configurators.IConfigurator;
-import descriptors.IArgumentDescriptor;
-import descriptors.IToolDescriptor;
-import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
-import editor.logic.entities.EditorStep;
-import editor.utils.Utils;
-import exceptions.RepositoryException;
+import java.util.Collection;
 
 
 

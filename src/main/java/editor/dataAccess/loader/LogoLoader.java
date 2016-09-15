@@ -19,11 +19,11 @@
  */
 package editor.dataAccess.loader;
 
-import java.util.function.Consumer;
-
+import descriptors.IToolDescriptor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import descriptors.IToolDescriptor;
+
+import java.util.function.Consumer;
 
 public class LogoLoader extends ImageLoader{
 

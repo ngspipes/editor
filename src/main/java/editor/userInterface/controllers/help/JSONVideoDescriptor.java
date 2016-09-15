@@ -19,13 +19,12 @@
  */
 package editor.userInterface.controllers.help;
 
-import java.io.IOException;
-import java.time.LocalTime;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import utils.IO;
+
+import java.io.IOException;
+import java.time.LocalTime;
 
 
 public class JSONVideoDescriptor implements IVideoDescriptor {

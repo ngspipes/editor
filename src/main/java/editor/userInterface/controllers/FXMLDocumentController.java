@@ -19,17 +19,13 @@
  */
 package editor.userInterface.controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import descriptors.ICommandDescriptor;
 import descriptors.IToolDescriptor;
 import dsl.entities.Argument;
 import dsl.entities.Output;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 
 public class FXMLDocumentController {

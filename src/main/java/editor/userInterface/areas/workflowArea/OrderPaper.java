@@ -19,8 +19,12 @@
  */
 package editor.userInterface.areas.workflowArea;
 
-import java.util.function.Consumer;
-
+import components.DoubleClickable;
+import editor.EditorOperations;
+import editor.logic.entities.EditorStep;
+import editor.logic.entities.Flow;
+import editor.userInterface.controllers.FXMLStepsOrderController;
+import editor.utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -29,13 +33,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import jfxutils.ComponentException;
 
-import components.DoubleClickable;
-
-import editor.EditorOperations;
-import editor.logic.entities.EditorStep;
-import editor.logic.entities.Flow;
-import editor.userInterface.controllers.FXMLStepsOrderController;
-import editor.utils.Utils;
+import java.util.function.Consumer;
 
 
 public class OrderPaper {

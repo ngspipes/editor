@@ -19,16 +19,16 @@
  */
 package editor.logic.entities;
 
-import java.util.Collection;
-
-import repository.IRepository;
-import jfxwfutils.Event;
 import configurators.IConfigurator;
 import descriptors.ICommandDescriptor;
 import descriptors.IToolDescriptor;
 import dsl.entities.Argument;
 import dsl.entities.Output;
 import dsl.entities.Step;
+import jfxwfutils.Event;
+import repository.IRepository;
+
+import java.util.Collection;
 
 
 public class EditorStep{

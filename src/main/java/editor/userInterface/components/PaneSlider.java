@@ -19,8 +19,7 @@
  */
 package editor.userInterface.components;
 
-import java.util.function.Consumer;
-
+import editor.dataAccess.Uris;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.control.Button;
@@ -30,7 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import editor.dataAccess.Uris;
+
+import java.util.function.Consumer;
 
 
 public class PaneSlider {

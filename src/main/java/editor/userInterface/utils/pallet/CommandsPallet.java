@@ -19,18 +19,16 @@
  */
 package editor.userInterface.utils.pallet;
 
-import java.util.function.Function;
-
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-
 import components.multiOption.Operations;
-
 import descriptors.ICommandDescriptor;
 import editor.userInterface.controllers.FXMLCommandListViewCellController;
 import editor.userInterface.controllers.FXMLCommandListViewCellController.Data;
 import editor.utils.Utils;
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+
+import java.util.function.Function;
 
 
 public class CommandsPallet extends Pallet<ICommandDescriptor>{

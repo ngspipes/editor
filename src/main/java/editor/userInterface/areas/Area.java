@@ -19,10 +19,10 @@
  */
 package editor.userInterface.areas;
 
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import editor.userInterface.components.PaneSlider;
 import editor.userInterface.components.PaneSlider.SlideSide;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 public abstract class Area {
 

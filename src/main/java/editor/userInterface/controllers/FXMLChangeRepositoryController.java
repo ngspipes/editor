@@ -19,13 +19,10 @@
  */
 package editor.userInterface.controllers;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-
+import components.FXMLFile;
+import dsl.managers.Support;
+import editor.dataAccess.Uris;
+import editor.userInterface.utils.Dialog;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,11 +35,12 @@ import javafx.scene.image.ImageView;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 
-import components.FXMLFile;
-
-import dsl.managers.Support;
-import editor.dataAccess.Uris;
-import editor.userInterface.utils.Dialog;
+import java.io.File;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class FXMLChangeRepositoryController implements IInitializable<BiConsumer<String, String>>{
     

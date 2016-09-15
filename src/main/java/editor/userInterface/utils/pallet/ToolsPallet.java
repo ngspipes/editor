@@ -19,19 +19,17 @@
  */
 package editor.userInterface.utils.pallet;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-
 import components.multiOption.Operations;
-
 import descriptors.IToolDescriptor;
 import editor.userInterface.controllers.FXMLToolListViewCellController;
 import editor.userInterface.controllers.FXMLToolListViewCellController.Data;
 import editor.utils.Utils;
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ToolsPallet extends Pallet<IToolDescriptor>{
 	

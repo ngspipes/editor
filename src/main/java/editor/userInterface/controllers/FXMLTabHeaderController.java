@@ -19,6 +19,11 @@
  */
 package editor.userInterface.controllers;
 
+import components.FXMLFile;
+import components.animation.changeComponent.ChangeButtonOnPass;
+import editor.dataAccess.Uris;
+import editor.logic.entities.Flow;
+import editor.userInterface.controllers.FXMLTabHeaderController.Data;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -27,13 +32,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
-
-import components.FXMLFile;
-import components.animation.changeComponent.ChangeButtonOnPass;
-
-import editor.dataAccess.Uris;
-import editor.logic.entities.Flow;
-import editor.userInterface.controllers.FXMLTabHeaderController.Data;
 
 public class FXMLTabHeaderController implements IInitializable<Data>{
 	
