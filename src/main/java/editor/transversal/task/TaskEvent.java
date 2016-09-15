@@ -29,7 +29,6 @@ public class TaskEvent<T> {
     private final Collection<Runnable> listeners = new LinkedList<>();
 
     private boolean fired;
-    public boolean hasFired(){ return this.fired; }
 
 
 
@@ -91,4 +90,9 @@ public class TaskEvent<T> {
         }
     }
 
+    public boolean hasFired(){
+        synchronized (lock) {
+            return this.fired;
+        }
+    }
 }
