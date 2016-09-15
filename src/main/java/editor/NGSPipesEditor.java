@@ -18,6 +18,14 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package editor;
+
+import editor.dataAccess.Uris;
+import editor.userInterface.areas.*;
+import editor.userInterface.areas.workflowArea.WorkflowArea;
+import editor.userInterface.controllers.FXMLDocumentController;
+import editor.userInterface.utils.UIUtils;
+import editor.utils.Log;
+import editor.utils.Utils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -25,16 +33,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import editor.dataAccess.Uris;
-import editor.userInterface.areas.MenuBar;
-import editor.userInterface.areas.RepositoryArea;
-import editor.userInterface.areas.StepArea;
-import editor.userInterface.areas.ToolArea;
-import editor.userInterface.areas.UtilityButtons;
-import editor.userInterface.areas.workflowArea.WorkflowArea;
-import editor.userInterface.controllers.FXMLDocumentController;
-import editor.utils.Log;
-import editor.utils.Utils;
 
 public class NGSPipesEditor extends Application {
     
@@ -67,7 +65,7 @@ public class NGSPipesEditor extends Application {
 	
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = editor.userInterface.utils.Utils.getLoader(Uris.FXML_DOCUMENT);
+        FXMLLoader loader = UIUtils.getLoader(Uris.FXML_DOCUMENT);
         Parent root = loader.load();	
 
         if(!load(stage, loader.getController()))

@@ -26,7 +26,7 @@ import descriptors.IOutputDescriptor;
 import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
-import editor.userInterface.utils.Utils;
+import editor.userInterface.utils.UIUtils;
 import exceptions.RepositoryException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -348,7 +348,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		logoRequest = new LogoLoader(tool, iVToolLogo);
 		logoRequest.load();
 
-		Utils.set3DEffect(iVToolLogo, true, true);
+		UIUtils.set3DEffect(iVToolLogo, true, true);
 	}
 	
 	private void loadCommand(ICommandDescriptor command){

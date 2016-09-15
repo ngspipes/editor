@@ -19,6 +19,11 @@
  */
 package editor.userInterface.controllers;
 
+import components.FXMLFile;
+import editor.dataAccess.Uris;
+import editor.dataAccess.loader.LogoLoader;
+import editor.logic.entities.EditorStep;
+import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -26,13 +31,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
-
-import components.FXMLFile;
-
-import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
-import editor.logic.entities.EditorStep;
-import editor.userInterface.utils.Utils;
 
 
 public class FXMLStepController implements IInitializable<FXMLStepController.Data>{
@@ -73,7 +71,7 @@ public class FXMLStepController implements IInitializable<FXMLStepController.Dat
     private void load() {
     	iVToolLogo.setImage(DEFAULT_TOOL_LOGO);
     	new LogoLoader(step.getToolDescriptor(), iVToolLogo).load();
-    	Utils.set3DEffect(iVToolLogo, true, false);
+    	UIUtils.set3DEffect(iVToolLogo, true, false);
     	
         lCommandName.setText(step.getCommandDescriptor().getName());
     }

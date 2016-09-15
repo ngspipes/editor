@@ -19,16 +19,24 @@
  */
 package editor.userInterface.utils;
 
+import components.Window;
+import editor.dataAccess.repository.RepositoryManager;
+import editor.utils.EditorException;
+import editor.utils.task.Task;
+import editor.utils.task.TaskFactory;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
+import repository.IRepository;
 
 import java.net.URL;
+import java.util.function.BiConsumer;
 
-public class Utils {
+public class UIUtils {
 
 	public static FXMLLoader getLoader(String fXMLWindowPath){
         URL location = ClassLoader.getSystemResource(fXMLWindowPath);
@@ -65,6 +73,46 @@ public class Utils {
 	    	node.setEffect(shadow);
 	    }
 	}
-	
+
+
+	public static void _(String type, String location, BiConsumer<Exception, IRepository> callback) {
+		try {
+			Task<IRepository> task = loadRepository(type, location);
+			task.succeededEvent.addListener(() -> {
+				Platform.runLater(() -> callback.accept(null, task.getValue()));
+			});
+
+			task.failedEvent.addListener(() -> {
+				Platform.runLater(() -> callback.accept(task.getException(), null));
+			});
+
+			TaskFactory.execute(task);
+		} catch (EditorException e) {
+			callback.accept(e, null);
+		}
+	}
+
+	public static Task<IRepository> loadRepository(String type, String location) throws EditorException {
+		Window<?,?> progressWindow = openLoadWindow("Loading Repository");
+
+		Task<IRepository> task = RepositoryManager.getRepositoryAsync(type, location);
+
+		task.finishedEvent.addListener(()-> Platform.runLater(progressWindow::close));
+
+		return task;
+	}
+
+	private static Window<?,?> openLoadWindow(String loadMessage) throws EditorException {
+		Window<?,?> window;
+
+		try {
+			window = Dialog.getLoadingWindow(loadMessage);
+			window.open();
+		} catch(Exception ex) {
+			throw new EditorException("Error loading progress Window!", ex);
+		}
+
+		return window;
+	}
 	
 }

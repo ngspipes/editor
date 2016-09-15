@@ -27,7 +27,7 @@ import components.multiOption.Operations;
 import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
-import editor.userInterface.utils.Utils;
+import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -97,10 +97,10 @@ public class FXMLToolListViewCellController implements IInitializable<FXMLToolLi
 
 		new LogoLoader(tool, iVToolLogo).load();
 		
-		Utils.set3DEffect(iVToolLogo, true, false);
+		UIUtils.set3DEffect(iVToolLogo, true, false);
 		
 		String tip = tool.getName() + "\n" + tool.getDescription();
-		Tooltip.install(root, Utils.createTooltip(tip, true, 300, 200));
+		Tooltip.install(root, UIUtils.createTooltip(tip, true, 300, 200));
 		
 		loadButtonEvents();
 	}

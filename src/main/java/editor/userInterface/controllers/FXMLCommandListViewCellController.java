@@ -29,7 +29,7 @@ import components.multiOption.Operations;
 import descriptors.ICommandDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
-import editor.userInterface.utils.Utils;
+import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -104,14 +104,14 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 
 		new LogoLoader(command.getOriginTool(), iVToolLogo).load();
 
-		Utils.set3DEffect(iVToolLogo, true, true);
+		UIUtils.set3DEffect(iVToolLogo, true, true);
 		
 		loadButtonEvents();
 	}
 
 	private void loadButtonEvents() {
 		String tip = command.getName() + "\n" + command.getDescription();
-		Tooltip.install(root, Utils.createTooltip(tip, true, 300, 200));
+		Tooltip.install(root, UIUtils.createTooltip(tip, true, 300, 200));
 		
 		new Menu<>(root, operations).mount();
 		new ChangeMouseOnPress<>(root, ON_PRESS_CURSOR, ON_RELEASE_CURSOR).mount();

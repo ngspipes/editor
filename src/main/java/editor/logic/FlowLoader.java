@@ -27,10 +27,10 @@ import dsl.entities.Command;
 import dsl.entities.Output;
 import dsl.entities.Step;
 import editor.dataAccess.Uris;
-import editor.dataAccess.repository.EditorRepositoryManager;
 import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
+import editor.userInterface.utils.UIUtils;
 import editor.utils.EditorException;
 import editor.utils.Utils;
 import exceptions.CommandBuilderException;
@@ -170,7 +170,7 @@ class FlowLoader {
 		if(repo.length()==0)
 			Platform.runLater(()->callback.accept(null, null));
 		else
-			EditorRepositoryManager.getRepository(repo.getString(FlowSaver.REPOSITORY_TYPE_JSON_KEY), repo.getString(FlowSaver.REPOSITORY_LOCATION_JSON_KEY), callback);
+			UIUtils._(repo.getString(FlowSaver.REPOSITORY_TYPE_JSON_KEY), repo.getString(FlowSaver.REPOSITORY_LOCATION_JSON_KEY), callback);
 	}
 
 	private static Map<String, String> getArgumentsValues(JSONArray data) throws JSONException {

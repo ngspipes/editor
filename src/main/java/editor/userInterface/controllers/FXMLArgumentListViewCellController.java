@@ -27,7 +27,7 @@ import dsl.ArgumentValidator;
 import dsl.entities.Argument;
 import editor.dataAccess.Uris;
 import editor.userInterface.utils.Dialog;
-import editor.userInterface.utils.Utils;
+import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -91,7 +91,7 @@ public class FXMLArgumentListViewCellController implements IInitializable<FXMLAr
 	private void load(){
 		lArgumentName.setText(argument.getDescriptor().getName());
 		String tip = argument.getName() + "\n" + argument.getDescriptor().getDescription();
-		Tooltip.install(lArgumentName, Utils.createTooltip(tip, true, 300, 200));
+		Tooltip.install(lArgumentName, UIUtils.createTooltip(tip, true, 300, 200));
 		
 		showValue(argument.getValue());
 		

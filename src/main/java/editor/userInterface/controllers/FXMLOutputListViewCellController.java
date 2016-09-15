@@ -19,6 +19,12 @@
  */
 package editor.userInterface.controllers;
 
+import components.FXMLFile;
+import components.multiOption.Menu;
+import components.multiOption.Operations;
+import dsl.entities.Output;
+import editor.dataAccess.Uris;
+import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -26,14 +32,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
-
-import components.FXMLFile;
-import components.multiOption.Menu;
-import components.multiOption.Operations;
-
-import dsl.entities.Output;
-import editor.dataAccess.Uris;
-import editor.userInterface.utils.Utils;
 
 public class FXMLOutputListViewCellController implements IInitializable<FXMLOutputListViewCellController.Data> {
 
@@ -83,9 +81,9 @@ public class FXMLOutputListViewCellController implements IInitializable<FXMLOutp
 		lOutputName.setText(output.getDescriptor().getName());
 		
 		String nameTip = output.getName() + "\n" + output.getDescriptor().getDescription();
-		Tooltip.install(lOutputName, Utils.createTooltip(nameTip, true, 300, 200));
+		Tooltip.install(lOutputName, UIUtils.createTooltip(nameTip, true, 300, 200));
 		
-		valueTip = Utils.createTooltip("", true, 300, 200);
+		valueTip = UIUtils.createTooltip("", true, 300, 200);
 		Tooltip.install(lOutputValue, valueTip);
 		
 		showValue(output.getValue());

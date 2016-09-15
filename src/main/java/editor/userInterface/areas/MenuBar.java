@@ -22,8 +22,8 @@ package editor.userInterface.areas;
 import components.Window;
 import editor.EditorOperations;
 import editor.dataAccess.Uris;
-import editor.dataAccess.repository.EditorRepositoryManager;
 import editor.userInterface.utils.Dialog;
+import editor.userInterface.utils.UIUtils;
 import editor.utils.Utils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -162,7 +162,7 @@ public class MenuBar {
 	public void repositoryChangeRepository(){
 		try{
 			Dialog.changeRepository((type, location)->{
-				EditorRepositoryManager.getRepository(type, location,(ex, repo)->{
+				UIUtils._(type, location,(ex, repo)->{
 					if(ex!=null)
 						Utils.treatException(ex, TAG, "Error loading Repository!");
 					else
