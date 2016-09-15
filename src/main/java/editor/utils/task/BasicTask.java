@@ -17,25 +17,24 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package editor.utils;
+package editor.utils.task;
 
-import static editor.utils.ThrowableFunctionalInterfaces.Supplier;
+import editor.utils.ThrowableFunctionalInterfaces.Supplier;
 
-
-public class Task<T> extends javafx.concurrent.Task<T> {
+public class BasicTask<T> extends  Task<T>{
 
     private final Supplier<T> action;
 
 
 
-    public Task(Supplier<T> action) {
+    public BasicTask(Supplier<T> action) {
         this.action = action;
     }
 
 
 
     @Override
-    protected T call() throws Exception {
+    protected T execute() throws Exception {
         return this.action.get();
     }
 
