@@ -27,7 +27,7 @@ public class ThrowableFunctionalInterfaces {
 
         default Consumer<T> andThen(Consumer<? super T> after){
             return (T t)->{
-                this.accept(t);
+                Consumer.this.accept(t);
                 after.accept(t);
             };
         }
@@ -39,7 +39,7 @@ public class ThrowableFunctionalInterfaces {
 
         default BiConsumer<T,U> andThen(BiConsumer<? super T,? super U> after){
             return (T t, U u)->{
-                this.accept(t, u);
+                BiConsumer.this.accept(t, u);
                 after.accept(t, u);
             };
         }
@@ -50,15 +50,15 @@ public class ThrowableFunctionalInterfaces {
         boolean test(T t) throws Exception;
 
         default Predicate<T> and(Predicate<? super T> other){
-            return (T t) -> this.test(t) && other.test(t);
+            return (T t) -> Predicate.this.test(t) && other.test(t);
         }
 
         default Predicate<T> or(Predicate<? super T> other) {
-            return (T t) -> this.test(t) || other.test(t);
+            return (T t) -> Predicate.this.test(t) || other.test(t);
         }
 
         default Predicate<T> negate(){
-            return (T t) -> !this.test(t);
+            return (T t) -> !Predicate.this.test(t);
         }
     }
 
@@ -67,15 +67,15 @@ public class ThrowableFunctionalInterfaces {
         boolean test(T t, U u) throws Exception;
 
         default BiPredicate<T,U> and(BiPredicate<? super T,? super U> other){
-            return (T t, U u) -> this.test(t,u) && other.test(t,u);
+            return (T t, U u) -> BiPredicate.this.test(t,u) && other.test(t,u);
         }
 
         default BiPredicate<T,U> or(BiPredicate<? super T,? super U> other) {
-            return (T t, U u) -> this.test(t,u) || other.test(t,u);
+            return (T t, U u) -> BiPredicate.this.test(t,u) || other.test(t,u);
         }
 
         default BiPredicate<T,U> negate(){
-            return (T t, U u) -> !this.test(t,u);
+            return (T t, U u) -> !BiPredicate.this.test(t,u);
         }
     }
 
@@ -84,11 +84,11 @@ public class ThrowableFunctionalInterfaces {
         R apply(T t) throws Exception;
 
         default <V> Function<T,V> andThen(Function<? super R,? extends V> after) {
-            return (T t) -> after.apply(this.apply(t));
+            return (T t) -> after.apply(Function.this.apply(t));
         }
 
         default <V> Function<V,R> compose(Function<? super V,? extends T> before) {
-            return (V v) -> this.apply(before.apply(v));
+            return (V v) -> Function.this.apply(before.apply(v));
         }
     }
 
@@ -97,13 +97,32 @@ public class ThrowableFunctionalInterfaces {
         R apply(T t, U u) throws Exception;
 
         default <V> BiFunction<T,U,V> andThen(Function<? super R,? extends V> after) {
-            return (T t, U u) -> after.apply(this.apply(t,u));
+            return (T t, U u) -> after.apply(BiFunction.this.apply(t,u));
         }
     }
 
     @FunctionalInterface
     public interface Supplier<T> {
         T get() throws Exception;
+    }
+
+    @FunctionalInterface
+    public interface Runnable {
+        void run() throws Exception;
+
+        default Runnable andThen(Runnable after) {
+            return () -> {
+                Runnable.this.run();
+                after.run();
+            };
+        }
+
+        default Runnable compose(Runnable before) {
+            return () -> {
+                before.run();
+                Runnable.this.run();
+            };
+        }
     }
 
 }
