@@ -21,8 +21,8 @@ package editor.userInterface.controllers;
 
 import components.FXMLFile;
 import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
 import editor.logic.entities.EditorStep;
+import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -67,7 +67,7 @@ public class FXMLStepsOrderController implements IInitializable<EditorStep>{
 		lCommand.setText(step.getCommandDescriptor().getName());
 		
 		iVLogo.setImage(DEFAULT_TOOL_LOGO);
-		new LogoLoader(step.getToolDescriptor(), iVLogo).load();
+		UIUtils.loadLogo(iVLogo, step.getToolDescriptor());
 		
 		step.orderEvent.addListener(this::setOrder);
 	}

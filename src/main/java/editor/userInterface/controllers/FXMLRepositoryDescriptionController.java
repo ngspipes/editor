@@ -25,7 +25,7 @@ import descriptors.ICommandDescriptor;
 import descriptors.IOutputDescriptor;
 import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
+import editor.transversal.task.Task;
 import editor.userInterface.utils.UIUtils;
 import exceptions.RepositoryException;
 import javafx.collections.FXCollections;
@@ -159,7 +159,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private ICommandDescriptor initCommand;
 	private IArgumentDescriptor initArgument;
 	private IOutputDescriptor initOutput;
-	private LogoLoader logoRequest;
+	private Task<Image> logoLoaderTask;
 	
 	
 	@Override
@@ -289,7 +289,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		iVLogo.fitHeightProperty().setValue(LOGO_HEIGHT);
 		iVLogo.fitWidthProperty().setValue(LOGO_WIDTH);
 
-		new LogoLoader(tool, iVLogo).load();
+		UIUtils.loadLogo(iVLogo, tool);
 		
 		return item;
 	}
@@ -341,12 +341,11 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		
 		lVDocumentation.setItems(FXCollections.observableArrayList(tool.getDocumentation()));
 		
-		if(logoRequest!=null)
-			logoRequest.cancel();
+		if(logoLoaderTask !=null)
+			logoLoaderTask.cancel();
 		
 		iVToolLogo.setImage(new Image(Uris.TOOL_LOGO_IMAGE));
-		logoRequest = new LogoLoader(tool, iVToolLogo);
-		logoRequest.load();
+		logoLoaderTask = UIUtils.loadLogo(iVToolLogo, tool);
 
 		UIUtils.set3DEffect(iVToolLogo, true, true);
 	}

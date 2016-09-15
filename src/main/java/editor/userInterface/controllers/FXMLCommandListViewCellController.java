@@ -28,7 +28,7 @@ import components.multiOption.Menu;
 import components.multiOption.Operations;
 import descriptors.ICommandDescriptor;
 import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
+import editor.transversal.task.Task;
 import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -102,7 +102,7 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 		iVToolLogo.fitHeightProperty().setValue(IMAGE_HEIGHT);
 		new ImageMagnifier<>(iVToolLogo, LOGO_MAGNIFICATION).mount();
 
-		new LogoLoader(command.getOriginTool(), iVToolLogo).load();
+		UIUtils.loadLogo(iVToolLogo, command.getOriginTool());
 
 		UIUtils.set3DEffect(iVToolLogo, true, true);
 		
@@ -126,8 +126,9 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 		draggable.setPermitSelfDrag(false);
 		draggable.setInfo(command);
 		draggable.mount();
-		
-		new LogoLoader(command.getOriginTool(), draggable::setDragView).load();
+
+		Task<Image> task = UIUtils.loadLogo(command.getOriginTool());
+		task.succeededEvent.addListener(() -> draggable.setDragView(task.getValue()));
 	}
 
 }

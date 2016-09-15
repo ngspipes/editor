@@ -26,7 +26,6 @@ import components.multiOption.Menu;
 import components.multiOption.Operations;
 import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
 import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -95,7 +94,7 @@ public class FXMLToolListViewCellController implements IInitializable<FXMLToolLi
 		iVToolLogo.fitWidthProperty().setValue(IMAGE_WIDTH);
 		new ImageMagnifier<>(iVToolLogo, ITEM_MAGNIFICATION).mount();
 
-		new LogoLoader(tool, iVToolLogo).load();
+		UIUtils.loadLogo(iVToolLogo, tool);
 		
 		UIUtils.set3DEffect(iVToolLogo, true, false);
 		

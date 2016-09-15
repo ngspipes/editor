@@ -20,6 +20,8 @@
 package editor.userInterface.utils;
 
 import components.Window;
+import descriptors.IToolDescriptor;
+import editor.dataAccess.loader.ImageLoaderTask;
 import editor.dataAccess.repository.RepositoryManager;
 import editor.transversal.EditorException;
 import editor.transversal.task.Task;
@@ -30,6 +32,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import repository.IRepository;
 
@@ -114,5 +118,38 @@ public class UIUtils {
 
 		return window;
 	}
-	
+
+
+	public static Task<Image> loadImage(ImageView view, String location) {
+		Task<Image> task = new ImageLoaderTask(location);
+
+		task.succeededEvent.addListener(() -> view.setImage(task.getValue()));
+
+		TaskFactory.execute(task);
+
+		return task;
+	}
+
+	public static Task<Image> loadLogo(ImageView view, IToolDescriptor tool) {
+		IRepository repository = tool.getOriginRepository();
+		String toolName = tool.getName();
+
+		return loadImage(view, repository.getToolLogo(toolName));
+	}
+
+	public static Task<Image> loadImage(String location) {
+		Task<Image> task = new ImageLoaderTask(location);
+
+		TaskFactory.execute(task);
+
+		return task;
+	}
+
+	public static Task<Image> loadLogo(IToolDescriptor tool) {
+		IRepository repository = tool.getOriginRepository();
+		String toolName = tool.getName();
+
+		return loadImage(repository.getToolLogo(toolName));
+	}
+
 }

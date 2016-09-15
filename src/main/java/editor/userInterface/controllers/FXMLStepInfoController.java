@@ -24,9 +24,9 @@ import configurators.IConfigurator;
 import descriptors.IArgumentDescriptor;
 import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
 import editor.logic.entities.EditorStep;
 import editor.transversal.Utils;
+import editor.userInterface.utils.UIUtils;
 import exceptions.RepositoryException;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -111,7 +111,7 @@ public class FXMLStepInfoController implements IInitializable<FXMLStepInfoContro
 		setOrder(step.getOrder());
 		
 		iVToolLogo.setImage(DEFAULT_TOOL_LOGO);
-		new LogoLoader(step.getToolDescriptor(), iVToolLogo).load();
+		UIUtils.loadLogo(iVToolLogo, step.getToolDescriptor());
 		
 		loadConfiguratorsComboBox();
 		step.orderEvent.addListener(this::setOrder);

@@ -19,20 +19,28 @@
  */
 package editor.dataAccess.loader;
 
-import descriptors.IToolDescriptor;
+import editor.transversal.task.BasicTask;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import utils.Cache;
 
-import java.util.function.Consumer;
 
-public class LogoLoader extends ImageLoader{
+public class ImageLoaderTask extends BasicTask<Image> {
 
-	public LogoLoader(IToolDescriptor tool, Consumer<Image> onFinish){
-		super(tool.getOriginRepository().getToolLogo(tool.getName()), onFinish);
-	}
+    private static final Cache<String, Image> CACHE = new Cache<>();
 
-	public LogoLoader(IToolDescriptor tool, ImageView imageView){
-		super(tool.getOriginRepository().getToolLogo(tool.getName()), imageView);
-	}
+
+
+    public ImageLoaderTask(String location){
+        super(() -> {
+            Image image = CACHE.get(location);
+
+            if(image == null){
+                image = new Image(location, false);
+                CACHE.add(location, image);
+            }
+
+            return image;
+        });
+    }
 
 }

@@ -21,7 +21,6 @@ package editor.userInterface.controllers;
 
 import components.FXMLFile;
 import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
 import editor.logic.entities.EditorStep;
 import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
@@ -70,7 +69,8 @@ public class FXMLStepController implements IInitializable<FXMLStepController.Dat
     
     private void load() {
     	iVToolLogo.setImage(DEFAULT_TOOL_LOGO);
-    	new LogoLoader(step.getToolDescriptor(), iVToolLogo).load();
+		UIUtils.loadLogo(iVToolLogo, step.getToolDescriptor());
+
     	UIUtils.set3DEffect(iVToolLogo, true, false);
     	
         lCommandName.setText(step.getCommandDescriptor().getName());

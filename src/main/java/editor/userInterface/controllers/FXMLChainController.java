@@ -25,11 +25,11 @@ import dsl.ArgumentValidator;
 import dsl.entities.Argument;
 import dsl.entities.Output;
 import editor.dataAccess.Uris;
-import editor.dataAccess.loader.LogoLoader;
 import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
 import editor.userInterface.controllers.FXMLChainController.Data;
 import editor.userInterface.utils.Dialog;
+import editor.userInterface.utils.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -101,9 +101,9 @@ public class FXMLChainController implements IInitializable<Data>{
 	private void load(){
 		iVOutput.setImage(DEFAULT_TOOL_LOG);
 		iVArgument.setImage(DEFAULT_TOOL_LOG);
-		
-		new LogoLoader(from.getToolDescriptor(), iVOutput).load();
-		new LogoLoader(to.getToolDescriptor(), iVArgument).load();
+
+		UIUtils.loadLogo(iVOutput, from.getToolDescriptor());
+		UIUtils.loadLogo(iVArgument, to.getToolDescriptor());
 
 		new ButtonMagnifier<>(bChain).mount();
 		bChain.setTooltip(new Tooltip("Chain"));
