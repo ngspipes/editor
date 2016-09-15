@@ -19,16 +19,14 @@
  */
 package editor.userInterface.controllers.help;
 
+import components.FXMLFile;
+import editor.dataAccess.Uris;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
-
-import components.FXMLFile;
-
-import editor.dataAccess.Uris;
 
 public class FXMLVideoListViewItemController implements IInitializable<String> {
 	
