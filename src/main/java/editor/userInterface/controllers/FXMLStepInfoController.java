@@ -26,7 +26,7 @@ import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
 import editor.dataAccess.loader.LogoLoader;
 import editor.logic.entities.EditorStep;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 import exceptions.RepositoryException;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

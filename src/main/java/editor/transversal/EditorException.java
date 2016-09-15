@@ -17,25 +17,16 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package editor.utils.task;
+package editor.transversal;
 
-import editor.utils.ThrowableFunctionalInterfaces.Supplier;
+public class EditorException extends Exception{
 
-public class BasicTask<T> extends  Task<T>{
+	private static final long serialVersionUID = 1L;
 
-    private final Supplier<T> action;
-
-
-
-    public BasicTask(Supplier<T> action) {
-        this.action = action;
-    }
-
-
-
-    @Override
-    protected T execute() throws Exception {
-        return this.action.get();
-    }
+	public EditorException(){}
+	
+	public EditorException(String msg){ super(msg); }
+	
+	public EditorException(String msg, Throwable cause){ super(msg, cause); }
 
 }

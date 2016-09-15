@@ -23,7 +23,7 @@ import components.multiOption.Operations;
 import descriptors.IToolDescriptor;
 import editor.userInterface.controllers.FXMLToolListViewCellController;
 import editor.userInterface.controllers.FXMLToolListViewCellController.Data;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;

@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package editor.utils.task;
+package editor.transversal.task;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;

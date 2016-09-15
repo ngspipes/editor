@@ -31,9 +31,9 @@ import editor.userInterface.areas.ToolArea;
 import editor.userInterface.areas.workflowArea.WorkflowArea;
 import editor.userInterface.utils.Dialog;
 import editor.userInterface.utils.UIUtils;
-import editor.utils.EditorException;
-import editor.utils.Log;
-import editor.utils.Utils;
+import editor.transversal.EditorException;
+import editor.transversal.Log;
+import editor.transversal.Utils;
 import javafx.scene.control.ButtonType;
 import repository.IRepository;
 

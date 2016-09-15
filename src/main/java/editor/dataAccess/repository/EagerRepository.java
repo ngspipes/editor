@@ -22,7 +22,7 @@ package editor.dataAccess.repository;
 import configurators.IConfigurator;
 import descriptors.IToolDescriptor;
 import editor.dataAccess.Uris;
-import editor.utils.EditorException;
+import editor.transversal.EditorException;
 import exceptions.RepositoryException;
 import javafx.util.Pair;
 import repository.IRepository;

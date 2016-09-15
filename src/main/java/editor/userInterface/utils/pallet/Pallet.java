@@ -19,7 +19,7 @@
  */
 package editor.userInterface.utils.pallet;
 
-import editor.utils.Log;
+import editor.transversal.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

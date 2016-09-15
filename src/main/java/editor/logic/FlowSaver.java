@@ -23,7 +23,7 @@ import dsl.entities.Argument;
 import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
-import editor.utils.EditorException;
+import editor.transversal.EditorException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

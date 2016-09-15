@@ -17,14 +17,16 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package editor.utils;
+package editor.transversal;
 
 public class WorkQueue {
 
+    //Runs on dedicated Thread
     public static void run(Runnable action){
         run(action, true, Thread.NORM_PRIORITY);
     }
 
+    //Runs on dedicated Thread
     public static void run(Runnable action, boolean deamon, int priority){
         Thread thread = new Thread(action);
         thread.setDaemon(deamon);

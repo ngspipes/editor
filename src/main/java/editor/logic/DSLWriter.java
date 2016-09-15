@@ -25,8 +25,8 @@ import editor.dataAccess.Uris;
 import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
-import editor.utils.EditorException;
-import editor.utils.Log;
+import editor.transversal.EditorException;
+import editor.transversal.Log;
 import utils.IO;
 
 import java.io.File;

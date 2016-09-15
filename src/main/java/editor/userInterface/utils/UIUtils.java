@@ -21,9 +21,9 @@ package editor.userInterface.utils;
 
 import components.Window;
 import editor.dataAccess.repository.RepositoryManager;
-import editor.utils.EditorException;
-import editor.utils.task.Task;
-import editor.utils.task.TaskFactory;
+import editor.transversal.EditorException;
+import editor.transversal.task.Task;
+import editor.transversal.task.TaskFactory;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

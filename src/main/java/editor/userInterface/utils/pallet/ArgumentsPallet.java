@@ -22,7 +22,7 @@ package editor.userInterface.utils.pallet;
 import components.multiOption.Operations;
 import dsl.entities.Argument;
 import editor.userInterface.controllers.FXMLArgumentListViewCellController;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;

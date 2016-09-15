@@ -20,7 +20,7 @@
 package editor.logic;
 
 import editor.logic.entities.Flow;
-import editor.utils.EditorException;
+import editor.transversal.EditorException;
 
 import java.io.File;
 import java.util.function.BiConsumer;

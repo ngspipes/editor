@@ -17,15 +17,15 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package editor.utils.task;
+package editor.transversal.task;
 
 import javafx.embed.swing.JFXPanel;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static editor.utils.ThrowableFunctionalInterfaces.Runnable;
-import static editor.utils.ThrowableFunctionalInterfaces.Supplier;
+import static editor.transversal.ThrowableFunctionalInterfaces.Runnable;
+import static editor.transversal.ThrowableFunctionalInterfaces.Supplier;
 
 public class TaskFactory {
 

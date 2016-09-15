@@ -19,7 +19,7 @@
  */
 package editor.dataAccess.loader;
 
-import editor.utils.WorkQueue;
+import editor.transversal.WorkQueue;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

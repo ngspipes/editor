@@ -24,7 +24,7 @@ import editor.EditorOperations;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
 import editor.userInterface.controllers.FXMLStepsOrderController;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

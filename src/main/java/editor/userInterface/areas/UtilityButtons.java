@@ -21,7 +21,7 @@ package editor.userInterface.areas;
 
 import components.mounter.ButtonMounter;
 import editor.EditorOperations;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

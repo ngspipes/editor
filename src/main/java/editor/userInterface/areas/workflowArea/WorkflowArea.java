@@ -21,9 +21,9 @@ package editor.userInterface.areas.workflowArea;
 
 import editor.EditorOperations;
 import editor.logic.entities.Flow;
-import editor.utils.EditorException;
-import editor.utils.Log;
-import editor.utils.Utils;
+import editor.transversal.EditorException;
+import editor.transversal.Log;
+import editor.transversal.Utils;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 

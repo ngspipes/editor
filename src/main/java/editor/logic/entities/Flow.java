@@ -19,8 +19,8 @@
  */
 package editor.logic.entities;
 
-import editor.utils.EditorException;
-import editor.utils.Log;
+import editor.transversal.EditorException;
+import editor.transversal.Log;
 import jfxwfutils.Event;
 import repository.IRepository;
 

@@ -24,7 +24,7 @@ import editor.EditorOperations;
 import editor.logic.entities.Flow;
 import editor.userInterface.controllers.FXMLTabHeaderController;
 import editor.userInterface.controllers.FXMLTabHeaderController.Data;
-import editor.utils.EditorException;
+import editor.transversal.EditorException;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;

@@ -20,7 +20,7 @@
 package editor.logic.entities;
 
 import descriptors.IToolDescriptor;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 
 import java.util.*;
 

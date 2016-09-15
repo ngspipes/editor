@@ -22,7 +22,7 @@ package editor.userInterface.utils;
 import components.Window;
 import editor.userInterface.controllers.FXMLChangeRepositoryController;
 import editor.userInterface.controllers.FXMLCreateWorkflowController;
-import editor.utils.EditorException;
+import editor.transversal.EditorException;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

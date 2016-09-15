@@ -21,7 +21,7 @@ package editor.userInterface.controllers.help;
 
 import editor.dataAccess.Uris;
 import editor.userInterface.utils.pallet.Pallet;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

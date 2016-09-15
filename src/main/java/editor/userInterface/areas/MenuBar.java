@@ -24,7 +24,7 @@ import editor.EditorOperations;
 import editor.dataAccess.Uris;
 import editor.userInterface.utils.Dialog;
 import editor.userInterface.utils.UIUtils;
-import editor.utils.Utils;
+import editor.transversal.Utils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;

@@ -20,9 +20,9 @@
 package editor.dataAccess.repository;
 
 import dsl.managers.Support;
-import editor.utils.EditorException;
-import editor.utils.task.BasicTask;
-import editor.utils.task.Task;
+import editor.transversal.EditorException;
+import editor.transversal.task.BasicTask;
+import editor.transversal.task.Task;
 import exceptions.RepositoryException;
 import repository.IRepository;
 import utils.Cache;
