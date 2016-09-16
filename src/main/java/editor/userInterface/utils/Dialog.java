@@ -20,15 +20,18 @@
 package editor.userInterface.utils;
 
 import components.Window;
+import editor.dataAccess.Uris;
+import editor.transversal.EditorException;
 import editor.userInterface.controllers.FXMLChangeRepositoryController;
 import editor.userInterface.controllers.FXMLCreateWorkflowController;
-import editor.transversal.EditorException;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import jfxutils.ComponentException;
@@ -167,9 +170,13 @@ public class Dialog {
     }
 
     public static Window<Parent, Void> getLoadingWindow(String title) {
-    	ProgressIndicator progressIndicator = new ProgressIndicator();
-    	progressIndicator.setProgress(-1.0);	
-    	return new Window<>(progressIndicator, title);
+        AnchorPane root = new AnchorPane();
+
+        ImageView loadingImage = new ImageView(new Image(Uris.LOADING_IMAGE));
+
+        root.getChildren().add(loadingImage);
+
+    	return new Window<>(root, title);
     }
     
 }

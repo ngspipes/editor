@@ -21,6 +21,7 @@ package editor.userInterface.utils;
 
 import components.Window;
 import descriptors.IToolDescriptor;
+import editor.dataAccess.Uris;
 import editor.dataAccess.loader.ImageLoaderTask;
 import editor.dataAccess.repository.RepositoryManager;
 import editor.transversal.EditorException;
@@ -121,6 +122,8 @@ public class UIUtils {
 
 
 	public static Task<Image> loadImage(ImageView view, String location) {
+		view.setImage(new Image(Uris.LOADING_IMAGE));
+
 		Task<Image> task = new ImageLoaderTask(location);
 
 		task.succeededEvent.addListener(() -> view.setImage(task.getValue()));

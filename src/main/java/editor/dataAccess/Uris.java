@@ -52,6 +52,7 @@ public class Uris {
 	public static final String URI_BASED_REPOSITORY_IMAGE =	IMAGES + SEP + "UriBasedRepository.png";
 	public static final String LOCAL_REPOSITORY_IMAGE =		IMAGES + SEP + "LocalRepository.png";
 	public static final String GITHUB_REPOSITORY_IMAGE =	IMAGES + SEP + "GithubRepository.png";
+	public static final String LOADING_IMAGE =	 			IMAGES + SEP + "Loading.gif";
 
 
 	private static final String FXML_FILES = 						"fXML";
