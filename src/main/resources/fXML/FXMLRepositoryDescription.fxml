@@ -42,7 +42,7 @@
                            <children>
                               <ImageView fx:id="iVToolLogo" fitHeight="139.0" fitWidth="141.0" layoutX="959.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/Tool.png" />
+                                    <Image url="@../images/ToolLogo.png" />
                                  </image>
                               </ImageView>
                               <Label layoutX="16.0" layoutY="51.0" text="Name:">
