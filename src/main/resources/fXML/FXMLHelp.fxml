@@ -30,14 +30,14 @@
                         </TextField>
                      </children>
                   </HBox>
-                  <ListView id="lvVideo" fx:id="lvVideo" editable="true" prefHeight="574.0" prefWidth="368.0" stylesheets="@//css/TreeView.css" VBox.vgrow="ALWAYS" />
+                  <ListView id="lvVideo" fx:id="lvVideo" editable="true" prefHeight="574.0" prefWidth="368.0" stylesheets="@../css/TreeView.css" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <SplitPane dividerPositions="0.6923076923076923" layoutX="206.0" layoutY="203.0" orientation="VERTICAL" prefHeight="757.0" prefWidth="794.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane id="descriptionAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="635.0" prefWidth="846.0" stylesheets="@//css/DescriptionAnchorPane.css">
+                      <AnchorPane id="descriptionAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="635.0" prefWidth="846.0" stylesheets="@../css/DescriptionAnchorPane.css">
                            <children>
                               <SplitPane layoutX="116.0" layoutY="123.0" prefHeight="565.0" prefWidth="1137.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
@@ -55,7 +55,7 @@
                                 </items>
                               </SplitPane>
                            </children></AnchorPane>
-                      <AnchorPane id="videoAnchorPane" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0" stylesheets="@//css/VideoAnchorPane.css">
+                      <AnchorPane id="videoAnchorPane" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0" stylesheets="@../css/VideoAnchorPane.css">
                            <children>
                               <ImageView fx:id="iVVideo" fitHeight="99.0" fitWidth="98.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="\@../resources/images/">
                                  <image>
@@ -84,7 +84,7 @@
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <TextArea id="tADescription" fx:id="tAVideoDescription" layoutX="337.0" layoutY="63.0" prefHeight="180.0" prefWidth="526.0" stylesheets="@//css/DescriptionTextArea.css" wrapText="true" />
+                              <TextArea id="tADescription" fx:id="tAVideoDescription" layoutX="337.0" layoutY="63.0" prefHeight="180.0" prefWidth="526.0" stylesheets="@../css/DescriptionTextArea.css" wrapText="true" />
                            </children>
                         </AnchorPane>
                     </items>
