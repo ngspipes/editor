@@ -30,11 +30,8 @@ import java.util.jar.JarFile;
 public class Uris {
 
 	public static final String SEP = "/";//System.getProperty("file.separator");
-	public static final String RESOURCES = "";
-
 
 	public static final String DEFAULT_TOOL_LOGO = ClassLoader.getSystemResource(Uris.TOOL_LOGO_IMAGE).toExternalForm();
-
 
 	private static final String IMAGES = 					"images";
 	public static final String TOOL_LOGO_IMAGE = 			IMAGES + SEP + "ToolLogo.png";
@@ -53,7 +50,6 @@ public class Uris {
 	public static final String LOCAL_REPOSITORY_IMAGE =		IMAGES + SEP + "LocalRepository.png";
 	public static final String GITHUB_REPOSITORY_IMAGE =	IMAGES + SEP + "GithubRepository.png";
 	public static final String LOADING_IMAGE =	 			IMAGES + SEP + "Loading.gif";
-
 
 	private static final String FXML_FILES = 						"fXML";
 	public static final String FXML_CHANGE_REPOSITORY = 			FXML_FILES + SEP + "FXMLChangeRepository.fxml";
@@ -75,6 +71,8 @@ public class Uris {
 
 	public static final String SHORTCUTS_FILE = "Shortcuts.txt";
 
+	public static final String JAR_FILE_PATH = Uris.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
 	public static final String NGSPIPES_DIRECTORY = 		System.getProperty("user.home") + SEP + "NGSPipes";
 	public static final String EDITOR_PATH = 				NGSPIPES_DIRECTORY + SEP + "Editor";
 	public static final String LOG_DIR = 					EDITOR_PATH + SEP + "log";
@@ -83,73 +81,114 @@ public class Uris {
 	public static final String CACHE_DIR = 					EDITOR_PATH + SEP + "cache";
 	public static final String TUTORIALS_DIR =				EDITOR_PATH + SEP + "tutorials";
 
+
+
 	public static void load() throws IOException {
+		createNGSPipesDirectory();
+			
+		createEditorDirectory();
+
+		createLogDirectory();
+
+		createPreferencesDirectory();
+
+		createCacheDirectory();
+
+		createTutorialsDirectory();
+
+		createDefaultRepositoryDirectory();
+	}
+
+	private static void createNGSPipesDirectory(){
 		File ngsPipesDir = new File(NGSPIPES_DIRECTORY);
-		File editorDir = new File(EDITOR_PATH);
-		File logDir = new File(LOG_DIR);
-		File preferencesDir = new File(PREFERENCES_DIR);
-		File defaultRepositoryDir = new File(DEFAULT_REPOSITORY_DIR);
-		File cacheDir = new File(CACHE_DIR);
-		File tutorialsDir = new File(TUTORIALS_DIR);
 
 		if(!ngsPipesDir.exists())
 			ngsPipesDir.mkdirs();
-			
+	}
+
+	private static void createEditorDirectory() {
+		File editorDir = new File(EDITOR_PATH);
+
 		if(!editorDir.exists())
 			editorDir.mkdirs();
+	}
+
+	private static void createLogDirectory() {
+		File logDir = new File(LOG_DIR);
 
 		if(!logDir.exists())
 			logDir.mkdir();
+	}
+
+	private static void createPreferencesDirectory() {
+		File preferencesDir = new File(PREFERENCES_DIR);
 
 		if(!preferencesDir.exists())
 			preferencesDir.mkdir();
-		
+	}
+
+	private static void createCacheDirectory() {
+		File cacheDir = new File(CACHE_DIR);
+
 		if(!cacheDir.exists())
 			cacheDir.mkdirs();
-		
+	}
+
+	private static void createTutorialsDirectory() throws IOException {
+		File tutorialsDir = new File(TUTORIALS_DIR);
+
 		if(!tutorialsDir.exists()){
 			tutorialsDir.mkdirs();
-			final File jarFile = new File(Uris.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-			final JarFile jar = new JarFile(jarFile);
+			JarFile jar = new JarFile(new File(JAR_FILE_PATH));
 			copyResourcesToDirectory(jar, "tutorials", TUTORIALS_DIR);
 			jar.close();
 		}
+	}
+
+	private static void createDefaultRepositoryDirectory() throws IOException {
+		File defaultRepositoryDir = new File(DEFAULT_REPOSITORY_DIR);
 
 		if(!defaultRepositoryDir.exists()){
 			defaultRepositoryDir.mkdir();
-			final File jarFile = new File(Uris.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-			final JarFile jar = new JarFile(jarFile);
+			JarFile jar = new JarFile(new File(JAR_FILE_PATH));
 			copyResourcesToDirectory(jar, "repository", DEFAULT_REPOSITORY_DIR);
-			jar.close();	
+			jar.close();
 		}
 	}
 
-
 	private static void copyResourcesToDirectory(JarFile fromJar, String jarDir, String destDir) throws IOException {
-		for (Enumeration<JarEntry> entries = fromJar.entries(); entries.hasMoreElements();) {
+		Enumeration<JarEntry> entries = fromJar.entries();
+		JarEntry entry;
+		String entryName;
 
-			JarEntry entry = entries.nextElement();
+		while(entries.hasMoreElements()) {
+			entry = entries.nextElement();
+			entryName = entry.getName();
 
-			if (entry.getName().startsWith(jarDir + SEP) && !entry.isDirectory()) {
-				File dest = new File(destDir + SEP + entry.getName().substring(jarDir.length() + 1));
+			if (entryName.startsWith(jarDir + SEP) && !entry.isDirectory()) {
+				File dest = new File(destDir + SEP + entryName.substring(jarDir.length() + 1));
 				File parent = dest.getParentFile();
 
 				if (!parent.exists()) 
 					parent.mkdirs();
 
-				try (FileOutputStream out = new FileOutputStream(dest)){
-					try (InputStream in = fromJar.getInputStream(entry)){
-						byte[] buffer = new byte[1024];
-
-						int s;
-						while ((s = in.read(buffer)) > 0)
-							out.write(buffer, 0, s);
-					}
-				}
+				copy(fromJar, entry, dest);
 			}
 		}
 	}
-	
+
+	private static void copy(JarFile fromJar, JarEntry entry, File dest) throws IOException {
+		try (FileOutputStream out = new FileOutputStream(dest)){
+            try (InputStream in = fromJar.getInputStream(entry)){
+                byte[] buffer = new byte[1024];
+
+                int s;
+                while ((s = in.read(buffer)) > 0)
+                    out.write(buffer, 0, s);
+            }
+        }
+	}
+
 	public static String getLogPath(String name) {
 		return LOG_DIR  + SEP + name;
 	}
