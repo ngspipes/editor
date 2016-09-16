@@ -39,6 +39,9 @@ import javafx.scene.paint.Color;
 import repository.IRepository;
 
 import java.net.URL;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 
 public class UIUtils {
@@ -98,20 +101,27 @@ public class UIUtils {
 	}
 
 	public static Task<IRepository> loadRepository(String type, String location) throws EditorException {
-		Window<?,?> progressWindow = openLoadWindow("Loading Repository");
+		BlockingQueue<String> messageQueue = new LinkedBlockingQueue<>();
+		AtomicBoolean finishFlag = new AtomicBoolean(false);
+
+		Window<?,?> progressWindow = openLoadWindow("Loading Repository", messageQueue, finishFlag);
 
 		Task<IRepository> task = RepositoryManager.getRepositoryAsync(type, location);
 
-		task.finishedEvent.addListener(()-> Platform.runLater(progressWindow::close));
+		task.finishedEvent.addListener(()-> {
+			finishFlag.set(true);
+			Platform.runLater(progressWindow::close);
+		});
 
 		return task;
 	}
 
-	private static Window<?,?> openLoadWindow(String loadMessage) throws EditorException {
+	private static Window<?,?> openLoadWindow(String loadMessage,
+											  BlockingQueue<String> messageQueue,
+											  AtomicBoolean finishFlag) throws EditorException {
 		Window<?,?> window;
-
 		try {
-			window = Dialog.getLoadingWindow(loadMessage);
+			window = Dialog.getLoadingWindow(loadMessage, messageQueue, finishFlag);
 			window.open();
 		} catch(Exception ex) {
 			throw new EditorException("Error loading progress Window!", ex);

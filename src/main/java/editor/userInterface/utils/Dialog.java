@@ -20,24 +20,23 @@
 package editor.userInterface.utils;
 
 import components.Window;
-import editor.dataAccess.Uris;
 import editor.transversal.EditorException;
 import editor.userInterface.controllers.FXMLChangeRepositoryController;
 import editor.userInterface.controllers.FXMLCreateWorkflowController;
+import editor.userInterface.controllers.FXMLLoadController;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import jfxutils.ComponentException;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 
 
@@ -169,14 +168,20 @@ public class Dialog {
     	}
     }
 
-    public static Window<Parent, Void> getLoadingWindow(String title) {
-        AnchorPane root = new AnchorPane();
+    public static Window<Parent, Void> getLoadingWindow(String title,
+                                                        BlockingQueue messageQueue,
+                                                        AtomicBoolean finish) throws EditorException {
+        try{
+            Window<Parent,Void> window = new Window<>((Parent)null, title);
 
-        ImageView loadingImage = new ImageView(new Image(Uris.LOADING_IMAGE));
+            Parent root = (Parent) FXMLLoadController.mount(new FXMLLoadController.Data(messageQueue, finish));
 
-        root.getChildren().add(loadingImage);
+            window.setRoot(root);
 
-    	return new Window<>(root, title);
+            return window;
+        } catch(ComponentException ex) {
+            throw new EditorException("Error loading Load window!", ex);
+        }
     }
     
 }

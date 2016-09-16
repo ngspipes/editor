@@ -67,7 +67,8 @@ public class Uris {
 	public static final String FXML_HELP = 							FXML_FILES + SEP + "FXMLHelp.fxml";
 	public static final String FXML_VIDEOS_LIST_VIEW_ITEM = 		FXML_FILES + SEP + "FXMLVideoListViewItem.fxml";
 	public static final String FXML_CHAIN =					 		FXML_FILES + SEP + "FXMLChain.fxml";
-	public static final String FXML_STEPS_ORDER =					 FXML_FILES + SEP + "FXMLStepsOrder.fxml";
+	public static final String FXML_STEPS_ORDER =					FXML_FILES + SEP + "FXMLStepsOrder.fxml";
+	public static final String FXML_LOAD =					 		FXML_FILES + SEP + "FXMLLoad.fxml";
 
 	public static final String SHORTCUTS_FILE = "Shortcuts.txt";
 
