@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane prefHeight="875.0" prefWidth="1499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.FXMLRepositoryDescriptionController">
    <children>
       <SplitPane dividerPositions="0.24858757062146894" layoutX="425.0" layoutY="159.0" prefHeight="759.0" prefWidth="1064.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <SplitPane dividerPositions="0.17411225658648338" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
               <items>
-                <AnchorPane minHeight="150.0" minWidth="0.0" style="-fx-background-color: #9F9F9F;">
+                <AnchorPane maxHeight="150.0" minHeight="150.0" minWidth="300.0" style="-fx-background-color: #9F9F9F;">
                      <children>
                         <Label layoutX="16.0" layoutY="10.0" text="Repository" textFill="#008aff">
                            <font>
