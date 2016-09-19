@@ -31,7 +31,6 @@ import utils.Cache;
 public class RepositoryManager {
 	
 	private static final Cache<String, IRepository> CACHE = new Cache<>();
-	private static final String TAG = RepositoryManager.class.getSimpleName();
 
 
 
