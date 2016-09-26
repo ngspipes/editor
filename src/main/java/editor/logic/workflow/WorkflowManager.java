@@ -239,8 +239,7 @@ public class WorkflowManager {
         }
     }
 
-
-
+    //FACTORY
     public static Workflow createWorkflow(String name, String directory){
         Workflow workflow = new Workflow();
 
@@ -273,6 +272,7 @@ public class WorkflowManager {
         return new Chain(output, argument, dslChain);
     }
 
+    //WRITE OPERATIONS
     public WorkflowEvents getEventsFor(Workflow workflow){
         synchronized (LOCK){
             return EVENTS.get(workflow);
@@ -434,6 +434,7 @@ public class WorkflowManager {
             setWorkflowSave(workflow, false);
         }
     }
+
 
     public static IRepository getRepositoryUsedOn(Workflow workflow){
         Collection<Step> steps = workflow.getSteps();
