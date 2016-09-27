@@ -76,6 +76,7 @@ public class WorkflowManager {
     private static final Map<Workflow, WorkflowEvents> EVENTS = new HashMap<>();
     private static final Map<Step, Workflow> WORKFLOW_BY_STEP = new HashMap<>();
     private static final Map<Channel, Workflow> WORKFLOW_BY_CHANNEL = new HashMap<>();
+    private static final Map<Argument, Step> STEP_BY_ARGUMENT = new HashMap<>();
 
     public static final String WORK_FLOW_FILE_EXTENSION = ".wf";
     public static final String WORK_FLOW_DSL_FILE_EXTENSION = ".pipes";
@@ -95,14 +96,32 @@ public class WorkflowManager {
         }
     }
 
+    private static void loadChannel(Workflow workflow, Channel channel){
+        synchronized (LOCK){
+            loadChannelEvents(workflow, channel);
+            loadChannelMaps(workflow, channel);
+        }
+    }
+
     private static void loadChannelEvents(Workflow workflow, Channel channel){
         synchronized (LOCK){
             WorkflowEvents events = EVENTS.get(workflow);
 
             events.chainAdditionEvents.put(channel, new Event<>());
             events.chainRemovalEvents.put(channel, new Event<>());
+        }
+    }
 
+    private static void loadChannelMaps(Workflow workflow, Channel channel){
+        synchronized (LOCK){
             WORKFLOW_BY_CHANNEL.put(channel, workflow);
+        }
+    }
+
+    private static void unloadChannel(Workflow workflow, Channel channel){
+        synchronized (LOCK){
+            unloadChannelEvents(workflow, channel);
+            unloadChannelMaps(workflow, channel);
         }
     }
 
@@ -112,8 +131,19 @@ public class WorkflowManager {
 
             events.chainAdditionEvents.remove(channel);
             events.chainRemovalEvents.remove(channel);
+        }
+    }
 
+    private static void unloadChannelMaps(Workflow workflow, Channel channel){
+        synchronized (LOCK){
             WORKFLOW_BY_CHANNEL.remove(channel, workflow);
+        }
+    }
+
+    private static void loadStep(Workflow workflow, Step step){
+        synchronized (LOCK){
+            loadStepEvents(workflow, step);
+            loadStepMaps(workflow, step);
         }
     }
 
@@ -127,8 +157,22 @@ public class WorkflowManager {
 
             for(Argument argument : step.getArguments())
                 events.argumentEvents.put(argument, new Event<>());
+        }
+    }
+
+    private static void loadStepMaps(Workflow workflow, Step step){
+        synchronized (LOCK){
+            for(Argument argument : step.getArguments())
+                STEP_BY_ARGUMENT.put(argument, step);
 
             WORKFLOW_BY_STEP.put(step, workflow);
+        }
+    }
+
+    private static void unloadStep(Workflow workflow, Step step){
+        synchronized (LOCK){
+            unloadStepEvents(workflow, step);
+            unloadStepMaps(workflow, step);
         }
     }
 
@@ -142,6 +186,13 @@ public class WorkflowManager {
 
             for(Argument argument : step.getArguments())
                 events.argumentEvents.remove(argument);
+        }
+    }
+
+    private static void unloadStepMaps(Workflow workflow, Step step){
+        synchronized (LOCK){
+            for(Argument argument : step.getArguments())
+                STEP_BY_ARGUMENT.remove(argument, step);
 
             WORKFLOW_BY_STEP.remove(step, workflow);
         }
@@ -311,7 +362,7 @@ public class WorkflowManager {
         synchronized (LOCK){
             workflow.addStep(step);
 
-            loadStepEvents(workflow, step);
+            loadStep(workflow, step);
 
             fireStepAdditionEvent(workflow, step);
 
@@ -327,7 +378,7 @@ public class WorkflowManager {
 
             workflow.removeStep(step);
 
-            unloadStepEvents(workflow, step);
+            unloadStep(workflow, step);
 
             fireStepRemovalEvent(workflow, step);
 
@@ -339,7 +390,7 @@ public class WorkflowManager {
         synchronized (LOCK){
             workflow.addChannel(channel);
 
-            loadChannelEvents(workflow, channel);
+            loadChannel(workflow, channel);
 
             fireChannelAdditionEvent(workflow, channel);
 
@@ -351,7 +402,7 @@ public class WorkflowManager {
         synchronized (LOCK){
             workflow.removeChannel(channel);
 
-            unloadChannelEvents(workflow, channel);
+            unloadChannel(workflow, channel);
 
             fireChannelRemovalEvent(workflow, channel);
 
