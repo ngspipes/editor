@@ -89,10 +89,10 @@ public class WorkflowManager {
             EVENTS.put(workflow, new WorkflowEvents(workflow));
 
             for(Channel channel : workflow.getChannels())
-                loadChannelEvents(workflow, channel);
+                loadChannel(workflow, channel);
 
             for(Step step : workflow.getSteps())
-                loadStepEvents(workflow, step);
+                loadStep(workflow, step);
         }
     }
 
