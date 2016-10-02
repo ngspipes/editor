@@ -75,7 +75,8 @@ public class WorkflowManager {
     private static final Map<Workflow, WorkflowEvents> EVENTS = new HashMap<>();
     private static final Map<Step, Workflow> WORKFLOW_BY_STEP = new HashMap<>();
     private static final Map<Channel, Workflow> WORKFLOW_BY_CHANNEL = new HashMap<>();
-    private static final Map<Argument, Step> STEP_BY_ARGUMENT = new HashMap<>();
+    private static final Map<Argument, Step> STEPS_BY_ARGUMENT = new HashMap<>();
+    private static final Map<Output, Step> STEPS_BY_OUTPUT = new HashMap<>();
 
     public static final String WORK_FLOW_FILE_EXTENSION = ".wf";
     public static final String WORK_FLOW_DSL_FILE_EXTENSION = ".pipes";
@@ -177,7 +178,10 @@ public class WorkflowManager {
     private static void loadStepMaps(Workflow workflow, Step step){
         synchronized (LOCK){
             for(Argument argument : step.getArguments())
-                STEP_BY_ARGUMENT.put(argument, step);
+                STEPS_BY_ARGUMENT.put(argument, step);
+
+            for(Output output : step.getOutputs())
+                STEPS_BY_OUTPUT.put(output, step);
 
             WORKFLOW_BY_STEP.put(step, workflow);
         }
@@ -209,7 +213,10 @@ public class WorkflowManager {
     private static void unloadStepMaps(Workflow workflow, Step step){
         synchronized (LOCK){
             for(Argument argument : step.getArguments())
-                STEP_BY_ARGUMENT.remove(argument, step);
+                STEPS_BY_ARGUMENT.remove(argument, step);
+
+            for(Output output : step.getOutputs())
+                STEPS_BY_OUTPUT.remove(output, step);
 
             WORKFLOW_BY_STEP.remove(step, workflow);
         }
@@ -350,13 +357,47 @@ public class WorkflowManager {
     }
 
 
-    //WRITE OPERATIONS
-    public WorkflowEvents getEventsFor(Workflow workflow){
+    public static WorkflowEvents getEventsFor(Workflow workflow){
         synchronized (LOCK){
             return EVENTS.get(workflow);
         }
     }
 
+    public static Workflow getWorkflowOfChannel(Channel channel){
+        synchronized (LOCK){
+            return WORKFLOW_BY_CHANNEL.get(channel);
+        }
+    }
+
+    public static Workflow getWorkflowOfStep(Step step){
+        synchronized (LOCK){
+            return WORKFLOW_BY_STEP.get(step);
+        }
+    }
+
+    public static Step getStepOfArgument(Argument argument){
+        synchronized (LOCK){
+            return STEPS_BY_ARGUMENT.get(argument);
+        }
+    }
+
+    public static Step getStepOfOutput(Output output){
+        synchronized (LOCK){
+            return STEPS_BY_OUTPUT.get(output);
+        }
+    }
+
+    public static IRepository getRepositoryUsedOn(Workflow workflow){
+        Collection<Step> steps = workflow.getSteps();
+
+        if(steps.isEmpty())
+            return null;
+        else
+            return steps.stream().findFirst().get().getRepository();
+    }
+
+
+    //WRITE OPERATIONS
     private static void setWorkflowSave(Workflow workflow, boolean saved){
         synchronized (LOCK){
             workflow.setSaved(saved);
@@ -479,7 +520,7 @@ public class WorkflowManager {
 
     public static void setArgumentValue(Argument argument, String value){
         synchronized (LOCK){
-            Step step = STEP_BY_ARGUMENT.get(argument);
+            Step step = STEPS_BY_ARGUMENT.get(argument);
 
             Workflow workflow = WORKFLOW_BY_STEP.get(step);
 
@@ -513,15 +554,6 @@ public class WorkflowManager {
         }
     }
 
-
-    public static IRepository getRepositoryUsedOn(Workflow workflow){
-        Collection<Step> steps = workflow.getSteps();
-
-        if(steps.isEmpty())
-            return null;
-        else
-            return steps.stream().findFirst().get().getRepository();
-    }
 
     public static Task<Void> saveAsync(Workflow workflow){
         return new BasicTask<>(() -> {
