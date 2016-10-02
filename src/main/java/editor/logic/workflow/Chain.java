@@ -19,9 +19,6 @@
  */
 package editor.logic.workflow;
 
-import dsl.entities.Argument;
-import dsl.entities.Output;
-
 public class Chain {
 
     private Output output;

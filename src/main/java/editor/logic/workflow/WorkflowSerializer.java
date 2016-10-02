@@ -21,9 +21,7 @@ package editor.logic.workflow;
 
 import configurators.IConfigurator;
 import descriptors.IToolDescriptor;
-import dsl.entities.Argument;
 import dsl.entities.Command;
-import dsl.entities.Output;
 import editor.dataAccess.repository.RepositoryManager;
 import editor.transversal.EditorException;
 import exceptions.CommandBuilderException;
@@ -261,9 +259,11 @@ public class WorkflowSerializer {
         String name = argumentData.getString(STEP_ARGUMENT_NAME_JSON_KEY);
         String value = argumentData.getString(STEP_ARGUMENT_VALUE_JSON_KEY);
 
-        return new Argument(null, value, null){
+        return new Argument(){
             @Override
             public String getName(){return name;}
+            @Override
+            public String getValue(){return value;}
         };
     }
 
@@ -303,7 +303,7 @@ public class WorkflowSerializer {
 
         Argument argument = to.getArgument(argumentName);
         Output output = from.getOutput(outputName);
-        dsl.entities.Chain dslChain = new dsl.entities.Chain(argument, output);
+        dsl.entities.Chain dslChain = new dsl.entities.Chain(argument.getDSLArgument(), output.getDSLOutput());
         dslChain.connect();
 
         return new Chain(output, argument, dslChain);

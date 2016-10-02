@@ -22,11 +22,10 @@ package editor.logic.workflow;
 import configurators.IConfigurator;
 import descriptors.ICommandDescriptor;
 import descriptors.IToolDescriptor;
-import dsl.entities.Argument;
-import dsl.entities.Output;
 import repository.IRepository;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class Step {
 
@@ -42,6 +41,16 @@ public class Step {
     protected dsl.entities.Step getDSLStep(){ return this.dslStep; }
     protected void setDSLStep(dsl.entities.Step dslStep){ this.dslStep = dslStep; }
 
+    private Collection<Argument> arguments;
+    public Collection<Argument> getArguments(){ return this.arguments; }
+
+    private Collection<Output> outputs;
+    public Collection<Output> getOutputs(){ return this.outputs; }
+
+    private Map<String, Argument> argumentsByName;
+
+    private Map<String, Output> outputsByName;
+
 
 
     protected Step(){}
@@ -50,9 +59,33 @@ public class Step {
         this.dslStep = dslStep;
         this.x = x;
         this.y = y;
+        load();
     }
 
 
+
+    private void load(){
+        loadArguments();
+        loadOutputs();
+    }
+
+    private void loadArguments() {
+        Argument argument;
+        for(dsl.entities.Argument dslArgument : dslStep.getCommand().getArguments()){
+            argument = new Argument(dslArgument);
+            arguments.add(argument);
+            argumentsByName.put(argument.getName(), argument);
+        }
+    }
+
+    private void loadOutputs() {
+        Output output;
+        for(dsl.entities.Output dslOutput : dslStep.getCommand().getOutputs()){
+            output = new Output(dslOutput);
+            outputs.add(output);
+            outputsByName.put(output.getName(), output);
+        }
+    }
 
     public IConfigurator getConfigurator(){
         return dslStep.getConfigurator();
@@ -62,20 +95,12 @@ public class Step {
         dslStep.setConfigurator(configurator);
     }
 
-    public Collection<Argument> getArguments(){
-        return dslStep.getCommand().getArguments();
-    }
-
-    public Collection<Output> getOutputs(){
-        return dslStep.getCommand().getOutputs();
-    }
-
     public Argument getArgument(String argumentName){
-        return dslStep.getCommand().getArgument(argumentName);
+        return argumentsByName.get(argumentName);
     }
 
     public Output getOutput(String outputName){
-        return dslStep.getCommand().getOutput(outputName);
+        return outputsByName.get(outputName);
     }
 
     public IRepository getRepository(){

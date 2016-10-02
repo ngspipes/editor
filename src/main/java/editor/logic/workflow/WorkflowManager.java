@@ -21,9 +21,7 @@ package editor.logic.workflow;
 
 import configurators.IConfigurator;
 import descriptors.ICommandDescriptor;
-import dsl.entities.Argument;
 import dsl.entities.Command;
-import dsl.entities.Output;
 import editor.dataAccess.Uris;
 import editor.transversal.EditorException;
 import editor.transversal.task.BasicTask;
@@ -60,6 +58,7 @@ public class WorkflowManager {
         public final Map<Channel, Event<Chain>> chainRemovalEvents = new HashMap<>();
         public final Map<Step, Event<IConfigurator>> configuratorEvents = new HashMap<>();
         public final Map<Argument, Event<String>> argumentEvents = new HashMap<>();
+        public final Map<Output, Event<String>> outputEvents = new HashMap<>();
         public final Map<Step, Event<Double>> stepXEvents = new HashMap<>();
         public final Map<Step, Event<Double>> stepYEvents = new HashMap<>();
 
@@ -155,8 +154,23 @@ public class WorkflowManager {
             events.stepXEvents.put(step, new Event<>());
             events.stepYEvents.put(step, new Event<>());
 
-            for(Argument argument : step.getArguments())
-                events.argumentEvents.put(argument, new Event<>());
+            Event<String> argumentEvent;
+            for(Argument argument : step.getArguments()){
+                argumentEvent = new Event<>();
+                events.argumentEvents.put(argument, argumentEvent);
+                argument.getDSLArgument().valueChangedEvent.addListener((value)->{
+                    fireArgumentEvent(workflow, argument, value);
+                });
+            }
+
+            Event<String> outputEvent;
+            for(Output output : step.getOutputs()){
+                outputEvent = new Event<>();
+                events.outputEvents.put(output, outputEvent);
+                output.getDSLOutput().valueChangedEvent.addListener((value)->{
+                    fireOutputEvent(workflow, output, value);
+                });
+            }
         }
     }
 
@@ -186,6 +200,9 @@ public class WorkflowManager {
 
             for(Argument argument : step.getArguments())
                 events.argumentEvents.remove(argument);
+
+            for(Output output : step.getOutputs())
+                events.outputEvents.remove(output);
         }
     }
 
@@ -197,6 +214,7 @@ public class WorkflowManager {
             WORKFLOW_BY_STEP.remove(step, workflow);
         }
     }
+
 
     //TRIGGER
     private static void fireSaveEvent(Workflow workflow, Boolean saved){
@@ -276,6 +294,13 @@ public class WorkflowManager {
         }
     }
 
+    private static void fireOutputEvent(Workflow workflow, Output output, String value){
+        synchronized (LOCK){
+            WorkflowEvents event = EVENTS.get(workflow);
+            event.outputEvents.get(output).trigger(value);
+        }
+    }
+
     private static void fireStepXEvent(Workflow workflow, Step step, Double x){
         synchronized (LOCK){
             WorkflowEvents event = EVENTS.get(workflow);
@@ -289,6 +314,7 @@ public class WorkflowManager {
             event.stepYEvents.get(step).trigger(y);
         }
     }
+
 
     //FACTORY
     public static Workflow createWorkflow(String name, String directory){
@@ -318,10 +344,11 @@ public class WorkflowManager {
     }
 
     public static Chain createChain(Argument argument, Output output){
-        dsl.entities.Chain dslChain = new dsl.entities.Chain(argument, output);
+        dsl.entities.Chain dslChain = new dsl.entities.Chain(argument.getDSLArgument(), output.getDSLOutput());
 
         return new Chain(output, argument, dslChain);
     }
+
 
     //WRITE OPERATIONS
     public WorkflowEvents getEventsFor(Workflow workflow){
@@ -450,13 +477,13 @@ public class WorkflowManager {
         }
     }
 
-    public static void setArgumentValue(Step step, Argument argument, String value){
+    public static void setArgumentValue(Argument argument, String value){
         synchronized (LOCK){
+            Step step = STEP_BY_ARGUMENT.get(argument);
+
             Workflow workflow = WORKFLOW_BY_STEP.get(step);
 
             argument.setValue(value);
-
-            fireArgumentEvent(workflow, argument, value);
 
             setWorkflowSave(workflow, false);
         }
