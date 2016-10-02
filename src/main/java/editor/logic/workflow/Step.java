@@ -37,6 +37,10 @@ public class Step {
     public double getY(){ return y; }
     protected void setY(double y){ this.y = y; }
 
+    private int order;
+    public int getOrder(){ return this.order; }
+    protected void setOrder(int order){ this.order = order; }
+
     private dsl.entities.Step dslStep;
     protected dsl.entities.Step getDSLStep(){ return this.dslStep; }
     protected void setDSLStep(dsl.entities.Step dslStep){ this.dslStep = dslStep; }
@@ -55,10 +59,11 @@ public class Step {
 
     protected Step(){}
 
-    protected Step(double x, double y, dsl.entities.Step dslStep){
-        this.dslStep = dslStep;
+    protected Step(double x, double y, int order, dsl.entities.Step dslStep){
         this.x = x;
         this.y = y;
+        this.order = order;
+        this.dslStep = dslStep;
         load();
     }
 

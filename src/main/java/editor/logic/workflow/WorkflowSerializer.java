@@ -50,6 +50,7 @@ public class WorkflowSerializer {
     private static final String STEP_TOOL_NAME_JSON_KEY = "toolName";
     private static final String STEP_COMMAND_NAME_JSON_KEY = "commandName";
     private static final String STEP_CONFIGURATOR_NAME_JSON_KEY = "configuratorName";
+    private static final String STEP_ORDER_JSON_KEY = "order";
     private static final String STEP_ARGUMENTS_JSON_KEY = "arguments";
     private static final String STEP_ARGUMENT_NAME_JSON_KEY = "argumentName";
     private static final String STEP_ARGUMENT_VALUE_JSON_KEY = "argumentValue";
@@ -111,6 +112,7 @@ public class WorkflowSerializer {
         stepData.put(STEP_Y_POS_JSON_KEY, step.getY());
         stepData.put(STEP_TOOL_NAME_JSON_KEY, step.getTool().getName());
         stepData.put(STEP_COMMAND_NAME_JSON_KEY, step.getCommand().getName());
+        stepData.put(STEP_ORDER_JSON_KEY, step.getOrder());
 
         IConfigurator configurator = step.getConfigurator();
         stepData.put(STEP_CONFIGURATOR_NAME_JSON_KEY, configurator == null ? JSONObject.NULL : configurator.getName());
@@ -226,6 +228,7 @@ public class WorkflowSerializer {
         int id = stepData.getInt(STEP_ID_JSON_KEY);
         double x = stepData.getDouble(STEP_X_POS_JSON_KEY);
         double y = stepData.getDouble(STEP_Y_POS_JSON_KEY);
+        int order = stepData.getInt(STEP_ORDER_JSON_KEY);
         String toolName = stepData.getString(STEP_TOOL_NAME_JSON_KEY);
         String commandName = stepData.getString(STEP_COMMAND_NAME_JSON_KEY);
         String configuratorName = stepData.getString(STEP_CONFIGURATOR_NAME_JSON_KEY);
@@ -238,6 +241,7 @@ public class WorkflowSerializer {
 
         step.setX(x);
         step.setY(y);
+        step.setOrder(order);
         step.setDSLStep(dslStep);
 
         for(Argument argument : arguments)

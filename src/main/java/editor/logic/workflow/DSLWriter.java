@@ -26,7 +26,10 @@ import repository.IRepository;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class DSLWriter {
@@ -44,8 +47,7 @@ public class DSLWriter {
 
 
     public static String parse(Workflow workflow, String inputsDir) {
-        Map<Step, Integer> stepsByOrder = StepSorter.sort(workflow);
-        Collection<Step> orderedSteps = orderSteps(stepsByOrder);
+        Collection<Step> orderedSteps = orderSteps(workflow.getSteps());
 
         StringBuilder pipeline = new StringBuilder();
 
@@ -54,16 +56,16 @@ public class DSLWriter {
                 .append(parseRepository(WorkflowManager.getRepositoryUsedOn(workflow)))
                 .append(SEPARATOR)
                 .append(BEGIN_ELEMENT).append(LINE_BREAK)
-                .append(parseTools(workflow, orderedSteps, stepsByOrder, inputsDir))
+                .append(parseTools(workflow, orderedSteps, inputsDir))
                 .append(END_ELEMENT);
 
         return pipeline.toString();
     }
 
-    private static Collection<Step> orderSteps(Map<Step, Integer> stepsByOrder){
-        LinkedList<Step> orderedSteps = new LinkedList<>(stepsByOrder.keySet());
+    private static Collection<Step> orderSteps(Collection<Step> steps){
+        LinkedList<Step> orderedSteps = new LinkedList<>(steps);
 
-        orderedSteps.sort((stepA, stepB) -> stepsByOrder.get(stepA)-stepsByOrder.get(stepB));
+        orderedSteps.sort((stepA, stepB) -> stepA.getOrder()-stepB.getOrder());
 
         return orderedSteps;
     }
@@ -72,19 +74,19 @@ public class DSLWriter {
         return constructString(repository.getType()) + SEPARATOR + constructString(repository.getLocation());
     }
 
-    private static String parseTools(Workflow workflow, Collection<Step> orderedSteps, Map<Step, Integer> stepsByOrder, String inputsDir){
+    private static String parseTools(Workflow workflow, Collection<Step> orderedSteps, String inputsDir){
         StringBuilder tools = new StringBuilder();
 
         String toolParsed;
         for(Step step : orderedSteps){
-            toolParsed = parseTool(workflow, step, stepsByOrder, inputsDir);
+            toolParsed = parseTool(workflow, step, inputsDir);
             tools.append(toolParsed.replaceAll("(?m)^", "\t")).append(LINE_BREAK);
         }
 
         return tools.toString();
     }
 
-    private static String parseTool(Workflow workflow, Step step, Map<Step, Integer> stepsBuOrder, String inputsDir){
+    private static String parseTool(Workflow workflow, Step step, String inputsDir){
         StringBuilder tool = new StringBuilder();
 
         tool.append(TOOL)
@@ -94,13 +96,13 @@ public class DSLWriter {
             .append(constructString(step.getConfigurator().getName()))
             .append(SEPARATOR)
             .append(BEGIN_ELEMENT).append(LINE_BREAK)
-            .append(parseCommand(workflow, step, stepsBuOrder, inputsDir).replaceAll("(?m)^", "\t")).append(LINE_BREAK)
+            .append(parseCommand(workflow, step, inputsDir).replaceAll("(?m)^", "\t")).append(LINE_BREAK)
             .append(END_ELEMENT);
 
         return tool.toString();
     }
 
-    private static String parseCommand(Workflow workflow, Step step, Map<Step, Integer> stepsByOrder, String inputsDir){
+    private static String parseCommand(Workflow workflow, Step step, String inputsDir){
         StringBuilder command = new StringBuilder();
 
         command.append(COMMAND)
@@ -108,13 +110,13 @@ public class DSLWriter {
                 .append(constructString(step.getCommand().getName()))
                 .append(SEPARATOR)
                 .append(BEGIN_ELEMENT).append(LINE_BREAK)
-                .append(parseCommandInfo(workflow, step, stepsByOrder, inputsDir).replaceAll("(?m)^", "\t")).append(LINE_BREAK)
+                .append(parseCommandInfo(workflow, step, inputsDir).replaceAll("(?m)^", "\t")).append(LINE_BREAK)
                 .append(END_ELEMENT);
 
         return command.toString();
     }
 
-    private static String parseCommandInfo(Workflow workflow, Step step, Map<Step, Integer> stepsByOrder, String inputsDir){
+    private static String parseCommandInfo(Workflow workflow, Step step, String inputsDir){
         StringBuilder commandInfo = new StringBuilder();
 
         Collection<Argument> orderedArguments = orderAndFilterNullArguments(step);
@@ -129,7 +131,7 @@ public class DSLWriter {
             if(channelChain != null) {
                 channel = channelChain.getKey();
                 chain = channelChain.getValue();
-                info = parseChain(channel, chain, stepsByOrder);
+                info = parseChain(channel, chain);
             } else {
                 info = parseArgument(argument, inputsDir);
             }
@@ -173,14 +175,14 @@ public class DSLWriter {
         return null;
     }
 
-    private static String parseChain(Channel channel, Chain chain, Map<Step, Integer> stepsByOrder){
+    private static String parseChain(Channel channel, Chain chain){
         StringBuilder ch = new StringBuilder();
 
         ch.append(CHAIN)
             .append(SEPARATOR)
             .append(constructString(chain.getArgument().getName()))
             .append(SEPARATOR)
-            .append(stepsByOrder.get(channel.getFrom()))
+            .append(channel.getFrom().getOrder())
             .append(SEPARATOR)
             .append(constructString(channel.getFrom().getTool().getName()))
             .append(SEPARATOR)

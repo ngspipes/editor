@@ -57,6 +57,7 @@ public class WorkflowManager {
         public final Map<Channel, Event<Chain>> chainAdditionEvents = new HashMap<>();
         public final Map<Channel, Event<Chain>> chainRemovalEvents = new HashMap<>();
         public final Map<Step, Event<IConfigurator>> configuratorEvents = new HashMap<>();
+        public final Map<Step, Event<Integer>> orderEvents = new HashMap<>();
         public final Map<Argument, Event<String>> argumentEvents = new HashMap<>();
         public final Map<Output, Event<String>> outputEvents = new HashMap<>();
         public final Map<Step, Event<Double>> stepXEvents = new HashMap<>();
@@ -152,6 +153,7 @@ public class WorkflowManager {
             WorkflowEvents events = EVENTS.get(workflow);
 
             events.configuratorEvents.put(step, new Event<>());
+            events.orderEvents.put(step, new Event<>());
             events.stepXEvents.put(step, new Event<>());
             events.stepYEvents.put(step, new Event<>());
 
@@ -199,6 +201,7 @@ public class WorkflowManager {
             WorkflowEvents events = EVENTS.get(workflow);
 
             events.configuratorEvents.remove(step);
+            events.orderEvents.remove(step);
             events.stepXEvents.remove(step);
             events.stepYEvents.remove(step);
 
@@ -294,6 +297,13 @@ public class WorkflowManager {
         }
     }
 
+    private static void fireOrderEvent(Workflow workflow, Step step, Integer order){
+        synchronized (LOCK){
+            WorkflowEvents event = EVENTS.get(workflow);
+            event.orderEvents.get(step).trigger(order);
+        }
+    }
+
     private static void fireArgumentEvent(Workflow workflow, Argument argument, String value){
         synchronized (LOCK){
             WorkflowEvents event = EVENTS.get(workflow);
@@ -340,7 +350,7 @@ public class WorkflowManager {
     public static Step createStep(double x, double y, ICommandDescriptor command, IConfigurator configurator) throws EditorException {
         try{
             dsl.entities.Step dslStep = new dsl.entities.Step(new Command(command, null), configurator);
-            return new Step(x, y, dslStep);
+            return new Step(x, y, -1, dslStep);
         } catch(CommandBuilderException ex) {
             throw new EditorException("Error creating step!", ex);
         }
@@ -466,6 +476,8 @@ public class WorkflowManager {
 
             loadStep(workflow, step);
 
+            sort(workflow);
+
             fireStepAdditionEvent(workflow, step);
 
             setWorkflowSave(workflow, false);
@@ -482,6 +494,8 @@ public class WorkflowManager {
 
             unloadStep(workflow, step);
 
+            sort(workflow);
+
             fireStepRemovalEvent(workflow, step);
 
             setWorkflowSave(workflow, false);
@@ -494,6 +508,8 @@ public class WorkflowManager {
 
             loadChannel(workflow, channel);
 
+            sort(workflow);
+
             fireChannelAdditionEvent(workflow, channel);
 
             setWorkflowSave(workflow, false);
@@ -505,6 +521,8 @@ public class WorkflowManager {
             workflow.removeChannel(channel);
 
             unloadChannel(workflow, channel);
+
+            sort(workflow);
 
             fireChannelRemovalEvent(workflow, channel);
 
@@ -520,6 +538,8 @@ public class WorkflowManager {
 
             channel.addChain(chain);
 
+            sort(workflow);
+
             fireChainAdditionEvent(workflow, channel, chain);
 
             setWorkflowSave(workflow, false);
@@ -534,6 +554,8 @@ public class WorkflowManager {
 
             channel.removeChain(chain);
 
+            sort(workflow);
+
             fireChainRemovalEvent(workflow, channel, chain);
 
             setWorkflowSave(workflow, false);
@@ -547,6 +569,18 @@ public class WorkflowManager {
             step.setConfigurator(configurator);
 
             fireConfiguratorEvent(workflow, step, configurator);
+
+            setWorkflowSave(workflow, false);
+        }
+    }
+
+    public static void setStepOrder(Step step, Integer order){
+        synchronized (LOCK){
+            Workflow workflow = WORKFLOW_BY_STEP.get(step);
+
+            step.setOrder(order);
+
+            fireOrderEvent(workflow, step, order);
 
             setWorkflowSave(workflow, false);
         }
@@ -588,6 +622,13 @@ public class WorkflowManager {
         }
     }
 
+
+    public static void sort(Workflow workflow){
+        Map<Step, Integer> stepsByOrder = StepSorter.sort(workflow);
+
+        for(Step step : stepsByOrder.keySet())
+            WorkflowManager.setStepOrder(step, stepsByOrder.get(step));
+    }
 
     public static Task<Void> saveAsync(Workflow workflow){
         return new BasicTask<>(() -> {
