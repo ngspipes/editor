@@ -55,4 +55,8 @@ public class Output {
         return dslOutput.getType();
     }
 
+    public String getDescription(){
+        return dslOutput.getDescriptor().getDescription();
+    }
+
 }
