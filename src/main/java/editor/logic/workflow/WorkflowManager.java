@@ -387,6 +387,40 @@ public class WorkflowManager {
         }
     }
 
+    public static boolean isAssociatedWithWorkflow(Channel channel){
+        synchronized (LOCK){
+            return WORKFLOW_BY_CHANNEL.containsKey(channel);
+        }
+    }
+
+    public static boolean isAssociatedWithWorkflow(Step step){
+        synchronized (LOCK){
+            return WORKFLOW_BY_STEP.containsKey(step);
+        }
+    }
+
+    public static boolean isAssociatedWithWorkflow(Argument argument){
+        synchronized (LOCK){
+            Step step = STEPS_BY_ARGUMENT.get(argument);
+
+            if(step == null)
+                return false;
+
+            return isAssociatedWithWorkflow(step);
+        }
+    }
+
+    public static boolean isAssociatedWithWorkflow(Output output){
+        synchronized (LOCK){
+            Step step = STEPS_BY_OUTPUT.get(output);
+
+            if(step == null)
+                return false;
+
+            return isAssociatedWithWorkflow(step);
+        }
+    }
+
     public static IRepository getRepositoryUsedOn(Workflow workflow){
         Collection<Step> steps = workflow.getSteps();
 
