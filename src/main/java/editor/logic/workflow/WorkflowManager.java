@@ -624,10 +624,12 @@ public class WorkflowManager {
 
 
     public static void sort(Workflow workflow){
-        Map<Step, Integer> stepsByOrder = StepSorter.sort(workflow);
+        synchronized (LOCK){
+            Map<Step, Integer> stepsByOrder = StepSorter.sort(workflow);
 
-        for(Step step : stepsByOrder.keySet())
-            WorkflowManager.setStepOrder(step, stepsByOrder.get(step));
+            for(Step step : stepsByOrder.keySet())
+                WorkflowManager.setStepOrder(step, stepsByOrder.get(step));
+        }
     }
 
     public static Task<Void> saveAsync(Workflow workflow){
