@@ -59,4 +59,7 @@ public class Argument {
         return dslArgument.getOrder();
     }
 
+    public String getDescription() {
+        return dslArgument.getDescriptor().getDescription();
+    }
 }
