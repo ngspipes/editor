@@ -25,15 +25,15 @@ import editor.dataAccess.Uris;
 import editor.logic.FlowManager;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
+import editor.transversal.EditorException;
+import editor.transversal.Log;
+import editor.transversal.Utils;
 import editor.userInterface.areas.RepositoryArea;
 import editor.userInterface.areas.StepArea;
 import editor.userInterface.areas.ToolArea;
 import editor.userInterface.areas.workflowArea.WorkflowArea;
 import editor.userInterface.utils.Dialog;
 import editor.userInterface.utils.UIUtils;
-import editor.transversal.EditorException;
-import editor.transversal.Log;
-import editor.transversal.Utils;
 import javafx.scene.control.ButtonType;
 import repository.IRepository;
 
@@ -44,7 +44,7 @@ import java.util.LinkedList;
 
 public class EditorOperations {
 
-	private static final String TAG = "EditorOperations";
+	private static final String TAG = EditorOperations.class.getSimpleName();
 	
 	public static IRepository DEFAULT_REPOSITORY;
 	public static RepositoryArea repositoryArea;

@@ -24,12 +24,12 @@ import components.multiOption.Operations;
 import components.multiOption.Operations.Operation;
 import descriptors.IToolDescriptor;
 import editor.EditorOperations;
-import editor.userInterface.components.PaneSlider.SlideSide;
-import editor.userInterface.controllers.FXMLRepositoryDescriptionController;
-import editor.userInterface.utils.pallet.ToolsPallet;
 import editor.transversal.EditorException;
 import editor.transversal.Log;
 import editor.transversal.Utils;
+import editor.userInterface.components.PaneSlider.SlideSide;
+import editor.userInterface.controllers.FXMLRepositoryDescriptionController;
+import editor.userInterface.utils.pallet.ToolsPallet;
 import exceptions.RepositoryException;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -40,7 +40,7 @@ import repository.IRepository;
 
 public class RepositoryArea extends Area{
 
-	private static final String TAG = "RepositoryPallet";
+	private static final String TAG = RepositoryArea.class.getSimpleName();
 	
 	private static final String DESCRIPTION_WINDOW_TITLE = "Tool Description";
 	private static final String DESCRIPTION_MENU_ITEM = "Description";

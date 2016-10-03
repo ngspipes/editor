@@ -33,11 +33,11 @@ import editor.EditorOperations;
 import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
+import editor.transversal.EditorException;
+import editor.transversal.Utils;
 import editor.userInterface.controllers.FXMLChainController;
 import editor.userInterface.controllers.FXMLChainController.Data;
 import editor.userInterface.controllers.FXMLStepController;
-import editor.transversal.EditorException;
-import editor.transversal.Utils;
 import exceptions.RepositoryException;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -58,7 +58,7 @@ import workflow.elements.WorkflowItem;
 
 public class ChainPaper {
 	
-	private final String TAG = "ChainPaper";
+	private static final String TAG = ChainPaper.class.getSimpleName();
 
 	private final WorkflowConfigurator config = new WorkflowConfigurator()
 											.setDefaultConnectorSupplier(this::createConnector)

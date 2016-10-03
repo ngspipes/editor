@@ -22,9 +22,9 @@ package editor.userInterface.areas;
 import components.Window;
 import editor.EditorOperations;
 import editor.dataAccess.Uris;
+import editor.transversal.Utils;
 import editor.userInterface.utils.Dialog;
 import editor.userInterface.utils.UIUtils;
-import editor.transversal.Utils;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
@@ -47,7 +47,7 @@ public class MenuBar {
 		String itemId();
 	}
 
-	private static final String TAG = "MenuBar";
+	private static final String TAG = MenuBar.class.getSimpleName();
 
 	private static final Map<String, KeyCodeCombination> SHORT_CUTS;
 

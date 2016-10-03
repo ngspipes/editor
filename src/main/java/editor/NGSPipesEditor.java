@@ -20,12 +20,12 @@
 package editor;
 
 import editor.dataAccess.Uris;
+import editor.transversal.Log;
+import editor.transversal.Utils;
 import editor.userInterface.areas.*;
 import editor.userInterface.areas.workflowArea.WorkflowArea;
 import editor.userInterface.controllers.FXMLDocumentController;
 import editor.userInterface.utils.UIUtils;
-import editor.transversal.Log;
-import editor.transversal.Utils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 
 public class NGSPipesEditor extends Application {
     
-	private static final String TAG = "NGSPipes Editor";
+	private static final String TAG = NGSPipesEditor.class.getSimpleName();
 	
 	private static boolean load(Stage stage, FXMLDocumentController c){
 		try{

@@ -29,15 +29,15 @@ import descriptors.IToolDescriptor;
 import dsl.entities.Argument;
 import dsl.entities.Output;
 import editor.logic.entities.EditorStep;
+import editor.transversal.EditorException;
+import editor.transversal.Log;
+import editor.transversal.Utils;
 import editor.userInterface.components.PaneSlider.SlideSide;
 import editor.userInterface.controllers.FXMLRepositoryDescriptionController;
 import editor.userInterface.controllers.FXMLStepInfoController;
 import editor.userInterface.controllers.FXMLStepInfoController.Data;
 import editor.userInterface.utils.pallet.ArgumentsPallet;
 import editor.userInterface.utils.pallet.OutputsPallet;
-import editor.transversal.EditorException;
-import editor.transversal.Log;
-import editor.transversal.Utils;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -50,7 +50,7 @@ import repository.IRepository;
 
 public class StepArea extends Area{
 
-	private static final String TAG = "StepPallet";
+	private static final String TAG = StepArea.class.getSimpleName();
 	private static final int ARGUMENTS_TAB_INDEX = 0;
 	private static final int OUTPUTS_TAB_INDEX = 1;
 	private static final String ARGUMENT_DESCRIPTION_WINDOW_TITLE = "Argument Description";

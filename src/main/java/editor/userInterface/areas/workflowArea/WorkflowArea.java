@@ -30,7 +30,7 @@ import javafx.scene.control.TabPane;
 import java.util.*;
 
 public class WorkflowArea {
-	private static final String TAG = "WorkflowTable";
+	private static final String TAG = WorkflowArea.class.getSimpleName();
 	
 	private final TabPane workflowPane;
 	private final Map<Flow, WorkflowPaper> papers;

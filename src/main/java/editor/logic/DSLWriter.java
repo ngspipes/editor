@@ -59,7 +59,7 @@ public class DSLWriter {
 		return filePath.subpath(beginIdx, endIdx).toString().replace("\\", "/");
 	}
 
-	private static final String TAG = "DSLWriter";
+	private static final String TAG = DSLWriter.class.getSimpleName();
 	private static final String EXTENSION = ".pipes";
 	private static final String PIPELINE = "Pipeline";
 	private static final String TOOL = "tool";

@@ -23,8 +23,8 @@ import components.DoubleClickable;
 import editor.EditorOperations;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
-import editor.userInterface.controllers.FXMLStepsOrderController;
 import editor.transversal.Utils;
+import editor.userInterface.controllers.FXMLStepsOrderController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -58,7 +58,7 @@ public class OrderPaper {
 	    }
 	}
 	
-	private static final String TAG = "OrderPaper";
+	private static final String TAG = OrderPaper.class.getSimpleName();
 	
 	
 	private final Flow flow;

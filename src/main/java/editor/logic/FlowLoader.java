@@ -30,9 +30,9 @@ import editor.dataAccess.Uris;
 import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
-import editor.userInterface.utils.UIUtils;
 import editor.transversal.EditorException;
 import editor.transversal.Utils;
+import editor.userInterface.utils.UIUtils;
 import exceptions.CommandBuilderException;
 import exceptions.RepositoryException;
 import javafx.application.Platform;
@@ -50,7 +50,7 @@ import java.util.function.Consumer;
 
 class FlowLoader {
 
-	private static final String TAG = "FlowLoader";
+	private static final String TAG = FlowLoader.class.getSimpleName();
 
 	public static void load(String name, String directory, BiConsumer<Exception, Flow> callBack) throws EditorException {
 		String flowPath = directory + Uris.SEP + name + FlowManager.WORK_FLOW_FILE_EXTENSION;

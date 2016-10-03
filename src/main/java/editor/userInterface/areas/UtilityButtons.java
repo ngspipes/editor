@@ -42,7 +42,7 @@ public class UtilityButtons {
     }
     
     private static final double BUTTON_MAGNIFICATION = 1.20;
-    private static final String TAG = "UtilityButtons";
+    private static final String TAG = UtilityButtons.class.getSimpleName();
     
     private final AnchorPane utilityButtonsPane;
     

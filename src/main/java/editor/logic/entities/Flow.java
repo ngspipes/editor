@@ -26,7 +26,7 @@ import repository.IRepository;
 
 public class Flow {
 
-	private static final String TAG = "Flow";
+	private static final String TAG = Flow.class.getSimpleName();
 	
 	public final Event<Boolean> saveEvent;
 	private boolean saved;

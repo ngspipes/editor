@@ -24,11 +24,11 @@ import components.multiOption.Operations;
 import components.multiOption.Operations.Operation;
 import descriptors.ICommandDescriptor;
 import descriptors.IToolDescriptor;
+import editor.transversal.Log;
+import editor.transversal.Utils;
 import editor.userInterface.components.PaneSlider.SlideSide;
 import editor.userInterface.controllers.FXMLRepositoryDescriptionController;
 import editor.userInterface.utils.pallet.CommandsPallet;
-import editor.transversal.Log;
-import editor.transversal.Utils;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -39,7 +39,7 @@ import repository.IRepository;
 
 public class ToolArea extends Area{
 	
-	private static final String TAG = "ToolArea";
+	private static final String TAG = ToolArea.class.getSimpleName();
 	
 	private static final String DESCRIPTION_WINDOW_TITLE = "Command Description";
 	private static final String DESCRIPTION_MENU_ITEM = "Description";
