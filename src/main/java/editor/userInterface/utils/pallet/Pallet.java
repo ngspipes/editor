@@ -19,7 +19,6 @@
  */
 package editor.userInterface.utils.pallet;
 
-import editor.transversal.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,7 +31,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public abstract class Pallet<T>{
-	
+
 	public class PalletListViewCell extends ListCell<T> {
 		
 	    @Override
@@ -47,22 +46,26 @@ public abstract class Pallet<T>{
 	    
 	}
 		
-	private static final String TAG = "Pallet";
+
 	
-	protected final TextField textField;
+	protected final TextField textFieldFilter;
 	protected final ListView<T> listView;
 	
 	private ObservableList<T>  items;
 	private FilteredList<T> filter;
 	private Collection<T> currentItems;
-	
-	public Pallet(TextField textfield, ListView<T> listView){
-		this.textField = textfield;
+
+
+
+	public Pallet(TextField textFieldFilter, ListView<T> listView){
+		this.textFieldFilter = textFieldFilter;
 		this.listView = listView;
 		
 		loadListView();
-		loadTextField();
+		loadTextFieldListener();
 	}
+
+
 
 	private void loadListView(){
 		currentItems = new LinkedList<>();
@@ -74,9 +77,9 @@ public abstract class Pallet<T>{
 		listView.setCellFactory((listView)-> new PalletListViewCell());
 	}
 	
-	private void loadTextField(){
-		textField.textProperty().addListener(obs->{
-			String pattern = textField.getText(); 
+	private void loadTextFieldListener(){
+		textFieldFilter.textProperty().addListener(obs->{
+			String pattern = textFieldFilter.getText();
 
 			if(pattern == null || pattern.isEmpty())
 				filter.setPredicate(tool -> true);
@@ -95,16 +98,12 @@ public abstract class Pallet<T>{
 	}
 	
 	public void refresh(){
-		Log.debug(TAG, "Refreshing");
-		
 		items.clear();
 		items.addAll(currentItems);
 	}
 	
 	public void clear(){
-		Log.debug(TAG, "Clearing");
-		
-		textField.setText("");
+		textFieldFilter.setText("");
 		load(new LinkedList<>());
 	}
 	

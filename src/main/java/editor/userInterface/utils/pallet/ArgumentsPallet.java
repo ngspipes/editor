@@ -20,9 +20,9 @@
 package editor.userInterface.utils.pallet;
 
 import components.multiOption.Operations;
-import dsl.entities.Argument;
-import editor.userInterface.controllers.FXMLArgumentListViewCellController;
+import editor.logic.workflow.Argument;
 import editor.transversal.Utils;
+import editor.userInterface.controllers.FXMLArgumentListViewCellController;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -31,19 +31,27 @@ import java.util.function.Function;
 
 public class ArgumentsPallet extends Pallet<Argument>{
 
-	private static final String TAG = "ArgumentsPallet";
+	private static final String TAG = ArgumentsPallet.class.getSimpleName();
+
+
 	
 	private final Function<Argument, Operations> getOperations;
-	
-	public ArgumentsPallet(TextField textField, ListView<Argument> listView, Function<Argument, Operations> getOperations) {
-		super(textField, listView);
+
+
+
+	public ArgumentsPallet(TextField textFieldFilter, ListView<Argument> listView, Function<Argument, Operations> getOperations) {
+		super(textFieldFilter, listView);
 		this.getOperations = getOperations;
 	}
 
 
+
 	@Override
 	protected boolean filter(Argument argument, String pattern) {
-		return argument.getDescriptor().getName().toLowerCase().startsWith(pattern.toLowerCase());
+		pattern = pattern.toLowerCase();
+		String argumentName = argument.getName().toLowerCase();
+
+		return argumentName.startsWith(pattern);
 	}
 
 

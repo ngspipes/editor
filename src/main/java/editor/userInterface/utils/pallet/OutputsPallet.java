@@ -20,9 +20,9 @@
 package editor.userInterface.utils.pallet;
 
 import components.multiOption.Operations;
-import dsl.entities.Output;
-import editor.userInterface.controllers.FXMLOutputListViewCellController;
+import editor.logic.workflow.Output;
 import editor.transversal.Utils;
+import editor.userInterface.controllers.FXMLOutputListViewCellController;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -31,18 +31,27 @@ import java.util.function.Function;
 
 public class OutputsPallet extends Pallet<Output>{
 	
-	private static final String TAG = "OutputsPallet";
-	
+	private static final String TAG = OutputsPallet.class.getSimpleName();
+
+
+
 	private final Function<Output, Operations> getOperations;
-	
-	public OutputsPallet(TextField textField, ListView<Output> listView, Function<Output, Operations> getOperations){
-		super(textField, listView);
+
+
+
+	public OutputsPallet(TextField textFieldFilter, ListView<Output> listView, Function<Output, Operations> getOperations){
+		super(textFieldFilter, listView);
 		this.getOperations = getOperations;
 	}
 
+
+
 	@Override
 	protected boolean filter(Output output, String pattern) {
-		return output.getDescriptor().getName().toLowerCase().startsWith(pattern.toLowerCase());
+		pattern = pattern.toLowerCase();
+		String outputName = output.getName();
+
+		return outputName.startsWith(pattern);
 	}
 
 	@Override

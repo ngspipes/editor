@@ -21,9 +21,9 @@ package editor.userInterface.utils.pallet;
 
 import components.multiOption.Operations;
 import descriptors.ICommandDescriptor;
+import editor.transversal.Utils;
 import editor.userInterface.controllers.FXMLCommandListViewCellController;
 import editor.userInterface.controllers.FXMLCommandListViewCellController.Data;
-import editor.transversal.Utils;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -33,20 +33,29 @@ import java.util.function.Function;
 
 public class CommandsPallet extends Pallet<ICommandDescriptor>{
 
-	private static final String TAG = "CommandsPallet";
-	
+	private static final String TAG = CommandsPallet.class.getSimpleName();
+
+
+
 	private final Function<ICommandDescriptor, Operations> getOperations;
-	
-	public CommandsPallet(	TextField textField, 
+
+
+
+	public CommandsPallet(	TextField textFieldFilter,
 							ListView<ICommandDescriptor> listView, 
 							Function<ICommandDescriptor, Operations> getOperations) {
-		super(textField, listView);
+		super(textFieldFilter, listView);
 		this.getOperations = getOperations;
 	}
 
+
+
 	@Override
 	protected boolean filter(ICommandDescriptor command, String pattern) {
-		return command.getName().toLowerCase().startsWith(pattern.toLowerCase());
+		pattern = pattern.toLowerCase();
+		String commandName = command.getName().toLowerCase();
+
+		return commandName.startsWith(pattern);
 	}
 
 	@Override

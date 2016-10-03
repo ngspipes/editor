@@ -21,9 +21,9 @@ package editor.userInterface.utils.pallet;
 
 import components.multiOption.Operations;
 import descriptors.IToolDescriptor;
+import editor.transversal.Utils;
 import editor.userInterface.controllers.FXMLToolListViewCellController;
 import editor.userInterface.controllers.FXMLToolListViewCellController.Data;
-import editor.transversal.Utils;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -32,20 +32,29 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class ToolsPallet extends Pallet<IToolDescriptor>{
-	
-	private static final String TAG = "ToolsPallet";
-	
+
+	private static final String TAG = ToolsPallet.class.getSimpleName();
+
+
+
 	private final Function<IToolDescriptor, Operations> getOperations;
 
-	public ToolsPallet(TextField textField, ListView<IToolDescriptor> listView, Consumer<IToolDescriptor> onToolChoose, Function<IToolDescriptor, Operations> getOperations){
-		super(textField, listView);
+
+
+	public ToolsPallet(TextField textFieldFilter, ListView<IToolDescriptor> listView, Consumer<IToolDescriptor> onToolChoose, Function<IToolDescriptor, Operations> getOperations){
+		super(textFieldFilter, listView);
 		this.getOperations = getOperations;
 		this.listView.getSelectionModel().selectedItemProperty().addListener((obs, prev, curr)->onToolChoose.accept(curr));
 	}
 
+
+
 	@Override
 	protected boolean filter(IToolDescriptor tool, String pattern) {
-		return tool.getName().toLowerCase().startsWith(pattern.toLowerCase());
+		pattern = pattern.toLowerCase();
+		String toolName = tool.getName().toLowerCase();
+
+		return toolName.startsWith(pattern);
 	}
 
 	@Override
