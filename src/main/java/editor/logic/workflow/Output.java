@@ -19,6 +19,8 @@
 // */
 package editor.logic.workflow;
 
+import descriptors.IOutputDescriptor;
+
 public class Output {
 
     private dsl.entities.Output dslOutput;
@@ -57,6 +59,10 @@ public class Output {
 
     public String getDescription(){
         return dslOutput.getDescriptor().getDescription();
+    }
+
+    public IOutputDescriptor getDescriptor(){
+        return dslOutput.getDescriptor();
     }
 
 }

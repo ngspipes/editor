@@ -19,6 +19,8 @@
 // */
 package editor.logic.workflow;
 
+import descriptors.IArgumentDescriptor;
+
 public class Argument {
 
     private dsl.entities.Argument dslArgument;
@@ -62,4 +64,9 @@ public class Argument {
     public String getDescription() {
         return dslArgument.getDescriptor().getDescription();
     }
+
+    public IArgumentDescriptor getDescriptor(){
+        return dslArgument.getDescriptor();
+    }
+
 }
