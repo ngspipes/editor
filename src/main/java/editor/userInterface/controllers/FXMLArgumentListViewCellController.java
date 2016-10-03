@@ -24,10 +24,15 @@ import components.animation.magnifier.ButtonMagnifier;
 import components.multiOption.Menu;
 import components.multiOption.Operations;
 import dsl.ArgumentValidator;
-import dsl.entities.Argument;
 import editor.dataAccess.Uris;
+import editor.logic.workflow.Argument;
+import editor.logic.workflow.Step;
+import editor.logic.workflow.Workflow;
+import editor.logic.workflow.WorkflowManager;
+import editor.logic.workflow.WorkflowManager.WorkflowEvents;
 import editor.userInterface.utils.Dialog;
 import editor.userInterface.utils.UIUtils;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -40,10 +45,23 @@ import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 
 import java.io.File;
+import java.util.function.Consumer;
 
 
 public class FXMLArgumentListViewCellController implements IInitializable<FXMLArgumentListViewCellController.Data> {
-	
+
+	public static class Data{
+		public final Argument argument;
+		public final Operations operations;
+
+		public Data(Argument argument, Operations operations) {
+			this.argument =  argument;
+			this.operations = operations;
+		}
+	}
+
+
+
 	public static Node mount(Data data) throws ComponentException {
 		String fXMLPath = Uris.FXML_ARGUMENTS_LIST_VIEW_ITEM;
 		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
@@ -52,81 +70,130 @@ public class FXMLArgumentListViewCellController implements IInitializable<FXMLAr
 		
 		return fxmlFile.getRoot();
 	}
-	
-	
-	
-	public static class Data{
-		public final Argument argument;
-		public final Operations operations;
-		
-		public Data(Argument argument, Operations operations) {
-			this.argument =  argument;			
-			this.operations = operations;
-		}
-	}
+
+
 
 	@FXML
 	private Label lArgumentName;
-	
 	@FXML
 	private TextField tFArgumentValue;
-	
 	@FXML
 	private HBox root;
-	
 	@FXML
 	private Button bSearch;
-	
+
+	private WorkflowEvents events;
+	private Workflow workflow;
+	private Step step;
 	private Argument argument;
 	private Operations operations;
+
+
 
 	@Override
 	public void init(Data data) {
 		this.argument = data.argument;
 		this.operations = data.operations;
-		load();
+		this.step = WorkflowManager.getStepOfArgument(argument);
+		this.workflow = WorkflowManager.getWorkflowOfStep(step);
+		this.events = WorkflowManager.getEventsFor(workflow);
+
+		loadUIComponents();
 		registerListeners();
 	}
-	
-	private void load(){
-		lArgumentName.setText(argument.getDescriptor().getName());
-		String tip = argument.getName() + "\n" + argument.getDescriptor().getDescription();
+
+
+
+	private void loadUIComponents(){
+		String argumentName = argument.getName();
+		String argumentDescription = argument.getDescription();
+
+		lArgumentName.setText(argumentName);
+		String tip = argumentName + "\n" + argumentDescription;
 		Tooltip.install(lArgumentName, UIUtils.createTooltip(tip, true, 300, 200));
 		
 		showValue(argument.getValue());
 		
 		new Menu<>(root, operations).mount();
 		
-		if(argument.getDescriptor().getType().equals(ArgumentValidator.FILE_TYPE_NAME))
-			loadSearchButton();
-		else
-			bSearch.setVisible(false);
+		loadSearchButton();
 	}
 	
 	private void loadSearchButton(){
-		new ButtonMagnifier<>(bSearch).mount();
-		bSearch.setTooltip(new Tooltip("Search"));
-		bSearch.setOnMouseClicked(this::onSearchClicked);
+		String argumentType = argument.getType();
+
+		if(argumentType.equals(ArgumentValidator.FILE_TYPE_NAME)){
+			new ButtonMagnifier<>(bSearch).mount();
+			bSearch.setTooltip(new Tooltip("Search"));
+			bSearch.setOnMouseClicked(this::onSearchClicked);
+		} else {
+			bSearch.setVisible(false);
+		}
 	}
 	
 	public void onSearchClicked(MouseEvent event){
 		File file = Dialog.getFile("Choose File");
 		
-		if(file!=null)
-			argument.setValue(file.getPath());
+		if(file != null)
+			WorkflowManager.setArgumentValue(argument, file.getPath());
 	}
-	
+
 	private void registerListeners(){
-		argument.valueChangedEvent.addListener(this::showValue);
-		tFArgumentValue.textProperty().addListener((obs, oldValue, newValue) -> {
-			if(newValue != null && newValue.isEmpty())
-				argument.setValue(null);
-			else
-				argument.setValue(newValue);
+		registerArgumentValueListener();
+		registerTextFiledValueListener();
+	}
+
+	private void registerArgumentValueListener(){
+		Consumer<String> valueListener = this::showValue;
+
+		registerArgumentValueListenerOnStepAddition(valueListener);
+		unregisterArgumentValueListenerOnStepRemoval(valueListener);
+
+		registerArgumentValueListener(valueListener);
+	}
+
+	private void registerArgumentValueListenerOnStepAddition(Consumer<String> listener){
+		events.stepAdditionEvent.addListener((s) -> {
+			if(s == step){
+				registerArgumentValueListener(listener);
+				showValue(argument.getValue());
+			}
 		});
 	}
-	
-	
+
+	private void unregisterArgumentValueListenerOnStepRemoval(Consumer<String> listener){
+		events.stepRemovalEvent.addListener((s) -> {
+			if(s == step)
+				unregisterArgumentValueListener(listener);
+		});
+	}
+
+	private void registerArgumentValueListener(Consumer<String> listener){
+		events.argumentEvents.get(argument).addListener(listener);
+	}
+
+	private void unregisterArgumentValueListener(Consumer<String> listener){
+		events.argumentEvents.get(argument).removeListener(listener);
+	}
+
+	private void registerTextFiledValueListener() {
+		ChangeListener<String> listener = (obs, oldValue, newValue) -> {
+			if(WorkflowManager.isAssociatedWithWorkflow(argument))
+				setArgumentValue(newValue);
+			else
+				Dialog.showError("This step is not associated with any workflow!");
+		};
+
+		tFArgumentValue.textProperty().addListener(listener);
+	}
+
+	private void setArgumentValue(String newValue){
+		if(newValue != null && newValue.isEmpty())
+			WorkflowManager.setArgumentValue(argument, null);
+		else
+			WorkflowManager.setArgumentValue(argument, newValue);
+	}
+
 	public void showValue(String value){
 		if(value == null)
 			value = "";

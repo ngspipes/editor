@@ -20,8 +20,8 @@
 package editor.userInterface.controllers.help;
 
 import editor.dataAccess.Uris;
-import editor.userInterface.utils.pallet.Pallet;
 import editor.transversal.Utils;
+import editor.userInterface.utils.pallet.Pallet;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -43,18 +43,23 @@ import java.util.LinkedList;
 import java.util.function.Consumer;
 
 public class FXMLHelpController implements IInitializable<Void> {
-	
-	private static final String TAG = "FXMLHelpController";		
-	
+
 	private static class HelpPallet extends Pallet<IVideoDescriptor> {
 
-		private static final String TAG = "HelpPallet";		
+		private static final String TAG = HelpPallet.class.getSimpleName();
+
+
+
 		final Consumer<IVideoDescriptor> componentUpdater;
-		
+
+
+
 		public HelpPallet(TextField tf, ListView<IVideoDescriptor> lv, Consumer<IVideoDescriptor> c) {
 			super(tf, lv);
 			this.componentUpdater = c;
 		}
+
+
 
 		@Override
 		protected boolean filter(IVideoDescriptor item, String pattern) {
@@ -70,35 +75,34 @@ public class FXMLHelpController implements IInitializable<Void> {
 			} catch (Exception e) {
 				Utils.treatException(e, TAG, "Error loading HelpPallet item!");
 			}
-			
+
 			return null;
 		}
 	}
 
+
+
+	private static final String TAG = FXMLHelpController.class.getSimpleName();
 	
 	
 	
 	@FXML
 	public TextField tFSearchVideo;
-
 	@FXML
 	public ListView<IVideoDescriptor> lvVideo;
-
 	@FXML
 	public Label lVideoName;
-
 	@FXML
 	public Label lVideoDuration;
-
 	@FXML
 	public TextArea tAVideoDescription;
-
 	@FXML
 	public MediaView mvVideo;
-	
 	@FXML
 	public HBox hbMediaBar;
-	
+
+
+
 	@Override
 	public void init(Void data) throws ComponentException {
 		HelpPallet pallet = new HelpPallet(tFSearchVideo, lvVideo, this::updateComponents);
@@ -107,6 +111,8 @@ public class FXMLHelpController implements IInitializable<Void> {
 		if(!lvVideo.getItems().isEmpty())
 			initComponents(lvVideo.getItems().get(0));
 	}
+
+
 
 	public void updateComponents(IVideoDescriptor video) {
 		hbMediaBar.getChildren().clear();

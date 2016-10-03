@@ -40,14 +40,17 @@ public class FXMLVideoListViewItemController implements IInitializable<String> {
 	
 	public static Node mount() throws ComponentException {
 		return mount(null);
-	} 
+	}
+
+
 
 	@FXML
 	public Label lVideoName;
-	
 	@FXML
 	public ImageView ivVideoFile;
-	
+
+
+
 	@Override
 	public void init(String name) throws ComponentException {
 		lVideoName.setText(name);

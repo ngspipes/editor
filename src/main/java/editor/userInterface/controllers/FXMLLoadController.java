@@ -34,6 +34,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FXMLLoadController implements IInitializable<FXMLLoadController.Data> {
 
+    public static class Data{
+        public final BlockingQueue<String> messageQueue;
+        public final AtomicBoolean finish;
+
+
+
+        public Data(BlockingQueue<String> messageQueue, AtomicBoolean finish) {
+            this.messageQueue = messageQueue;
+            this.finish = finish;
+        }
+    }
+
+
+
     private static final long WAIT_TIME = 1000;
     private static final TimeUnit WAIT_TIME_UNIT = TimeUnit.MILLISECONDS;
 
@@ -47,21 +61,6 @@ public class FXMLLoadController implements IInitializable<FXMLLoadController.Dat
 
         return fxmlFile.getRoot();
     }
-
-
-
-    public static class Data{
-        public final BlockingQueue<String> messageQueue;
-        public final AtomicBoolean finish;
-
-
-
-        public Data(BlockingQueue<String> messageQueue, AtomicBoolean finish) {
-            this.messageQueue = messageQueue;
-            this.finish = finish;
-        }
-    }
-
 
 
 
@@ -80,6 +79,8 @@ public class FXMLLoadController implements IInitializable<FXMLLoadController.Dat
 
         load();
     }
+
+
 
     private void load(){
         new Thread(() -> {

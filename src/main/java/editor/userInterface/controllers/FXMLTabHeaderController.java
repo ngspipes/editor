@@ -22,7 +22,9 @@ package editor.userInterface.controllers;
 import components.FXMLFile;
 import components.animation.changeComponent.ChangeButtonOnPass;
 import editor.dataAccess.Uris;
-import editor.logic.entities.Flow;
+import editor.logic.workflow.Workflow;
+import editor.logic.workflow.WorkflowManager;
+import editor.logic.workflow.WorkflowManager.WorkflowEvents;
 import editor.userInterface.controllers.FXMLTabHeaderController.Data;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -34,7 +36,26 @@ import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 
 public class FXMLTabHeaderController implements IInitializable<Data>{
-	
+
+	public static class Data{
+		public final Workflow workflow;
+		public final Runnable onClose;
+
+		public Data(Workflow workflow, Runnable onClose){
+			this.workflow = workflow;
+			this.onClose = onClose;
+		}
+	}
+
+
+
+	private static final Image CLOSE_BUTTON_SELECTED_IMAGE = new Image(Uris.CLOSE_SELECTED_IMAGE);
+	private static final Image CLOSE_BUTTON_UNSELECTED_IMAGE = new Image(Uris.CLOSE_UNSELECTED_IMAGE);
+	private static final Image SAVED_IMAGE = new Image(Uris.SAVED_IMAGE);
+	private static final Image NOT_SAVED_IMAGE = new Image(Uris.NOT_SAVED_IMAGE);
+
+
+
 	public static Node mount(Data data) throws ComponentException {
 		String fXMLPath = Uris.FXML_TAB_HEADER;
 		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
@@ -43,19 +64,7 @@ public class FXMLTabHeaderController implements IInitializable<Data>{
 		
 		return fxmlFile.getRoot();
 	}
- 
-	
-	
-	public static class Data{
-		public final Flow workflow;
-		public final Runnable onClose;
-		
-		public Data(Flow workflow, Runnable onClose){
-			this.workflow = workflow;
-			this.onClose = onClose;
-		}
-		
-	}
+
 	
 	
 	@FXML
@@ -64,38 +73,49 @@ public class FXMLTabHeaderController implements IInitializable<Data>{
 	private Label lName;
 	@FXML
 	private Button bClose;
-	
-	
-	private Flow workflow;
+
+	private WorkflowEvents events;
+	private Workflow workflow;
 	private Runnable onClose;
+
 
 	
 	@Override
 	public void init(Data data) {
 		this.workflow = data.workflow;
 		this.onClose = data.onClose;
-		load();
+		this.events = WorkflowManager.getEventsFor(workflow);
+
+		loadUIComponents();
+		registerListeners();
 	}
-	
-	private void load(){
+
+
+
+	private void loadUIComponents(){
 		setSavedImage(workflow.getSaved());
-		bClose.setGraphic(new ImageView(new Image(Uris.CLOSE_DESELECTED_IMAGE)));
+
 		lName.setText(workflow.getName());
-		
-		workflow.saveEvent.addListener(this::setSavedImage);
-		
-		workflow.nameEvent.addListener((newName)->lName.setText(newName));
-		
-		new ChangeButtonOnPass<>(bClose, Uris.CLOSE_SELECTED_IMAGE, Uris.CLOSE_DESELECTED_IMAGE).mount();
-		
-		bClose.setOnMouseClicked((event)->onClose.run());
+
+		loadCloseButton();
+	}
+
+	private void loadCloseButton(){
+		bClose.setGraphic(new ImageView(CLOSE_BUTTON_UNSELECTED_IMAGE));
+		new ChangeButtonOnPass<>(bClose, CLOSE_BUTTON_SELECTED_IMAGE, CLOSE_BUTTON_UNSELECTED_IMAGE).mount();
+		bClose.setOnMouseClicked((event) -> onClose.run());
+	}
+
+	private void registerListeners(){
+		events.saveEvent.addListener(this::setSavedImage);
+		events.nameEvent.addListener((name) -> lName.setText(name));
 	}
 	
 	private void setSavedImage(boolean saved){
 		if(saved)
-			iVSaved.setImage(new Image(Uris.SAVED_IMAGE));
+			iVSaved.setImage(SAVED_IMAGE);
 		else
-			iVSaved.setImage(new Image(Uris.NOT_SAVED_IMAGE));		
+			iVSaved.setImage(NOT_SAVED_IMAGE);
 	}
 
 }

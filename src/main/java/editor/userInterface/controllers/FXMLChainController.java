@@ -22,11 +22,8 @@ package editor.userInterface.controllers;
 import components.FXMLFile;
 import components.animation.magnifier.ButtonMagnifier;
 import dsl.ArgumentValidator;
-import dsl.entities.Argument;
-import dsl.entities.Output;
 import editor.dataAccess.Uris;
-import editor.logic.entities.EditorChain;
-import editor.logic.entities.EditorStep;
+import editor.logic.workflow.*;
 import editor.userInterface.controllers.FXMLChainController.Data;
 import editor.userInterface.utils.Dialog;
 import editor.userInterface.utils.UIUtils;
@@ -44,10 +41,54 @@ import jfxutils.IInitializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
 
 public class FXMLChainController implements IInitializable<Data>{
+
+	private static class ListCellFactory<T> implements Callback<ListView<T>, ListCell<T>> {
+
+		private final Function<T, String> nameExtractor;
+
+		public ListCellFactory(Function<T, String> nameExtractor){
+			this.nameExtractor = nameExtractor;
+		}
+
+		public ListCell<T> call(ListView<T> param) {
+			return new ListCell<T>() {
+				public void updateItem(T t, boolean empty) {
+					super.updateItem(t, empty);
+					if (t != null) {
+						String name = nameExtractor.apply(t);
+						Label label = new Label(name);
+						Tooltip.install(label, new Tooltip(name));
+						setGraphic(label);
+					}
+					else
+						setGraphic(null);
+				}
+			};
+		}
+
+	}
+
+	public static class Data{
+		public final Step from;
+		public final Step to;
+		public final Consumer<Chain> onChain;
+
+		public Data(Step from, Step to, Consumer<Chain> onChain){
+			this.from = from;
+			this.to = to;
+			this.onChain = onChain;
+		}
+	}
+
+
+
+	private static final Image DEFAULT_TOOL_LOG = new Image(Uris.TOOL_LOGO_IMAGE);
+
+
 
 	public static Node mount(Data data) throws ComponentException {
 		String fXMLPath = Uris.FXML_CHAIN;
@@ -58,21 +99,8 @@ public class FXMLChainController implements IInitializable<Data>{
 		return fxmlFile.getRoot();
 	}
 
-	public static class Data{
-		public final EditorStep from;
-		public final EditorStep to;
-		public final Consumer<EditorChain> onChain;
-
-		public Data(EditorStep from, EditorStep to, Consumer<EditorChain> onChain){
-			this.from = from;
-			this.to = to;
-			this.onChain = onChain;
-		}
-	}
 
 
-	private static final Image DEFAULT_TOOL_LOG = new Image(Uris.TOOL_LOGO_IMAGE);
-	
 	@FXML
 	private ComboBox<Output> cBOutputs;
 	@FXML
@@ -84,10 +112,10 @@ public class FXMLChainController implements IInitializable<Data>{
 	@FXML
 	private ImageView iVArgument;
 
+	private Step from;
+	private Step to;
+	private Consumer<Chain> onChain;
 
-	private EditorStep from;
-	private EditorStep to;
-	private Consumer<EditorChain> onChain;
 
 
 	@Override
@@ -95,22 +123,22 @@ public class FXMLChainController implements IInitializable<Data>{
 		this.from = data.from;
 		this.to = data.to;
 		this.onChain = data.onChain;
-		load();
+
+		loadUIComponents();
 	}
 
-	private void load(){
+
+
+	private void loadUIComponents(){
 		iVOutput.setImage(DEFAULT_TOOL_LOG);
 		iVArgument.setImage(DEFAULT_TOOL_LOG);
 
-		UIUtils.loadLogo(iVOutput, from.getToolDescriptor());
-		UIUtils.loadLogo(iVArgument, to.getToolDescriptor());
-
-		new ButtonMagnifier<>(bChain).mount();
-		bChain.setTooltip(new Tooltip("Chain"));
+		UIUtils.loadLogo(iVOutput, from.getTool());
+		UIUtils.loadLogo(iVArgument, to.getTool());
 
 		loadOutputsComboBox();
 		loadArgumentsComboBox();
-		setOnButtonClicked();
+		loadChainButton();
 	}
 
 	private void loadOutputsComboBox() {
@@ -120,23 +148,7 @@ public class FXMLChainController implements IInitializable<Data>{
 	}
 
 	private void setOutputComboBoxFactory() {
-		cBOutputs.setCellFactory(new Callback<ListView<Output>, ListCell<Output>>() {
-			public ListCell<Output> call(ListView<Output> param) {
-				ListCell<Output> cell = new ListCell<Output>() {
-					public void updateItem(Output output, boolean empty) {
-						super.updateItem(output, empty);
-						if (output != null) {
-							Label label = new Label(output.getName());
-							Tooltip.install(label, new Tooltip(output.getName()));
-							setGraphic(label);
-						}
-						else 
-							setGraphic(null);
-					}
-				};
-				return cell;
-			}
-		});
+		cBOutputs.setCellFactory(new ListCellFactory<>(Output::getName));
 		
 		cBOutputs.setConverter(new StringConverter<Output>() {
 			public Output fromString(String name) {
@@ -144,43 +156,30 @@ public class FXMLChainController implements IInitializable<Data>{
 			}
 
 			public String toString(Output output) {
-				if (output == null) 
-					return null;
-
-				return output.getName();
+				return output == null ? null : output.getName();
 			}
 		});
 	}
 
 	private void loadArgumentsComboBox() {
-		Collection<Argument> arguments = new LinkedList<>(to.getArguments());
-		arguments = arguments.parallelStream().filter((arg)->arg.getType().equals(ArgumentValidator.FILE_TYPE_NAME)).collect(Collectors.toList());
+		Collection<Argument> arguments = getArgumentsOfType(ArgumentValidator.FILE_TYPE_NAME);
 		cBArguments.setItems(FXCollections.observableArrayList(arguments));
 		setArgumentsComboBoxFactory();
 	}
-	
-	private void setArgumentsComboBoxFactory(){
-		cBArguments.setCellFactory(new Callback<ListView<Argument>, ListCell<Argument>>() {
-			@Override
-			public ListCell<Argument> call(ListView<Argument> param) {
 
-				ListCell<Argument> cell = new ListCell<Argument>() {
-					@Override 
-					public void updateItem(Argument argument, boolean empty) {
-						super.updateItem(argument, empty);
-						if (argument != null) {
-							Label label = new Label(argument.getName());
-							Tooltip.install(label, new Tooltip(argument.getName()));
-							setGraphic(label);
-						}
-						else 
-							setGraphic(null);
-					}
-				};
+	private Collection<Argument> getArgumentsOfType(String type){
+		Collection<Argument> arguments = new LinkedList<>();
 
-				return cell;
-			}
+		to.getArguments().forEach((argument) -> {
+			if(argument.getType().equals(type))
+				arguments.add(argument);
 		});
+
+		return arguments;
+	}
+
+	private void setArgumentsComboBoxFactory(){
+		cBArguments.setCellFactory(new ListCellFactory<>(Argument::getName));
 		
 		cBArguments.setConverter(new StringConverter<Argument>() {
 			public Argument fromString(String name) {
@@ -188,27 +187,26 @@ public class FXMLChainController implements IInitializable<Data>{
 			}
 
 			public String toString(Argument argument) {
-				if (argument == null) 
-					return null;
-
-				return argument.getName();
+				return argument == null ? null : argument.getName();
 			}
 		});
 	}
 
-	private void setOnButtonClicked() {
-		bChain.setOnMouseClicked((event)->{
+	private void loadChainButton() {
+		new ButtonMagnifier<>(bChain).mount();
+		bChain.setTooltip(new Tooltip("Chain"));
+
+		bChain.setOnMouseClicked((event) -> {
 			Argument argument = cBArguments.getSelectionModel().getSelectedItem();
 			Output output = cBOutputs.getSelectionModel().getSelectedItem();
 
-			if(argument == null || output == null){
-				Dialog.showError("You must specify and Argument and an Output!");
-			}else{
-				EditorChain chain = new EditorChain(from, output, to, argument);
+			if(argument == null || output == null) {
+				Dialog.showError("You must specify an Argument and an Output!");
+			} else {
+				Chain chain = WorkflowManager.createChain(argument, output);
 				onChain.accept(chain);
 			}
 		});
 	}
-
 
 }

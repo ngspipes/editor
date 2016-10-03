@@ -42,6 +42,42 @@ import repository.IRepository;
 
 public class FXMLRepositoryDescriptionController implements IInitializable<FXMLRepositoryDescriptionController.Data>{
 
+	public static class Data{
+
+		public final IRepository repository;
+		public final IToolDescriptor tool;
+		public final ICommandDescriptor command;
+		public final IArgumentDescriptor argument;
+		public final IOutputDescriptor output;
+
+		public Data(IRepository repository, IToolDescriptor tool, ICommandDescriptor command, IArgumentDescriptor argument, IOutputDescriptor output){
+			this.repository = repository;
+			this.tool = tool;
+			this.command = command;
+			this.argument = argument;
+			this.output = output;
+		}
+
+		public Data(IRepository repository, IToolDescriptor tool, ICommandDescriptor command){
+			this(repository, tool, command, null, null);
+		}
+
+		public Data(IRepository repository, IToolDescriptor tool){
+			this(repository, tool, null);
+		}
+
+		public Data(IRepository repository){
+			this(repository, null);
+		}
+	}
+
+
+
+	private static final int LOGO_WIDTH = 25;
+	private static final int LOGO_HEIGHT = 25;
+
+
+
 	public static Node mount(Data data) throws ComponentException {
 		String fXMLPath = Uris.FXML_REPOSITORY_DESCRIPTION;
 		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
@@ -51,37 +87,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		return fxmlFile.getRoot();
 	}
 	
-	public static class Data{
-		
-		public final IRepository repository;
-		public final IToolDescriptor tool;
-		public final ICommandDescriptor command;
-		public final IArgumentDescriptor argument;
-		public final IOutputDescriptor output;
-		
-		public Data(IRepository repository, IToolDescriptor tool, ICommandDescriptor command, IArgumentDescriptor argument, IOutputDescriptor output){
-			this.repository = repository;
-			this.tool = tool;
-			this.command = command;
-			this.argument = argument;
-			this.output = output;
-		}
-		
-		public Data(IRepository repository, IToolDescriptor tool, ICommandDescriptor command){
-			this(repository, tool, command, null, null);
-		}
-		
-		public Data(IRepository repository, IToolDescriptor tool){
-			this(repository, tool, null);
-		}
-		
-		public Data(IRepository repository){
-			this(repository, null);
-		}
-	}
 
-	private static final int LOGO_WIDTH = 25;
-	private static final int LOGO_HEIGHT = 25;
 	
 	@FXML
 	private TreeView<String> tVTools;
@@ -151,16 +157,15 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private Label lValue;
 	@FXML
 	private TextArea tAOutputDescription;
-	
-	
-		
+
 	private IRepository repository;
 	private IToolDescriptor initTool;
 	private ICommandDescriptor initCommand;
 	private IArgumentDescriptor initArgument;
 	private IOutputDescriptor initOutput;
 	private Task<Image> logoLoaderTask;
-	
+
+
 	
 	@Override
 	public void init(Data data) throws ComponentException {
@@ -169,12 +174,13 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		this.initCommand = data.command;
 		this.initArgument = data.argument;
 		this.initOutput = data.output;
-		load();
+
+		loadUIComponents();
 	}
 
 
 	
-	private void load() throws ComponentException {
+	private void loadUIComponents() throws ComponentException {
 		try{
 			loadTree();
 		}catch(Exception ex){

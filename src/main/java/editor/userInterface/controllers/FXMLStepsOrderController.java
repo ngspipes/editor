@@ -21,7 +21,10 @@ package editor.userInterface.controllers;
 
 import components.FXMLFile;
 import editor.dataAccess.Uris;
-import editor.logic.entities.EditorStep;
+import editor.logic.workflow.Step;
+import editor.logic.workflow.Workflow;
+import editor.logic.workflow.WorkflowManager;
+import editor.logic.workflow.WorkflowManager.WorkflowEvents;
 import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -31,18 +34,24 @@ import javafx.scene.image.ImageView;
 import jfxutils.ComponentException;
 import jfxutils.IInitializable;
 
-public class FXMLStepsOrderController implements IInitializable<EditorStep>{
-	
-	public static Node mount(EditorStep step) throws ComponentException {
+import java.util.function.Consumer;
+
+public class FXMLStepsOrderController implements IInitializable<Step>{
+
+	private static final Image DEFAULT_TOOL_LOGO = new Image(Uris.TOOL_LOGO_IMAGE);
+
+
+
+	public static Node mount(Step step) throws ComponentException {
 		String fXMLPath = Uris.FXML_STEPS_ORDER;
-		FXMLFile<Node, EditorStep> fxmlFile = new FXMLFile<>(fXMLPath, step);
+		FXMLFile<Node, Step> fxmlFile = new FXMLFile<>(fXMLPath, step);
 
 		fxmlFile.build();
 		
 		return fxmlFile.getRoot();
 	}	
-	
-	private static final Image DEFAULT_TOOL_LOGO = new Image(Uris.TOOL_LOGO_IMAGE);
+
+
 	
 	@FXML
 	private Label lOrder;
@@ -52,28 +61,71 @@ public class FXMLStepsOrderController implements IInitializable<EditorStep>{
 	private Label lCommand;
 	@FXML
 	private ImageView iVLogo;
-	
-	private EditorStep step;
-	
+
+	private WorkflowEvents events;
+	private Workflow workflow;
+	private Step step;
+
+
+
 	@Override
-	public void init(EditorStep step) throws ComponentException {
+	public void init(Step step) throws ComponentException {
 		this.step = step;
-		load();
-	}
-	
-	private void load(){
-		setOrder(step.getOrder());
-		lTool.setText(step.getToolDescriptor().getName());
-		lCommand.setText(step.getCommandDescriptor().getName());
-		
-		iVLogo.setImage(DEFAULT_TOOL_LOGO);
-		UIUtils.loadLogo(iVLogo, step.getToolDescriptor());
-		
-		step.orderEvent.addListener(this::setOrder);
+		this.workflow = WorkflowManager.getWorkflowOfStep(step);
+		this.events = WorkflowManager.getEventsFor(workflow);
+
+		loadUIComponents();
+		registerOrderListeners();
 	}
 
-	private void setOrder(int order){
+
+	
+	private void loadUIComponents(){
+		showOrder(step.getOrder());
+
+		lTool.setText(step.getTool().getName());
+
+		lCommand.setText(step.getCommand().getName());
+		
+		iVLogo.setImage(DEFAULT_TOOL_LOGO);
+		UIUtils.loadLogo(iVLogo, step.getTool());
+	}
+
+	private void showOrder(int order){
 		lOrder.setText(Integer.toString(order));
+	}
+
+	private void registerOrderListeners() {
+		Consumer<Integer> listener = this::showOrder;
+
+		registerOrderListenerOnStepAddition(listener);
+		unregisterOrderListenerOnStepRemoval(listener);
+
+		registerOrderListener(listener);
+	}
+
+	private void registerOrderListenerOnStepAddition(Consumer<Integer> listener) {
+		events.stepAdditionEvent.addListener((s) -> {
+			if(s == step){
+				registerOrderListener(listener);
+				showOrder(step.getOrder());
+			}
+		});
+	}
+
+	private void unregisterOrderListenerOnStepRemoval(Consumer<Integer> listener) {
+		events.stepRemovalEvent.addListener((s) -> {
+			if(s == step)
+				unregisterOrderListener(listener);
+		});
+	}
+
+	private void registerOrderListener(Consumer<Integer> listener){
+		events.orderEvents.get(step).addListener(listener);
+	}
+
+	private void unregisterOrderListener(Consumer<Integer> listener){
+		events.orderEvents.get(step).removeListener(listener);
 	}
 
 }

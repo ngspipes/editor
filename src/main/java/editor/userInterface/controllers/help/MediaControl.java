@@ -44,6 +44,8 @@ public class MediaControl {
 	private Slider volumeSlider;
 	final Button playButton;
 
+
+
 	public MediaControl(MediaPlayer mp, HBox hbMediaBar) {
 		this.mp = mp;
 		this.hbMediaBar = hbMediaBar;
@@ -51,7 +53,9 @@ public class MediaControl {
 		playTime = new Label();
 		volumeSlider = new Slider();   
 	}
-	
+
+
+
 	public void load(MediaView mediaView) {
 
 		configureComponents(); 

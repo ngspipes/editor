@@ -45,15 +45,6 @@ import workflow.elements.Workflow;
 
 public class FXMLCommandListViewCellController implements IInitializable<FXMLCommandListViewCellController.Data> {
 
-	public static Node mount(Data data) throws ComponentException {
-		String fXMLPath = Uris.FXML_COMMANDS_LIST_VIEW_ITEM;
-		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
-		
-		fxmlFile.build();
-		
-		return fxmlFile.getRoot();
-	}
-	
 	public static class Data{
 		public final ICommandDescriptor command;
 		public final Operations operations;
@@ -63,6 +54,19 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 			this.operations = operations;
 		}
 	}
+
+
+
+	public static Node mount(Data data) throws ComponentException {
+		String fXMLPath = Uris.FXML_COMMANDS_LIST_VIEW_ITEM;
+		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
+		
+		fxmlFile.build();
+		
+		return fxmlFile.getRoot();
+	}
+	
+
 
 	private static final String DEFAULT_TOOL_LOGO_URI = Uris.TOOL_LOGO_IMAGE;
 	private static final Cursor ON_ENTER_CURSOR = Cursor.OPEN_HAND;
@@ -81,22 +85,36 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 	private Label lCommandName;
 	@FXML
 	private VBox root;
-	
-	
+
 	private ICommandDescriptor command;
 	private Operations operations;
+
+
 
 	@Override
 	public void init(Data data) throws ComponentException {
 		this.command = data.command;
 		this.operations = data.operations;
 		
-		loadComponents();
+		loadUIComponents();
 	}
 
-	private void loadComponents() throws ComponentException {
+
+
+	private void loadUIComponents() throws ComponentException {
 		lCommandName.setText(command.getName());
-		
+
+		String tip = command.getName() + "\n" + command.getDescription();
+		Tooltip.install(root, UIUtils.createTooltip(tip, true, 300, 200));
+
+		new Menu<>(root, operations).mount();
+
+		loadLogoImage();
+
+		loadMouseEvents();
+	}
+
+	private void loadLogoImage() {
 		iVToolLogo.setImage(new Image(DEFAULT_TOOL_LOGO_URI, IMAGE_WIDTH, IMAGE_HEIGHT, true, true));
 		iVToolLogo.fitWidthProperty().setValue(IMAGE_WIDTH);
 		iVToolLogo.fitHeightProperty().setValue(IMAGE_HEIGHT);
@@ -105,15 +123,9 @@ public class FXMLCommandListViewCellController implements IInitializable<FXMLCom
 		UIUtils.loadLogo(iVToolLogo, command.getOriginTool());
 
 		UIUtils.set3DEffect(iVToolLogo, true, true);
-		
-		loadButtonEvents();
 	}
 
-	private void loadButtonEvents() {
-		String tip = command.getName() + "\n" + command.getDescription();
-		Tooltip.install(root, UIUtils.createTooltip(tip, true, 300, 200));
-		
-		new Menu<>(root, operations).mount();
+	private void loadMouseEvents() {
 		new ChangeMouseOnPress<>(root, ON_PRESS_CURSOR, ON_RELEASE_CURSOR).mount();
 		new ChangeMouseOnPass<>(root, ON_ENTER_CURSOR, ON_EXIT_CURSOR).mount();
 		mountDraggable();

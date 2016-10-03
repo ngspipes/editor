@@ -21,7 +21,7 @@ package editor.userInterface.controllers;
 
 import components.FXMLFile;
 import editor.dataAccess.Uris;
-import editor.logic.entities.EditorStep;
+import editor.logic.workflow.Step;
 import editor.userInterface.utils.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -34,6 +34,20 @@ import jfxutils.IInitializable;
 
 public class FXMLStepController implements IInitializable<FXMLStepController.Data>{
 
+	public static class Data{
+		public final Step step;
+
+		public Data(Step step){
+			this.step = step;
+		}
+	}
+
+
+
+	private static final Image DEFAULT_TOOL_LOGO = new Image(Uris.TOOL_LOGO_IMAGE);
+
+
+
 	public static Node mount(Data data) throws ComponentException {
 		String fXMLPath = Uris.FXML_STEP;
 		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
@@ -43,37 +57,32 @@ public class FXMLStepController implements IInitializable<FXMLStepController.Dat
 		return fxmlFile.getRoot();
 	}
 	
-	
-	
-	public static class Data{
-		public final EditorStep step;
-		
-		public Data(EditorStep step){
-			this.step = step;
-		}
-	}
-	
-	private static final Image DEFAULT_TOOL_LOGO = new Image(Uris.TOOL_LOGO_IMAGE);
+
+
     @FXML
     private ImageView iVToolLogo;
     @FXML
     private Label lCommandName;
     
-    private EditorStep step;
+    private Step step;
     
+	
    
     public void init(Data data) {
     	this.step = data.step;
-    	load();
+		
+    	loadUIComponents();
     }
+	
+	
     
-    private void load() {
+    private void loadUIComponents() {
     	iVToolLogo.setImage(DEFAULT_TOOL_LOGO);
-		UIUtils.loadLogo(iVToolLogo, step.getToolDescriptor());
+		UIUtils.loadLogo(iVToolLogo, step.getTool());
 
     	UIUtils.set3DEffect(iVToolLogo, true, false);
     	
-        lCommandName.setText(step.getCommandDescriptor().getName());
+        lCommandName.setText(step.getCommand().getName());
     }
 
 }

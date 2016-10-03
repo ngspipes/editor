@@ -34,6 +34,8 @@ public class JSONVideoDescriptor implements IVideoDescriptor {
 	private static final String DURATION_KEY = "duration";
 	private static final String DESCRIPTOR_NAME = "Descriptor";
 
+
+
 	private static String getVideoLocation(String filePath) {
 		StringBuilder videoLocation = new StringBuilder();
 		
@@ -60,6 +62,8 @@ public class JSONVideoDescriptor implements IVideoDescriptor {
 	final LocalTime duration;
 	@Override
 	public LocalTime getDuration() { return this.duration; }
+
+
 	
 	public JSONVideoDescriptor(String filePath) throws JSONException, IOException {
 		this(new JSONObject(IO.read(filePath)), getVideoLocation(filePath));

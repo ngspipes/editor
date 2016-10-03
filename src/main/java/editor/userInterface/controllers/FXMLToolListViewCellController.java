@@ -40,17 +40,6 @@ import jfxutils.IInitializable;
 
 public class FXMLToolListViewCellController implements IInitializable<FXMLToolListViewCellController.Data> {
 
-	public static Node mount(Data data) throws ComponentException {
-		String fXMLPath = Uris.FXML_TOOLS_LIST_VIEW_ITEM;
-		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
-		
-		fxmlFile.build();
-		
-		return fxmlFile.getRoot();
-	}
-	
-	
-	
 	public static class Data{
 		public final IToolDescriptor tool;
 		public final Operations operations;
@@ -60,11 +49,25 @@ public class FXMLToolListViewCellController implements IInitializable<FXMLToolLi
 			this.operations = operations;
 		}
 	}
-	
+
+
+
 	private static final int IMAGE_WIDTH = 85;
 	private static final int IMAGE_HEIGHT = 85;
 	private static final Image DEFAULT_TOOL_LOGO = new Image(Uris.TOOL_LOGO_IMAGE, IMAGE_WIDTH, IMAGE_HEIGHT, true, true);
 	private static final double ITEM_MAGNIFICATION = 1.20;
+
+
+
+	public static Node mount(Data data) throws ComponentException {
+		String fXMLPath = Uris.FXML_TOOLS_LIST_VIEW_ITEM;
+		FXMLFile<Node, Data> fxmlFile = new FXMLFile<>(fXMLPath, data);
+		
+		fxmlFile.build();
+		
+		return fxmlFile.getRoot();
+	}
+
 	
 
 	@FXML
@@ -73,40 +76,46 @@ public class FXMLToolListViewCellController implements IInitializable<FXMLToolLi
 	private Label lToolName;
 	@FXML
 	private VBox root;
-	
-	
+
 	private IToolDescriptor tool;
 	private Operations operations;
+
+
 
 	@Override
 	public void init(Data data) throws ComponentException {
 		this.tool = data.tool;
 		this.operations = data.operations;
 		
-		loadComponents();
+		loadUIComponents();
 	}
 
-	private void loadComponents() throws ComponentException {
+
+
+	private void loadUIComponents() throws ComponentException {
 		lToolName.setText(tool.getName());
-		
+
+		String tip = tool.getName() + "\n" + tool.getDescription();
+		Tooltip.install(root, UIUtils.createTooltip(tip, true, 300, 200));
+
+		new Menu<>(root, operations).mount();
+
+		new ChangeMouseOnPass<>(root, Cursor.HAND, Cursor.DEFAULT).mount();
+
+		loadLogoImage();
+	}
+
+	private void loadLogoImage(){
 		iVToolLogo.setImage(DEFAULT_TOOL_LOGO);
+
 		iVToolLogo.fitHeightProperty().setValue(IMAGE_HEIGHT);
 		iVToolLogo.fitWidthProperty().setValue(IMAGE_WIDTH);
+
 		new ImageMagnifier<>(iVToolLogo, ITEM_MAGNIFICATION).mount();
 
 		UIUtils.loadLogo(iVToolLogo, tool);
-		
+
 		UIUtils.set3DEffect(iVToolLogo, true, false);
-		
-		String tip = tool.getName() + "\n" + tool.getDescription();
-		Tooltip.install(root, UIUtils.createTooltip(tip, true, 300, 200));
-		
-		loadButtonEvents();
-	}
-	
-	private void loadButtonEvents() {
-		new Menu<>(root, operations).mount();
-		new ChangeMouseOnPass<>(root, Cursor.HAND, Cursor.DEFAULT).mount();
 	}
 
 }

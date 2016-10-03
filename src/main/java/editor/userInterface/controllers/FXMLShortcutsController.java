@@ -59,6 +59,23 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 		}
 		
 	}
+
+	private static class Shortcut{
+		public final String shortcut;
+		public final String legend;
+
+		public Shortcut(String shortcut, String legend){
+			this.shortcut = shortcut;
+			this.legend = legend;
+		}
+
+		@FXML
+		public String toString(){
+			return legend + " -> " + "(" + shortcut + ")";
+		}
+	}
+
+
 	
 	public static Node mount() throws ComponentException {
 		String fXMLPath = Uris.FXML_SHORTCUTS;
@@ -84,20 +101,7 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 			return text.toString().substring(0, text.length()-"\n".length()); // REMOVE LAST '\n'
 	}
 	
-	private static class Shortcut{
-		public final String shortcut;
-		public final String legend;
-		
-		public Shortcut(String shortcut, String legend){
-			this.shortcut = shortcut;
-			this.legend = legend;
-		}
-		
-		@FXML 
-		public String toString(){
-			return legend + " -> " + "(" + shortcut + ")";
-		}
-	}
+
 	
 	@FXML
 	private TextField tFFilter;
@@ -105,12 +109,16 @@ public class FXMLShortcutsController implements IInitializable<Void>{
 	@FXML
 	private ListView<Shortcut> lVShortcuts;
 
+
+
 	@Override
 	public void init(Void a) throws ComponentException {
 		Collection<Shortcut> shortcuts = getShortcuts();
 		new ShortcutsPallet(tFFilter, lVShortcuts).load(shortcuts);
 	}
-	
+
+
+
 	private Collection<Shortcut> getShortcuts() throws ComponentException {
 		String rawShortcuts;
 		try{

@@ -63,7 +63,9 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
     private static final String GITHUB_TYPE = Support.REPOSITORY_GITHUB;
     private static final String DEFAULT_TYPE = "Default";
     private static final List<String> TYPES;
-    
+
+
+
     static{
         TYPES = new LinkedList<>();
         TYPES.add(LOCAL_TYPE);
@@ -71,7 +73,9 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
         TYPES.add(DEFAULT_TYPE);
         TYPES.add(GITHUB_TYPE);
     }
-    
+
+
+
     @FXML
     private ImageView iVRight;
     @FXML
@@ -92,7 +96,8 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
     
     private BiConsumer<String, String> onChange;
     
-    
+
+
     @FXML
     private void onSearchClick(ActionEvent event) {
        File selectedDirectory = Dialog.getDirectory("Repository Directory");
@@ -106,7 +111,7 @@ public class FXMLChangeRepositoryController implements IInitializable<BiConsumer
     private void onChangeClick(ActionEvent event) {
        handleChange.get(cBDirectoryType.getValue()).run();
     }
-    
+
     @FXML
     private void onDirectoryTypeClick(ActionEvent event) {
        handleTypes.get(cBDirectoryType.getValue()).run();
