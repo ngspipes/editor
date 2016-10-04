@@ -36,7 +36,7 @@ public class Uris {
 	private static final String IMAGES = 					"images";
 	public static final String TOOL_LOGO_IMAGE = 			IMAGES + SEP + "ToolLogo.png";
 	public static final String CLOSE_SELECTED_IMAGE = 		IMAGES + SEP + "CloseSelected.png";
-	public static final String CLOSE_DESELECTED_IMAGE = 	IMAGES + SEP + "CloseDeselected.png";
+	public static final String CLOSE_UNSELECTED_IMAGE = 	IMAGES + SEP + "CloseDeselected.png";
 	public static final String SMALL_IN_IMAGE = 			IMAGES + SEP + "SmallIn.png";
 	public static final String SMALL_OUT_IMAGE = 			IMAGES + SEP + "SmallOut.png";
 	public static final String LEFT_EXPAND_IMAGE = 			IMAGES + SEP + "LeftExpand.png";
@@ -69,6 +69,7 @@ public class Uris {
 	public static final String FXML_CHAIN =					 		FXML_FILES + SEP + "FXMLChain.fxml";
 	public static final String FXML_STEPS_ORDER =					FXML_FILES + SEP + "FXMLStepsOrder.fxml";
 	public static final String FXML_LOAD =					 		FXML_FILES + SEP + "FXMLLoad.fxml";
+	public static final String FXML_WORKFLOW_VIEWS =				FXML_FILES + SEP + "FXMLWorkflowViews.fxml";
 
 	public static final String SHORTCUTS_FILE = "Shortcuts.txt";
 
