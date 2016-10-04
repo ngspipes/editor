@@ -19,6 +19,7 @@
  */
 package editor.logic;
 
+import dsl.ArgumentValidator;
 import dsl.entities.Argument;
 import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
@@ -52,6 +53,13 @@ public class FlowManager {
 				if(argument.getRequired() && (argument.getValue()==null || argument.getValue().isEmpty())){
 					String message = "Argument " + argument.getName() + " from Step number " + step.getOrder() + " is required!";
 					throw new EditorException(message);
+				}
+				if(argument.getValue() != null){
+					try{
+						ArgumentValidator.validate(argument);
+					} catch(ArgumentValidator.ArgumentValidationException e) {
+						throw new EditorException(e.getMessage(),e);
+					}
 				}
 			}
 		}
