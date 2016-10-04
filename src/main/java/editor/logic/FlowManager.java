@@ -19,6 +19,8 @@
  */
 package editor.logic;
 
+import dsl.entities.Argument;
+import editor.logic.entities.EditorStep;
 import editor.logic.entities.Flow;
 import editor.transversal.EditorException;
 
@@ -40,7 +42,19 @@ public class FlowManager {
 	}
 	
 	public static void generate(Flow flow, File inputsDir) throws EditorException {
+		validate(flow);
 		DSLWriter.generate(flow, inputsDir);
+	}
+
+	private static void validate(Flow flow) throws EditorException {
+		for(EditorStep step : flow.getElements().getSteps()){
+			for(Argument argument : step.getArguments()){
+				if(argument.getRequired() && (argument.getValue()==null || argument.getValue().isEmpty())){
+					String message = "Argument " + argument.getName() + " from Step number " + step.getOrder() + " is required!";
+					throw new EditorException(message);
+				}
+			}
+		}
 	}
 		
 }
