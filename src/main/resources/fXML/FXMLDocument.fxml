@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="1003.0" style="-fx-background-color: D4D4D4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.userInterface.controllers.FXMLDocumentController">
    <top>
        <MenuBar fx:id="menuBar" prefHeight="30.0" prefWidth="1363.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -66,6 +69,23 @@
                                              </VBox.margin>
                                           </TextField>
                                           <ListView fx:id="lVArguments" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                          <HBox>
+                                             <children>
+                                                <Label text="Optional">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label style="-fx-background-color: #ff9696; -fx-background-radius: 5px;" text="Required">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </VBox>
                                  </children>

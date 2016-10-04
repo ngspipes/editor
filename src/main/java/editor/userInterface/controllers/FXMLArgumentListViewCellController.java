@@ -101,6 +101,9 @@ public class FXMLArgumentListViewCellController implements IInitializable<FXMLAr
 			loadSearchButton();
 		else
 			bSearch.setVisible(false);
+
+		if(argument.getRequired())
+			root.setStyle("-fx-background-color:#ff9696;-fx-background-radius:5px;");
 	}
 	
 	private void loadSearchButton(){
