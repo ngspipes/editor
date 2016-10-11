@@ -35,6 +35,7 @@ public class EagerArgumentDescriptor implements IArgumentDescriptor{
 	private final String description;
 	private final String type;
 	private final boolean required;
+	private final String argumentComposer;
 	private final int order;
 	
 	
@@ -45,6 +46,7 @@ public class EagerArgumentDescriptor implements IArgumentDescriptor{
 		this.description = argument.getDescription();
 		this.type = argument.getType();
 		this.required = argument.getRequired();
+		this.argumentComposer = argument.getArgumentComposer();
 		this.order = argument.getOrder();
 	}
 
@@ -68,6 +70,11 @@ public class EagerArgumentDescriptor implements IArgumentDescriptor{
 	@Override
 	public String getDescription() {
 		return description;
+	}
+
+	@Override
+	public String getArgumentComposer() {
+		return argumentComposer;
 	}
 
 	@Override

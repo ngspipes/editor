@@ -35,6 +35,7 @@ public class EagerToolDescriptor implements IToolDescriptor{
 	
 	private final String name;
 	private final int requiredMemory;
+	private final String argumentsComposer;
 	private final String version;
 	private final String description;
 	private final String author; 
@@ -48,6 +49,7 @@ public class EagerToolDescriptor implements IToolDescriptor{
 		this.originRepository = originRepository;
 		this.name = tool.getName();
 		this.requiredMemory = tool.getRequiredMemory();
+		this.argumentsComposer = tool.getArgumentsComposer();
 		this.version = tool.getVersion();
 		this.description = tool.getDescription();
 		this.author = tool.getAuthor();
@@ -88,6 +90,11 @@ public class EagerToolDescriptor implements IToolDescriptor{
 	@Override
 	public int getRequiredMemory() {
 		return requiredMemory;
+	}
+
+	@Override
+	public String getArgumentsComposer() {
+		return argumentsComposer;
 	}
 
 	@Override
