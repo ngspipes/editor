@@ -98,7 +98,7 @@ public class Log {
 	private static String getLogDir(){
 		Date now = new Date();
 
-		return Uris.getLogPath((now.getYear()+1900)+"_" + (now.getMonth()+1)+"_" + now.getDate()+"_" + now.getHours()+"_" + now.getMinutes() + "_" + now.getSeconds())+".json";
+		return Uris.getLogPath((now.getYear()+1900)+"loadRepository" + (now.getMonth()+1)+"loadRepository" + now.getDate()+"loadRepository" + now.getHours()+"loadRepository" + now.getMinutes() + "loadRepository" + now.getSeconds())+".json";
 	}
 
 	private static void init() throws Exception {

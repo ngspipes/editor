@@ -170,7 +170,7 @@ class FlowLoader {
 		if(repo.length()==0)
 			Platform.runLater(()->callback.accept(null, null));
 		else
-			UIUtils._(repo.getString(FlowSaver.REPOSITORY_TYPE_JSON_KEY), repo.getString(FlowSaver.REPOSITORY_LOCATION_JSON_KEY), callback);
+			UIUtils.loadRepository(repo.getString(FlowSaver.REPOSITORY_TYPE_JSON_KEY), repo.getString(FlowSaver.REPOSITORY_LOCATION_JSON_KEY), callback);
 	}
 
 	private static Map<String, String> getArgumentsValues(JSONArray data) throws JSONException {

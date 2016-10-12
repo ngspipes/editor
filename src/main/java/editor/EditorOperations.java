@@ -58,7 +58,7 @@ public class EditorOperations {
 		EditorOperations.stepArea = stepArea;
 		EditorOperations.workflowArea = workflowArea;
 		
-		UIUtils._(Support.REPOSITORY_LOCAL, Uris.DEFAULT_REPOSITORY_DIR, (ex, repo)->{
+		UIUtils.loadRepository(Support.REPOSITORY_LOCAL, Uris.DEFAULT_REPOSITORY_DIR, (ex, repo)->{
 			if(ex!=null)
 				Utils.treatException(ex, TAG, "Error loading DEFAULT_REPOSITORY!");
 			else{

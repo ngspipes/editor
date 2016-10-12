@@ -162,7 +162,7 @@ public class MenuBar {
 	public void repositoryChangeRepository(){
 		try{
 			Dialog.changeRepository((type, location)->{
-				UIUtils._(type, location,(ex, repo)->{
+				UIUtils.loadRepository(type, location,(ex, repo)->{
 					if(ex!=null)
 						Utils.treatException(ex, TAG, "Error loading Repository!");
 					else

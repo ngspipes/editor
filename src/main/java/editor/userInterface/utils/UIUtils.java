@@ -83,7 +83,7 @@ public class UIUtils {
 	}
 
 
-	public static void _(String type, String location, BiConsumer<Exception, IRepository> callback) {
+	public static void loadRepository(String type, String location, BiConsumer<Exception, IRepository> callback) {
 		try {
 			Task<IRepository> task = loadRepository(type, location);
 			task.succeededEvent.addListener(() -> {
