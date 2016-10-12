@@ -118,7 +118,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	@FXML
 	private Label lCommand;
 	@FXML
-	private Label lArgumentsComposer;
+	private Label lArgumentComposer;
 	@FXML
 	private Label lNumberOfArguments;
 	@FXML
@@ -309,7 +309,12 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 
 	
 	private Runnable getToolLoader(IToolDescriptor tool){
-		return ()->loadTool(tool);
+		return ()->{
+			loadTool(tool);
+			cleanCommand();
+			cleanArgument();
+			cleanOutput();
+		};
 	}
 	
 	private Runnable getCommandLoader(ICommandDescriptor command){
@@ -353,7 +358,6 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private void loadCommand(ICommandDescriptor command){
 		lCommandName.setText(command.getName());
 		lCommand.setText(command.getCommand());
-		lArgumentsComposer.setText(command.getArgumentsComposer());
 		lNumberOfArguments.setText(Integer.toString(command.getArguments().size()));
 		lNumberOfOutputs.setText(Integer.toString(command.getOutputs().size()));
 		tACommandDescription.setText(command.getDescription());
@@ -365,6 +369,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		lArgumentType.setText(argument.getType());
 		lRequired.setText(Boolean.toString(argument.getRequired()));
 		tAArgumentDescription.setText(argument.getDescription());
+		lArgumentComposer.setText(argument.getArgumentComposer());
 		showArgument();
 	}
 	
@@ -381,7 +386,6 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 	private void cleanCommand(){
 		lCommandName.setText("");
 		lCommand.setText("");
-		lArgumentsComposer.setText("");
 		lNumberOfArguments.setText("");
 		lNumberOfOutputs.setText("");
 		tACommandDescription.setText("");
@@ -393,6 +397,7 @@ public class FXMLRepositoryDescriptionController implements IInitializable<FXMLR
 		lArgumentType.setText("");
 		lRequired.setText("");
 		tAArgumentDescription.setText("");
+		lArgumentComposer.setText("");
 		hideArgument();
 	}
 	
