@@ -151,10 +151,11 @@ public class Uris {
 
 		if(!defaultRepositoryDir.exists()){
 			defaultRepositoryDir.mkdir();
-			JarFile jar = new JarFile(new File(JAR_FILE_PATH));
-			copyResourcesToDirectory(jar, "repository", DEFAULT_REPOSITORY_DIR);
-			jar.close();
 		}
+
+		JarFile jar = new JarFile(new File(JAR_FILE_PATH));
+		copyResourcesToDirectory(jar, "repository", DEFAULT_REPOSITORY_DIR);
+		jar.close();
 	}
 
 	private static void copyResourcesToDirectory(JarFile fromJar, String jarDir, String destDir) throws IOException {
