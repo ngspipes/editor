@@ -279,26 +279,32 @@ public class ChainPaper {
 	
 	private WorkflowConnection createWorkflowConnection(WorkflowItem initItem, WorkflowItem endItem, EditorChain chain) {
 		WorkflowConnection connection = workflow.connectionFactory.create(initItem, endItem, chain);
-		Connector connector = connection.getConnector();
-		Node root = connection.getRoot();
-
-		Label label = new Label();
-		label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		label.setTextFill(Color.web("#2d7eff"));
-
-		ChangeListener<Boolean> listener = (obs, wasFocus, isFocus) -> {
-			if(isFocus){
-				label.setVisible(true);
-				label.setText(Integer.toString(getChainsNumber(initItem, endItem)));
-				label.setLayoutX(connector.getInitX());
-				label.setLayoutY(connector.getInitY());
-			} else {
-				label.setVisible(false);
-				label.setText("");
-			}
-		};
-
 		if (chain != null) {
+			Connector connector = connection.getConnector();
+			Node root = connection.getRoot();
+
+			Label label = new Label();
+			label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+			label.setTextFill(Color.web("#2d7eff"));
+
+			ChangeListener<Boolean> listener = (obs, wasFocus, isFocus) -> {
+				if(isFocus){
+					int chains = getChainsNumber(initItem, endItem);
+					if(chains <= 0){
+						label.setVisible(false);
+						label.setText("");
+					} else {
+						label.setVisible(true);
+						label.setText(Integer.toString(chains));
+						label.setLayoutX(connector.getInitX());
+						label.setLayoutY(connector.getInitY());
+					}
+				} else {
+					label.setVisible(false);
+					label.setText("");
+				}
+			};
+
 			root.focusedProperty().addListener(listener);
 			initItem.getRoot().focusedProperty().addListener(listener);
 			endItem.getRoot().focusedProperty().addListener(listener);
@@ -310,13 +316,14 @@ public class ChainPaper {
 				label.setLayoutX(connector.getInitX());
 				label.setLayoutY(connector.getInitY());
 			});
-		}
 
-		Platform.runLater(() -> {
-			AnchorPane parent = (AnchorPane) root.getParent();
-			if(parent != null)
-				parent.getChildren().add(label);
-		});
+			Platform.runLater(() -> {
+				AnchorPane parent = (AnchorPane) root.getParent();
+				if(parent != null){
+					parent.getChildren().add(label);
+				}
+			});
+		}
 
 		return connection;
 	}
