@@ -32,20 +32,27 @@ import dsl.entities.Step;
 import editor.EditorOperations;
 import editor.logic.entities.EditorChain;
 import editor.logic.entities.EditorStep;
+import editor.logic.entities.Elements;
 import editor.logic.entities.Flow;
+import editor.transversal.EditorException;
+import editor.transversal.Utils;
 import editor.userInterface.controllers.FXMLChainController;
 import editor.userInterface.controllers.FXMLChainController.Data;
 import editor.userInterface.controllers.FXMLStepController;
-import editor.transversal.EditorException;
-import editor.transversal.Utils;
 import exceptions.RepositoryException;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import jfxutils.ComponentException;
 import repository.IRepository;
 import workflow.WorkflowConfigurator;
@@ -53,7 +60,7 @@ import workflow.elements.Workflow;
 import workflow.elements.WorkflowConnection;
 import workflow.elements.WorkflowItem;
 
-
+import java.util.Collection;
 
 
 public class ChainPaper {
@@ -271,7 +278,64 @@ public class ChainPaper {
 	}
 	
 	private WorkflowConnection createWorkflowConnection(WorkflowItem initItem, WorkflowItem endItem, EditorChain chain) {
-		return workflow.connectionFactory.create(initItem, endItem, chain);
+		WorkflowConnection connection = workflow.connectionFactory.create(initItem, endItem, chain);
+		Connector connector = connection.getConnector();
+		Node root = connection.getRoot();
+
+		Label label = new Label();
+		label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+		label.setTextFill(Color.web("#2d7eff"));
+
+		ChangeListener<Boolean> listener = (obs, wasFocus, isFocus) -> {
+			if(isFocus){
+				label.setVisible(true);
+				label.setText(Integer.toString(getChainsNumber(initItem, endItem)));
+				label.setLayoutX(connector.getInitX());
+				label.setLayoutY(connector.getInitY());
+			} else {
+				label.setVisible(false);
+				label.setText("");
+			}
+		};
+
+		if (chain != null) {
+			root.focusedProperty().addListener(listener);
+			initItem.getRoot().focusedProperty().addListener(listener);
+			endItem.getRoot().focusedProperty().addListener(listener);
+			initItem.positionEvent.addListener(()->{
+				label.setLayoutX(connector.getInitX());
+				label.setLayoutY(connector.getInitY());
+			});
+			endItem.positionEvent.addListener(()->{
+				label.setLayoutX(connector.getInitX());
+				label.setLayoutY(connector.getInitY());
+			});
+		}
+
+		Platform.runLater(() -> {
+			AnchorPane parent = (AnchorPane) root.getParent();
+			if(parent != null)
+				parent.getChildren().add(label);
+		});
+
+		return connection;
+	}
+
+	private int getChainsNumber(WorkflowItem initItem, WorkflowItem endItem){
+		EditorStep initStep = (EditorStep) initItem.getState();
+		EditorStep endStep = (EditorStep) endItem.getState();
+
+		Flow workflow = initStep.getOriginFlow();
+		Elements elements = workflow.getElements();
+
+		Collection<EditorChain> chainsFromInitStep = elements.getChainsFrom(initStep);
+
+		int count = 0;
+		for(EditorChain chain : chainsFromInitStep)
+			if(chain.getTo() == endStep)
+				count++;
+
+		return count;
 	}
 	
 	
